@@ -31,29 +31,31 @@ headers = {
 
 # defining urls we are scraping
 
-url = "https://housing.sinnfein.ie/vision/"
+urls = [
+    "https://housing.sinnfein.ie/vision/",
+    "https://housing.sinnfein.ie/need/",
+    "https://housing.sinnfein.ie/public-homes/",
+    "https://housing.sinnfein.ie/private-homes/",
+    "https://housing.sinnfein.ie/adequate-homes/",
+   "https://housing.sinnfein.ie/delivering-homes/"
+]
 
-url1 = "https://housing.sinnfein.ie/need/"
+# Pulling html and singling out data we need
 
-# Pulling html
+full_content = []
 
-r = requests.get(url, headers=headers)
-output = BeautifulSoup(r.text, 'html.parser')
+for url in urls:
+    r = requests.get(url, headers=headers)
+    output = BeautifulSoup(r.text, 'html.parser')
 
-r1 = requests.get(url1, headers=headers)
-output1 = BeautifulSoup(r1.text, 'html.parser')
+    data = output.find('div', class_ = 'entry-content')
 
-# Singling out data we need - Finds all paragraphs within a certain html class
-
-data = output.find('div', class_ = 'entry-content')
-content = data.find_all('p')
-
-data1 = output1.find('div', class_ = 'entry-content')
-footer1 = data1.find('div', class_ = 'et_pb_row et_pb_row_5')
-if footer1:
-    footer1.decompose() #removes contents of footer1 from parsed html
-content1 = data1.find_all('p')
-
+    footer = data.find('div', class_='et_pb_row et_pb_row_5')
+    if footer:
+        footer.decompose()
+    
+    content = data.find_all('p')
+    full_content.extend(content)
 
 # Tokenising data - seperating by word - and cleaning. 
 # Strip() first cleans the text by removing html jargon. Join() combines text into single string with a space
@@ -61,21 +63,13 @@ content1 = data1.find_all('p')
 # word_tokenize() splits this string into a listt of indivudal words and punctuation. 
  
 
-text_0 = word_tokenize(
+text = word_tokenize(
     ' '.join(
-        [value.text.strip().lower() for value in content]
+        [value.text.strip().lower() for value in full_content]
     ))
 
 idcombine = MWETokenizer([('sinn', 'féin')], separator=' ')
-text_0 = idcombine.tokenize(text_0)
-
-text_1 = word_tokenize(
-    ' '.join(
-        [value.text.strip().lower() for value in content1]
-    ))
-
-idcombine1 = MWETokenizer([('sinn', 'féin')], separator=' ')
-text_1 = idcombine.tokenize(text_1)
+text = idcombine.tokenize(text)
 
 # defining stop words - irrelvant words for our analysis such as "and".
 
@@ -84,14 +78,12 @@ stop_words = stop.Defaults.stop_words
 
 # Removing stop words from data
 
-textc_0 = [w for w in text_0 if w.lower() not in stop_words]
+textc = [w for w in text if w.lower() not in stop_words]
 
-textc_1 = [w for w in text_1 if w.lower() not in stop_words]
-        
 # Creating frequency distribution 
 
 fdist = nltk.FreqDist()
-for word in textc_0 + textc_1:
+for word in textc:
     fdist[word] += 1 # increases count by 1 each time a word is seen 
 
 del fdist["."]
@@ -100,7 +92,7 @@ del fdist["’"]
 del fdist["%"]
 del fdist["s"]
 
-fdist_w = fdist.most_common(15)
+fdist_w = fdist.most_common(30)
 labels = [label[0] for label in fdist_w] # Classifying labels for the dataframe - taken from most common 15 words in freq dist 
 # Fdist returns a list of tuples - label[0] takes the first element from each tuple.
 
