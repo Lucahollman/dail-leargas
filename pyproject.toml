@@ -10,4 +10,5 @@ dependencies = [
     "nltk>=3.9.4",
     "pandas>=3.0.3",
     "requests>=2.34.0",
+    "spacy>=3.8.14",
 ]
