@@ -1,4 +1,5 @@
-# Code that.... 
+# Code that scrapes text from list of Dáil debates in urls.txt, then creates probability distribution tables for combined text 
+# of all the debates and the combined contributions of each TD included in the debates. 
 
 # importing packages
 
@@ -11,7 +12,6 @@ import nltk
 import spacy
 import subprocess
 import sys
-import matplotlib.pyplot as plt
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import MWETokenizer
 from nltk.probability import DictionaryProbDist
@@ -27,27 +27,33 @@ nltk.download('maxent_ne_chunker_tab')
 nltk.download('words')
 subprocess.run([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
 
+#Urls we want to scrape - Opens text file containing urls and appends lines to urls variable
 
-#Creating a scraping function
+with open("urls.txt", "r") as file:
+    urls = [line.strip() for line in file.readlines()] 
 
+#Scrape code 
+
+full_text = []
 
 with sync_playwright() as p:
         browser = p.chromium.launch(headless=True) # Launching Browser (Headless determines whether browser opens)
-
         page = browser.new_page() #Creating blank new page
-        page.goto("https://www.oireachtas.ie/en/debates/debate/dail/2026-05-14/43/") # Navigating to target url
 
-        title = (f"Page title: {page.title()}") #F string combines two strings - in this case "page title:" and the scraped content 
+        for url in urls:
+            page.goto(url) # Navigating to target url
+            title = page.title()
 
-        page.wait_for_selector(".questions-answers") #Wait until element with class appears 
-        text_elements = page.query_selector_all(".questions-answers") # Finds all elements on page with said html class
+            page.wait_for_selector(".questions-answers") #Wait until element with class appears 
+            text_elements = page.query_selector_all(".questions-answers") # Finds all elements on page with said html class
 
-        full_text = ""
-        for text in text_elements: # Loop goes through each element and extracts text
-            full_text += (text.inner_text()) + "\n" #\n ensures blocks of text remain seperated 
+            for text in text_elements: # Loop goes through each element and extracts text
+                full_text.extend(text.inner_text())
 
         browser.close()
-        
+
+full_text = ''.join(full_text) 
+      
 #Function that filters additonal ministeral titles from speakers names 
 
 def normalise_speaker(line): 
@@ -77,22 +83,42 @@ for line in full_text.split("\n"): #Splits debate into indivdual strings for eve
         if current_speaker:
             contribution[current_speaker] += line + " " # if the line is not a speaker name, it is appended to current speaker 
 
-# exp print(contribution["Deputy Helen McEntee"])
-
-# Tokenising all debates in database
-
-token_text = word_tokenize(full_text.lower())
-
 # defining stop words - irrelvant words for our analysis such as "and".
 
 stop = spacy.load("en_core_web_sm")
 stop_words = stop.Defaults.stop_words
 
-# Removing stop words from data
+# TD analysis for loop -> Creates a dictonary that holds a probability dist table for each TD for all their contributions in the database. 
 
-token_text_c = [w for w in token_text if w.lower() not in stop_words]
+td_analysis = {}
 
-# Creating frequency distribution 
+for speaker, text in contribution.items():
+    token_td_text = word_tokenize(text.lower())
+    token_td_text_c = [w for w in token_td_text if w.lower() not in stop_words]
+    fdist_td_text = nltk.FreqDist()
+    for word in token_td_text_c:
+        fdist_td_text[word] += 1
+
+    for punct in [".", ",", "'", "%", "s", "?", "``", "''", "-", "deputy"]:
+        if punct in fdist_td_text:
+            del fdist_td_text[punct]
+
+    fdist_td_text_w = fdist_td_text.most_common(30)
+    labels = [label[0] for label in fdist_td_text_w]
+    if not fdist_td_text:  # check that skips TD's with small contributions to avoid prob dist error
+        continue
+    pdist_td_text = DictionaryProbDist(fdist_td_text, normalize=True)
+
+    td_analysis[speaker] = pd.DataFrame({
+        "words": labels,
+        "freq": [frequency[1] for frequency in fdist_td_text_w],
+        "probability": [pdist_td_text.prob(word[0]) for word in fdist_td_text_w]
+    })
+
+#Full text analysis 
+
+token_text = word_tokenize(full_text.lower())
+token_text_c = [w for w in token_text if w.lower() not in stop_words] 
 
 fdist_text = nltk.FreqDist()
 for word in token_text_c:
@@ -106,13 +132,12 @@ del fdist_text["s"]
 del fdist_text["?"]
 del fdist_text["``"]
 del fdist_text["''"]
+del fdist_text["-"]
+del fdist_text["deputy"]
 
 fdist_text_w = fdist_text.most_common(30)
 labels = [label[0] for label in fdist_text_w] # Classifying labels for the dataframe - taken from most common 15 words in freq dist 
 # Fdist returns a list of tuples - label[0] takes the first element from each tuple.
-
-
-# Creating Probability Dist 
 
 pdist_text = DictionaryProbDist(fdist_text, normalize=True) # Normalize = true: Important
 
@@ -122,8 +147,10 @@ pdist_text_table = pd.DataFrame({
     "probability": [pdist_text.prob(word[0]) for word in fdist_text_w]
     })
 
-print(pdist_text_table)
+# Output - Full text analysis and specific td analysis 
 
+print(pdist_text_table)
+print(td_analysis["Deputy Richard Boyd Barrett"])
 
 
 
