@@ -9,6 +9,7 @@ and save them with some metadata to a csv.
 """
 
 import datetime as dt
+from typing import Dict
 from urllib.parse import urljoin
 
 import pandas as pd
@@ -17,7 +18,7 @@ from bs4 import BeautifulSoup
 from tqdm import tqdm
 
 
-def main() -> None:
+def main():
 
     base_url = "https://www.oireachtas.ie/en/debates/debate/dail"
 
@@ -33,7 +34,9 @@ def main() -> None:
     possible_urls = [t.strftime(f"{base_url}/%Y-%m-%d/") for t in possible_dates]
 
     queries = []
-    for u in tqdm(possible_urls, desc=f"Finding Debates from {start_time} to {end_time}"):
+    for u in tqdm(
+        possible_urls, desc=f"Finding Debates from {start_time} to {end_time}"
+    ):
         result = extract_links(u)
 
         if result["found"]:
@@ -41,19 +44,40 @@ def main() -> None:
 
     debates = []
     for q in queries:
+
+        # We want to keep track of duplicate titles, which occur sometimes
+        # when there are multiple questions sessions in a day. We use a
+        # dictionary, where titles are the key, and the value counts the number
+        # of times it has appeared that day.
+        days_titles: Dict[str, int] = {}
+
         for debate_dict in q["links"]:
 
             # Skip sublinks to headings
             if "#" in debate_dict["href"]:
                 continue
 
-            debates.append(
-                {
-                    "url": debate_dict["href"],
-                    "title": debate_dict["text"],
-                    "date": q["url"].split("/")[-2],
-                }
-            )
+            debate_entry = {
+                "url": debate_dict["href"],
+                "title": debate_dict["text"],
+                "date": q["url"].split("/")[-2],
+            }
+
+            current_title = debate_entry["title"]
+            if current_title in days_titles.keys():
+                # This title already exists for this day. We must rename it to
+                # mark this.
+                debate_entry["title"] = (
+                    current_title + f" ({days_titles[current_title]})"
+                )
+
+                days_titles[current_title] += 1
+
+            else:
+                # Else, we add this title to the list, so it can be tracked.
+                days_titles[current_title] = 1
+
+            debates.append(debate_entry)
 
     # Create CSV
     output_file = "debates.csv"
