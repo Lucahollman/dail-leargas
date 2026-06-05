@@ -30,18 +30,32 @@ stop_words.update([".", ",", "'", "%", "s", "?", "``", "''", "-", "deputy"])
 
 
 
-#Tokenising and cleaning text data
+#Tokenising, cleaning, and building dataframes from text data
 fdist = nltk.FreqDist()
+debate_dataframes = []
 
 for debate in debates:
     text = debate[3]
     tokenised_text = word_tokenize(text.lower())
-    tokenised_text_without_stop = [w for w in tokenised_text if w not in stop_words] 
-    print(tokenised_text_without_stop)
-    1/0
+    tokenised_text_without_stop = [w for w in tokenised_text if w not in stop_words]    
     for word in tokenised_text_without_stop:
         fdist[word] += 1
-    fdist
+
+    common = fdist.most_common(30)
+    labels = [label[0] for label in common]
+    pdist = DictionaryProbDist(fdist, normalize=True)
+    
+    debate_dataframe = pd.DataFrame({
+        "words": labels,
+        "freq": [frequency[1] for frequency in common],
+        "probability": [pdist.prob(word[0]) for word in common]
+    })
+    debate_dataframes.append((debate[0], debate[1], debate[2], debate_dataframe))
+
+print(debate_dataframes[1])
+
+##### TO DO: Use lingua to detect what % of text is Irish before tokenises the text. Then append to debate_dataframes tuple
+
         
     
 
