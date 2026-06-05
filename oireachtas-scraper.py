@@ -5,13 +5,13 @@
 
 from playwright.sync_api import sync_playwright
 import re
-from bs4 import BeautifulSoup
 import requests
 import pandas as pd 
 import nltk
 import spacy
 import subprocess
 import sys
+import csv
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import MWETokenizer
 from nltk.probability import DictionaryProbDist
@@ -29,12 +29,23 @@ subprocess.run([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
 
 #Urls we want to scrape - Opens text file containing urls and appends lines to urls variable
 
-with open("urls.txt", "r") as file:
-    urls = [line.strip() for line in file.readlines()] 
+urls = []
+
+with open("debate-metadata.csv", "r") as debate_metadata: # opening and reading (the r is for reading) csv file - as debate_csv (naming the variable)
+    debate_csv = csv.reader(debate_metadata) # returns object - need to iterate over
+
+    next(debate_csv) # skips first line (as these are our labels)
+
+    for line in debate_csv:
+        urls.append(line[0]) # prints only first line
+
+
+
 
 #Scrape code 
 
 full_text = []
+
 
 with sync_playwright() as p:
         browser = p.chromium.launch(headless=True) # Launching Browser (Headless determines whether browser opens)
@@ -42,8 +53,6 @@ with sync_playwright() as p:
 
         for url in urls:
             page.goto(url) # Navigating to target url
-            title = page.title()
-
             page.wait_for_selector(".questions-answers") #Wait until element with class appears 
             text_elements = page.query_selector_all(".questions-answers") # Finds all elements on page with said html class
 
@@ -53,19 +62,21 @@ with sync_playwright() as p:
         browser.close()
 
 full_text = ''.join(full_text) 
-      
+
+
+
 #Function that filters additonal ministeral titles from speakers names 
 
 def normalise_speaker(line): 
-    match = re.search(r'\(Deputy ([^)]+)\)', line) 
+    match = re.search(r'\(Deputy ([^)]+)\)', line) #regex searches for pattern (returns only characters after Deputy), line shows where to search 
     if match:
         return f"Deputy {match.group(1)}" # returns what is inside of the brackets from search 
-    return line 
+    return line # if no match was found, function returns original line unchanged 
 
 # Creating a dictonary that categorises by speaker  
 
 speaker_pattern = r"^(Deputy|Minister|Tánaiste|Taoiseach|Ceann Comhairle|Senator)[^\n]*$" # Defines pattern we will use to identify speakers
-contribution = {} #Empty dictionary that will contain all future contributions 
+deputy_dictonary = {} #Empty dictionary that will contain all future contributions 
 current_speaker = None #Variable that tracks who is currently speaking 
 
 for line in full_text.split("\n"): #Splits debate into indivdual strings for every line 
@@ -74,14 +85,14 @@ for line in full_text.split("\n"): #Splits debate into indivdual strings for eve
         continue #skips loop - to ignore blank lines 
     
     if re.match(speaker_pattern, line): #Detects if line matches speaker pattern
-        current_speaker = normalise_speaker(line) # If yes - current line becomes a speaker name 
-        if current_speaker not in contribution:  
-            contribution[current_speaker] = "" #Creates new string in the dictonary for this speaker (If this is their first contribution)
+        current_speaker = normalise_speaker(line) # If yes - current line becomes a speaker name - running function to remove additional titles 
+        if current_speaker not in deputy_dictonary:  
+            deputy_dictonary[current_speaker] = "" #Creates new string in the dictonary for this speaker (If this is their first contribution)
         else:
-            contribution[current_speaker] += "\n\n" #Adds two new lines to seperate speeches if it is not their 1st contribution 
+            deputy_dictonary[current_speaker] += "\n\n" #Adds two new lines to seperate speeches if it is not their 1st contribution 
     else:
         if current_speaker:
-            contribution[current_speaker] += line + " " # if the line is not a speaker name, it is appended to current speaker 
+            deputy_dictonary[current_speaker] += line + " " # if the line is not a speaker name, it is appended to current speaker 
 
 # defining stop words - irrelvant words for our analysis such as "and".
 
@@ -92,7 +103,7 @@ stop_words = stop.Defaults.stop_words
 
 td_analysis = {}
 
-for speaker, text in contribution.items():
+for speaker, text in deputy_dictonary.items():
     token_td_text = word_tokenize(text.lower())
     token_td_text_c = [w for w in token_td_text if w.lower() not in stop_words]
     fdist_td_text = nltk.FreqDist()
@@ -149,8 +160,8 @@ pdist_text_table = pd.DataFrame({
 
 # Output - Full text analysis and specific td analysis 
 
-print(pdist_text_table)
-print(td_analysis["Deputy Richard Boyd Barrett"])
+
+## print(deputy_dictonary["Deputy Paul Murphy"])
 
 
 
