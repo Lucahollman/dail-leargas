@@ -16,7 +16,7 @@ cursor = connection.cursor()
 
 debate_table = '''create table if not exists debates(
     url text,
-    name text primary key,
+    title text primary key,
     date DATE,
     text text,
     unique (url)
@@ -28,7 +28,7 @@ cursor.execute(debate_table)
 
 #Parsing csv file
 
-with open("debate-metadata.csv", "r") as debate_metadata: # opening and reading (the r is for reading) csv file - as debate_csv (naming the variable)
+with open("debates.csv", "r", encoding="utf-8") as debate_metadata: # opening and reading (the r is for reading) csv file - as debate_csv (naming the variable)
     debate_csv = csv.reader(debate_metadata) # returns object - need to iterate over
 
     next(debate_csv) # skips first line (as these are our labels)
@@ -37,9 +37,9 @@ with open("debate-metadata.csv", "r") as debate_metadata: # opening and reading 
     for line in debate_csv: # Iterates through each line in csv and creates a dictionary for each 
         if any(line): 
             debate_entry = {
-                "name": line[2],
+                "title": line[2],
                 "date": line[3],
-                "url": line[0]
+                "url": line[1]
          }
             debates.append(debate_entry) 
 
@@ -70,8 +70,8 @@ with sync_playwright() as p:
 #Importing into sql database
 
 cursor.executemany('''
-    insert or ignore into debates(url, name, date, text)
-    values(:url, :name, :date, :text)              
+    insert or ignore into debates(url, title, date, text)
+    values(:url, :title, :date, :text)              
 ''', debates)
 
 
