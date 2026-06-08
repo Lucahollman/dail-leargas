@@ -4,7 +4,6 @@ Script that scrapes text from debates and uploads text alongside metadata to dat
 
 
 # importing packages
-
 from playwright.sync_api import sync_playwright
 from tqdm import tqdm
 import csv
@@ -15,11 +14,12 @@ connection = sqlite3.connect(r"dail-debates.db")
 cursor = connection.cursor()
 
 debate_table = '''create table if not exists debates(
+    id integer primary key autoincrement,
     url text,
-    title text primary key,
+    title text,
     date DATE,
     text text,
-    unique (url)
+    unique (url, id)
 )''' 
 
 cursor.execute(debate_table)
