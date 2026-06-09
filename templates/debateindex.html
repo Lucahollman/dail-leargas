@@ -4,7 +4,7 @@
 </head>
 <body>
     {% for debate in debates %}
-    <a href="/debate/{{ debate.id }}">{{ debate.title }}</a> <p>{{ debate.date }}</p>
+    <a href="{{ url_for('debate34', debate_id=debate.id)}}">{{ debate.title }}</a> <p>{{ debate.date }}</p>
 {% endfor %}
 </body>
 </html>

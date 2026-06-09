@@ -4,11 +4,14 @@
     background: #000052;
     color: white; 
     font-size: 30px;
+    padding-top: 1;
 }
 
 .debateheader {
     text-align: center;
     font-size: 25px;
+    background: #000052;
+     color: white; 
 }
 
 

@@ -26,29 +26,37 @@ def close_connection(exception):
 def home():
     return render_template("home.html")
 
-@app.route("/overallstats")
-def overallstats():
+@app.route("/dail34")
+def dail34():
+    return render_template("dail34.html")
+
+@app.route("/dail34/overallstats")
+def overallstats34():
     stats = get_database().execute("select words, freq, prob from full_text")
     return render_template("overallstat.html")
 
-@app.route("/debateindex")
-def debateindex():
+@app.route("/dail34/debateindex")
+def debateindex34():
     debates = get_database().execute("select id, title, date from debates").fetchall()
     return render_template("debateindex.html", debates = debates)
 
-@app.route("/debate/<int:debate_id>")
-def debate(debate_id):
+@app.route("/dail34/debateindex/debate/<int:debate_id>")
+def debate34(debate_id):
     debate = get_database().execute("select title,date from debates where id = ?", (debate_id,)).fetchone()
     prob_dist = get_database().execute(f'select words, freq, prob from "{debate_id}"').fetchall()
     return render_template("debate.html", debate=debate, prob_dist=prob_dist)
 
-@app.route("/tdindex")
-def tdindex():
+@app.route("/dail34/tdindex")
+def tdindex34():
     return render_template("tdindex.html")
 
 @app.route("/info")
 def info():
     return render_template("info.html")
+
+@app.route("/dail33")
+def dail33():
+    return render_template("dail33.html")
     
 
 
