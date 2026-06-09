@@ -1,0 +1,10 @@
+<html>
+    <head>
+    <title>Oireachtas Revealed</title>
+</head>
+<body>
+    {% for debate in debates %}
+    <a href="/debate/{{ debate.id }}">{{ debate.title }}</a> <p>{{ debate.date }}</p>
+{% endfor %}
+</body>
+</html>
