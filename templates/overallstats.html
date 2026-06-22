@@ -16,4 +16,19 @@
                 <li><a href="{{ url_for('info') }}">Website Info</a></li>
             </ul>
         </nav>
-<p>VADER is defined as a rule-based method that calculates four sentiment scores: Negative (Neg), Neutral (Neu), Positive (Pos), and Compound. The Compound score is a weighted composite that ranges from −1 (most negative) to +1 (most positive). It is computed by summing the valence scores of each word in the lexicon, adjusting for heuristics, and normalizing the result. Sentiment classification is then determined by the Compound score: a score ≥ 0.05 is classified as positive, ≤ −0.05 as negative, and between −0.05 and 0.05 as neutral.</p>
+        <table class = debateindextable>
+        <tr>
+            <th>Words</th>
+            <th>Frequency</th>
+            <th>Probability</th>
+        </tr>
+        {%for row in full_text%}
+        <tr>
+            <td>{{row.words}}</td>
+            <td>{{row.freq}}</td>
+            <td>{{ "%.2f"|format(row.prob * 100)}}&#37;</td>
+        </tr>
+           {% endfor %}
+    </table>
+    </body>
+</html>

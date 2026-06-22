@@ -1,0 +1,19 @@
+<html>
+<head>
+    <title>Oireachtas Revealed</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+    <body>
+    <div class="debateheader">
+        <h2>{{contribution.td}}</h2>
+        <p>{{debate.title}} — {{debate.date}}</p>
+        <a href="{{ url_for('debate34', debate_id=debate.id) }}">Back to Debate</a>
+    </div>
+
+    <div class= debatetext>
+        <p>Sentiment score: {{ "%.2f"|format(contribution.sentiment) }}</p>
+        <p>{{contribution.contribution}}</p>
+    </div>
+</body>
+</html>
+        

@@ -1,23 +1,30 @@
 <html>
 <head>
-    <title>Oireachtas Revealed</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Dáil Léargas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
 </head>
 <body>
-    <div class="mainheader">
-        <h1>Oireachtas Revealed</h1>
-        <p>Parliamentary analysis tool  </p>
+    <header>
+        <nav class="titlenavbar">
+            <ul>
+                <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
+                <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
+                <li><a href="{{ url_for('debates') }}">Debates</a></li>
+                <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
+                <li><a href="{{ url_for('parties') }}">Parties</a></li>
+                <li><a href="{{ url_for('votes') }}">Votes</a></li>
+                <li><a href="{{ url_for('info') }}">Website Info</a></li>
+            </ul>
+        </nav>
+        <div class="titleheader">
+            <h2>Welcome to Dáil Léargas</h2>
+            <p>This website is the home for Irish parliamentary text and sentiment anaylsis. Browse TDs, debates, and see who said what, the most common words, how much Gaeilge is being spoken, and the sentiment of TD contributions.</p>
+        </div>
+    </header>
+ 
+    <div class="contentwrapper">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </div>
-
-    <div class="center">
-        <p>This is a website that conducts and displays text analysis on Oireachtas debates.</p>
-        <p>Click to view the following:</p>
-        <ul>
-            <li><a href="{{ url_for('dail34')}}">34th Dáil</a></li> 
-            <li><a href="{{ url_for('dail33')}}">33rd Dáil</a></li>
-            <li> <a href="{{ url_for('info')}}">Info about this site</a></li>
-        </ul>
-    </div>
-    
 </body>
 </html>
+ 

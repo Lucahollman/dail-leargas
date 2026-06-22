@@ -10,8 +10,8 @@
          <a href="{{ url_for('debate34text', debate_id=debate.id)}}">Debate Text</a>
          </div>
    
-
-    <table class =debateindextable>
+<div class = debate_container>
+    <table class =debatetable>
         <tr>
             <th>Words</th>
             <th>Frequency</th>
@@ -24,8 +24,18 @@
             <td>{{ "%.2f"|format(row.prob * 100)}}&#37;</td>
         </tr>
         {% endfor %}
-        
-
     </table>
-    </body>
+
+        <div class = debate_irish_per>
+            <p>Percentage of irish language within this debate = {{debate.irish_per}}&#37;</p>
+            <ul>
+                {% for name in speaker_list %}
+                 <li>
+                    <a href="{{ url_for('debate34speaker', debate_id=debate.id, td_name=name) }}">{{name}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+</div>
+</body>
 </html>

@@ -5,9 +5,10 @@ Script that runs a website locally using a web framework
 from flask import Flask, render_template
 from flask import g
 import sqlite3
+import json
 
 app = Flask(__name__)
-
+#Connecting to Database
 path = r"dail-debates.db"
 def get_database():
     database = getattr(g, '_database', None)
@@ -22,9 +23,40 @@ def close_connection(exception):
     if database is not None:
         database.close()
 
+#Routes
+#Home
 @app.route("/")
 def home():
     return render_template("home.html")
+
+#Dáil Index Routes
+@app.route("/overallstats")
+def overallstats():
+    return render_template("overallstats.html")
+
+@app.route("/debates")
+def debates():
+    debates = get_database().execute("select id, title, date, category from debates").fetchall()
+    return render_template("debateindex.html", debates = debates)
+
+@app.route("/tds")
+def tds():
+    return render_template("tdindex.html")
+
+@app.route("/parties")
+def parties():
+    return render_template("partyindex.html")
+
+@app.route("/votes")
+def votes():
+    return render_template("voteindex.html")
+
+
+
+
+
+
+
 
 @app.route("/dail34")
 def dail34():
@@ -42,9 +74,21 @@ def debateindex34():
 
 @app.route("/dail34/debateindex/debate/<int:debate_id>")
 def debate34(debate_id):
-    debate = get_database().execute("select title, id, date from debates where id = ?", (debate_id,)).fetchone()
+    debate = get_database().execute("select title, id, date, irish_per, speaker_list from debates where id = ?", (debate_id,)).fetchone()
+    speaker_list = json.loads(debate["speaker_list"])
     prob_dist = get_database().execute(f'select words, freq, prob from "{debate_id}"').fetchall()
-    return render_template("debate.html", debate=debate, prob_dist=prob_dist)
+    return render_template("debate.html", debate=debate, prob_dist=prob_dist, speaker_list=speaker_list)
+
+@app.route("/dail34/debateindex/debate/<int:debate_id>/speaker/<td_name>")
+def debate34speaker(debate_id, td_name):
+    debate = get_database().execute(
+         "select title, id, date from debates where id = ?", (debate_id,)
+    ).fetchone()
+    contribution = get_database().execute(
+        f'select td, contribution, sentiment from "{debate_id}_contributions" where td = ?',
+        (td_name,)
+    ).fetchone()
+    return render_template("speakercontribution.html", debate=debate, contribution=contribution)
 
 @app.route("/dail34/debateindex/debate/<int:debate_id>/text")
 def debate34text(debate_id):

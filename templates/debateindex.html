@@ -1,29 +1,37 @@
 <html>
-    <head>
-    <title>Oireachtas Revealed</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<head>
+    <title>Dáil Léargas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
 </head>
 <body>
-     <div class = debateheader>
-        <h1>Debates</h1>
-          </div>
-    <table class =debateindextable>
-        <tr>
-            <th>Name</th>
-            <th>Date</th>
-            <th>Category</th>
-        </tr>
-        {% for debate in debates%}
-        <tr>
-            <td><a href="{{ url_for('debate34', debate_id=debate.id)}}">{{ debate.title }}</a></td>
-            <td><p>{{ debate.date }}</p>
-            <td><p>{{ debate.category}}</p></td>
-        </tr>
-         {% endfor %}
-            
-    
-           
-        
-    </table>
-</body>
-</html>
+    <header>
+        <nav class=titlenavbar>
+            <ul>
+                <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
+                <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
+                <li><a href="{{ url_for('debates') }}">Debates</a></li>
+                <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
+                <li><a href="{{ url_for('parties') }}">Parties</a></li>
+                <li><a href="{{ url_for('votes') }}">Votes</a></li>
+                <li><a href="{{ url_for('info') }}">Website Info</a></li>
+            </ul>
+        </nav>
+        <div class = contentwrapper>
+            <div class = debateheader>
+                <h1>Debates</h1>
+            </div>
+            <table class =debateindextable>
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Category</th>
+                </tr>
+            {% for debate in debates%}
+                <tr>
+                    <td><a href="{{ url_for('debate34', debate_id=debate.id)}}">{{ debate.title }}</a></td>
+                    <td><p>{{ debate.date }}</p>
+                    <td><p>{{ debate.category}}</p></td>
+                </tr>
+            {% endfor %}
+            </table>
+        </div>      

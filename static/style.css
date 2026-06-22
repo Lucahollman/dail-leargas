@@ -1,3 +1,10 @@
+.debate_container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+/*Headers*/
 .mainheader {
     padding: 30px;
     text-align: center;
@@ -23,6 +30,7 @@
     font-size: 15px;
 }
 
+/*tables*/
 .debateindextable {
     width: 100%;
     border-collapse: collapse;
@@ -54,6 +62,45 @@
     text-decoration: underline;
 }
 
+.debatetable {
+    width: 50%;
+    border-collapse: collapse;
+    font-size: 15px;
+    text-align: left;
+}
+
+.debatetable th {
+    background: #000052;
+    color: white;
+    text-align: left;
+    padding: 12px 12px;
+}
+
+.debatetable td {
+    padding: 10px 16px;
+    border-bottom: 1px solid #ddd;
+}
+
+.debatetable tr:hover {
+    background-color: #f0f0f8;
+}
+
+.debatetable td a {
+    color: #000052;
+    text-decoration: none;
+}
+
+.debatetable td a:hover {
+    text-decoration: underline;
+}
+
 .debatetext {
     white-space: pre-wrap;
+}
+
+.debate_irish_per {
+    text-align: right;
+    font-size: 15px;
+    padding-right: 200px;
+
 }
