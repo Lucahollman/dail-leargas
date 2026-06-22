@@ -1,19 +1,38 @@
 <html>
 <head>
     <title>Oireachtas Revealed</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='debate.css') }}">
 </head>
     <body>
-    <div class="debateheader">
-        <h2>{{contribution.td}}</h2>
-        <p>{{debate.title}} — {{debate.date}}</p>
-        <a href="{{ url_for('debate34', debate_id=debate.id) }}">Back to Debate</a>
-    </div>
-
-    <div class= debatetext>
-        <p>Sentiment score: {{ "%.2f"|format(contribution.sentiment) }}</p>
-        <p>{{contribution.contribution}}</p>
-    </div>
-</body>
+        <header>
+            <nav class="titlenavbar">
+                <ul>
+                    <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
+                    <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
+                    <li><a href="{{ url_for('debates') }}">Debates</a></li>
+                    <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
+                    <li><a href="{{ url_for('parties') }}">Parties</a></li>
+                    <li><a href="{{ url_for('votes') }}">Votes</a></li>
+                    <li><a href="{{ url_for('info') }}">Website Info</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="debateheader">
+            <h2>{{contribution.td}}</h2>
+            <p>{{debate.title}} — {{debate.date}}</p>
+            <a href="{{ url_for('debatespecific', debate_id=debate.id) }}">Back to Debate</a>
+        </div>
+        
+        <div class = contentwrapper>
+            <div class= debatetext>
+                <p>Sentiment score: {{ "%.2f"|format(contribution.sentiment) }}</p>
+                <p>{{contribution.contribution}}</p>
+            </div>
+        </div>
+        
+        
+        
+    </body>
 </html>
         

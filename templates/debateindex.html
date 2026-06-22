@@ -1,7 +1,8 @@
 <html>
 <head>
     <title>Dáil Léargas</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='debateindex.css') }}">
 </head>
 <body>
     <header>
@@ -28,7 +29,7 @@
                 </tr>
             {% for debate in debates%}
                 <tr>
-                    <td><a href="{{ url_for('debate34', debate_id=debate.id)}}">{{ debate.title }}</a></td>
+                    <td><a href="{{ url_for('debatespecific', debate_id=debate.id)}}">{{ debate.title }}</a></td>
                     <td><p>{{ debate.date }}</p>
                     <td><p>{{ debate.category}}</p></td>
                 </tr>

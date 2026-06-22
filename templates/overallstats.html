@@ -1,7 +1,7 @@
 <html>
 <head>
     <title>Dáil Léargas</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
 </head>
 <body>
     <header>
@@ -16,19 +16,22 @@
                 <li><a href="{{ url_for('info') }}">Website Info</a></li>
             </ul>
         </nav>
-        <table class = debateindextable>
-        <tr>
-            <th>Words</th>
-            <th>Frequency</th>
-            <th>Probability</th>
-        </tr>
-        {%for row in full_text%}
-        <tr>
-            <td>{{row.words}}</td>
-            <td>{{row.freq}}</td>
-            <td>{{ "%.2f"|format(row.prob * 100)}}&#37;</td>
-        </tr>
-           {% endfor %}
-    </table>
+        <h2>Overall Statistics for all debates in the 34th Dáil</h2>
+        <div class = contentwrapper>
+            <table class = debateindextable>
+            <tr>
+                <th>Words</th>
+                <th>Frequency</th>
+                <th>Probability</th>
+            </tr>
+            {%for row in full_text%}
+            <tr>
+                <td>{{row.words}}</td>
+                <td>{{row.freq}}</td>
+                <td>{{ "%.2f"|format(row.prob * 100)}}&#37;</td>
+            </tr>
+            {% endfor %}
+            </table>
+        </div>
     </body>
 </html>

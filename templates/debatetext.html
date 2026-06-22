@@ -1,9 +1,31 @@
 <html>
-<head>
-    <title>Oireachtas Revealed</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-    <body class = debatetext>
-        {{debate.text}}
+    <head>
+        <title>Oireachtas Revealed</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='debate.css') }}">
+    </head>
+    <header>
+        <nav class="titlenavbar">
+            <ul>
+                <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
+                <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
+                <li><a href="{{ url_for('debates') }}">Debates</a></li>
+                <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
+                <li><a href="{{ url_for('parties') }}">Parties</a></li>
+                <li><a href="{{ url_for('votes') }}">Votes</a></li>
+                <li><a href="{{ url_for('info') }}">Website Info</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="debateheader">
+            <h2>{{debate.title}} — {{debate.date}}</h2> 
+            <a href="{{ url_for('debatespecific', debate_id=debate.id) }}">Back to Debate</a>
+        </div>
+    <body>
+        <div class = contentwrapper>
+            <div class = debatetext>
+                {{debate.text}}
+            </div>
+        </div>
     </body>
 </html>
