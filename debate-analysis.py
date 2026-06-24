@@ -93,6 +93,9 @@ debate_dataframe = pd.DataFrame({
         "probability": [pdist.prob(word[0]) for word in common]
     })
 
+
+
+
 for i, row in debate_dataframe.iterrows():
         cursor.execute(f'''
         insert or ignore into full_text (words, freq, prob)
@@ -106,7 +109,6 @@ connection.close()
 
 
 
-##### TO DO: Use lingua to detect what % of text is Irish before tokenises the text. Then append to debate_dataframes tuple
 
         
     

@@ -1,0 +1,71 @@
+<html>
+<head>
+    <title>Dáil Léargas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='debateindex.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='tdprofile.css') }}">
+</head>
+<body>
+    <header>
+        <nav class=titlenavbar>
+            <ul>
+                <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
+                <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
+                <li><a href="{{ url_for('debates') }}">Debates</a></li>
+                <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
+                <li><a href="{{ url_for('parties') }}">Parties</a></li>
+                <li><a href="{{ url_for('votes') }}">Votes</a></li>
+                <li><a href="{{ url_for('info') }}">Website Info</a></li>
+            </ul>
+        </nav>
+    </header>
+
+     <div class="debateheader">
+        <h1>{{ td.name }}</h1>
+    </div>
+
+    <div class="td-profile-container">
+
+    <div class="td-info-card">
+        <img class="td-photo" src="{{ td.photo }}" alt="{{ td.name }}">
+        
+        <div class="td-basic-info">
+            <h2 class="td-name">{{ td.name }}</h2>
+            <p class="td-constituency">{{ td.constituency }}</p>
+            <p class="td-party">{{ td.party }}</p>
+        </div>
+    </div>
+
+    <div class="td-stats">
+        <div class="stat-box">
+            <h3>Average Sentiment</h3>
+            <p>{{ "%.2f"|format(td.sentiment) }}</p>
+        </div>
+
+        <div class="stat-box">
+            <h3>Irish Usage</h3>
+            <p>{{ "%.2f"|format(td.irish_per) }}%</p>
+        </div>
+    </div>
+
+    <h2 class="table-title">Word Probability Distribution</h2>
+
+    <table class="prob-table">
+        <tr>
+            <th>Words</th>
+            <th>Frequency</th>
+            <th>Probability</th>
+        </tr>
+        {% for row in prob_dist %}
+        <tr>
+            <td>{{ row.words }}</td>
+            <td>{{ row.freq }}</td>
+            <td>{{ "%.2f"|format(row.prob * 100) }}%</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+
+</body>
+</html>

@@ -37,7 +37,14 @@ def overallstats():
 
 @app.route("/tds")
 def tds():
-    return render_template("tdindex.html")
+    tds = get_database().execute("select name, party, constituency, id from td_metadata").fetchall()
+    return render_template("tdindex.html", tds = tds)
+
+@app.route("/tds/<int:id>")
+def tdspecific(id):
+    td = get_database().execute("select name, party, constituency, id, photo, sentiment, irish_per from td_metadata where id = ?", (id,)).fetchone()
+    prob_dist = get_database().execute(f'select words, freq, prob from "{td['name']}"').fetchall()
+    return render_template("td.html", td = td, prob_dist = prob_dist)
 
 @app.route("/parties")
 def parties():

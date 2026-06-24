@@ -8,7 +8,6 @@ import re
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.tokenize import sent_tokenize
-import pandas as pd 
 from tqdm import tqdm
 
 def main():
