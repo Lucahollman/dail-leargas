@@ -51,15 +51,19 @@
 
             <div class="speakers_box">
                 <h3>Speakers</h3>
-                <ul>
+                <table>
+                    <tr>
+                        <th>Speaker</th>
+                        <th>Sentiment</th>
+                    </tr>
                     {% for name in speaker_list %}
-                    <li>
-                        <a href="{{ url_for('debatespeaker', debate_id=debate.id, td_name=name) }}">{{ name }}</a>
-                    </li>
+                    <tr>
+                        <td><a href="{{ url_for('debatespeaker', debate_id=debate.id, td_name=name.td) }}">{{ name.td }}</a></td>
+                        <td>{{ "%.2f"|format(name.sentiment) }}</td>
+                    </tr>
                     {% endfor %}
-                </ul>
+                </table>
             </div>
-
         </div>
 
     </div>

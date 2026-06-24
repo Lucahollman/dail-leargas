@@ -1,6 +1,5 @@
 '''
-Script that...
-    -Issue - Problems with assigning text to TDs - print dataframe to see
+Script that identifies td contributions + sentiment and uploads to database
 '''
 
 #packages 
@@ -12,8 +11,6 @@ from nltk.tokenize import sent_tokenize
 import pandas as pd 
 from tqdm import tqdm
 
-
-
 def main():
 
     #Fetching data from database 
@@ -23,12 +20,21 @@ def main():
     sql_statement = f"select * from debates"
     cursor.execute(sql_statement)
     debates = cursor.fetchall()
+    analyser = SentimentIntensityAnalyzer()
 
-    
+    #Creating SQL table
+    cursor.execute(f"""
+                    CREATE TABLE IF NOT EXISTS contributions(    
+                        debate_id integer,
+                        td text,
+                        contribution text,
+                        sentiment real
+                        )""")
+
     for debate in tqdm(debates, desc="Uploading to database"):
         text = debate[4]
         #Creating contribution Dictionary
-        speaker_pattern = r"^(Deputy|Deputies|The Tánaiste|The Taoiseach|An Ceann Comhairle|An Leas-Cheann Comhairle)(\s+[A-ZÀ-Ö][a-zA-ZÀ-ÿ'-]*){0,5}$"
+        speaker_pattern = r"^(Deputy|Deputies|The Tánaiste|The Taoiseach|An Ceann Comhairle|An Leas-Cheann Comhairle)(\s+[A-ZÀ-Ö][a-zA-ZÀ-ÿ']*){0,5}$"
         deputy_list = {}
         current_speaker = None
         for line in text.split("\n"):
@@ -44,45 +50,29 @@ def main():
                 else:
                     if current_speaker:
                         deputy_list[current_speaker] += line + " "
-        #Creating SQL table
-        cursor.execute(f"""
-                    CREATE TABLE IF NOT EXISTS "{debate[0]}_contributions"(    
-                        td text,
-                        contribution text,
-                        sentiment integer
-                        )""")
-    
-        #Vader sentiment analysis - chunked by sentence
+
+        #Vader sentiment analysis - chunked by sentence + inserting into SQL
         deputy_list.pop("Deputies", None)
         average_scores = []
         for td, contribution in deputy_list.items():
-            analyser = SentimentIntensityAnalyzer()
             sentences = sent_tokenize(contribution)
             if not sentences:
-                average_scores.append(0)
-                continue
-            scores = [analyser.polarity_scores(sentence)['compound'] for sentence in sentences]
-            average_scores.append(sum(scores) / len(scores))
+                sentiment = 0
+            else:
+                scores = [analyser.polarity_scores(sentence)['compound'] for sentence in sentences]
+                sentiment = sum(scores) / len(scores)
 
-        #Creating Dataframe
-        debate_contributions_df = pd.DataFrame({
-            "td": list(deputy_list.keys()),
-            "contribution": list(deputy_list.values()),
-            "sentiment": average_scores
-        })
+            cursor.execute('''
+            INSERT INTO contributions (debate_id, td, contribution, sentiment)
+            VALUES (?, ?, ?, ?)
+                        ''', (debate[0], td, contribution, sentiment))
 
-        #Uploading DF to SQL           
-        for i, row in debate_contributions_df.iterrows():
-            cursor.execute(f'''
-            insert or ignore into "{debate[0]}_contributions" (td, contribution, sentiment)
-            values(?, ?, ?)            
-            ''', (row["td"], row["contribution"], row["sentiment"]))
-         
+
     connection.commit() 
     connection.close()
 
 
- #function that removes titles from deputy names i.e removing a ministerial title 
+#function that removes titles from deputy names i.e removing a ministerial title 
 def title_remover(line): 
     match = re.search(r'\(Deputy ([^)]+)\)', line) 
     if match:
@@ -91,4 +81,3 @@ def title_remover(line):
 
 if __name__ == "__main__":
     main()
-

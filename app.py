@@ -54,8 +54,8 @@ def debates():
 
 @app.route("/debates/<int:debate_id>")
 def debatespecific(debate_id):
-    debate = get_database().execute("select title, id, date, irish_per, speaker_list from debates where id = ?", (debate_id,)).fetchone()
-    speaker_list = json.loads(debate["speaker_list"])
+    debate = get_database().execute("select title, id, date, irish_per from debates where id = ?", (debate_id,)).fetchone()
+    speaker_list = get_database().execute("select distinct td, sentiment from contributions where debate_id = ?", (debate_id,)).fetchall()
     prob_dist = get_database().execute(f'select words, freq, prob from "{debate_id}"').fetchall()
     return render_template("debate.html", debate=debate, prob_dist=prob_dist, speaker_list=speaker_list)
 
@@ -65,7 +65,7 @@ def debatespeaker(debate_id, td_name):
          "select title, id, date from debates where id = ?", (debate_id,)
     ).fetchone()
     contribution = get_database().execute(
-        f'select td, contribution, sentiment from "{debate_id}_contributions" where td = ?',
+        f'select td, contribution, sentiment from contributions where td = ?',
         (td_name,)
     ).fetchone()
     return render_template("speakercontribution.html", debate=debate, contribution=contribution)

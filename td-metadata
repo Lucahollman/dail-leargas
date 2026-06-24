@@ -1,0 +1,3 @@
+'''
+Script that gets metadata for all tds in dail34 and uploads to sql
+'''
