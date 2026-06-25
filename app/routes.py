@@ -1,30 +1,8 @@
-'''
-Script that runs a website locally using a web framework
-'''
+from flask import render_template
+from flask import current_app as app
+from . import get_database
 
-from flask import Flask, render_template
-from flask import g
-import sqlite3
-import json
 
-app = Flask(__name__)
-#Connecting to Database
-path = r"dail-debates.db"
-def get_database():
-    database = getattr(g, '_database', None)
-    if database is None:
-        database = g._database = sqlite3.connect(path)
-        database.row_factory = sqlite3.Row
-    return database
-
-@app.teardown_appcontext
-def close_connection(exception):
-    database = getattr(g, '_database', None)
-    if database is not None:
-        database.close()
-
-#Routes
-#Home
 @app.route("/")
 def home():
     return render_template("home.html")
@@ -94,6 +72,3 @@ def debatetext(debate_id):
 @app.route("/info")
 def info():
     return render_template("info.html")
-
-if __name__ == '__main__':
-    app.run(debug=True)
