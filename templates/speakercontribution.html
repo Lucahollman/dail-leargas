@@ -19,20 +19,19 @@
             </nav>
         </header>
         <div class="debateheader">
-            <h2>{{contribution.td}}</h2>
-            <p>{{debate.title}} — {{debate.date}}</p>
+            <h2><a href="{{ url_for('tdspecific', id=contributions[0].id) }}">{{ contributions[0].td }}</a></h2>
+            <p>{{ debate.title }} — {{ debate.date }}</p>
             <a href="{{ url_for('debatespecific', debate_id=debate.id) }}">Back to Debate</a>
         </div>
-        
-        <div class = contentwrapper>
-            <div class= debatetext>
+ 
+        <div class=contentwrapper>
+            {% for contribution in contributions %}
+            <div class=debatetext>
                 <p>Sentiment score: {{ "%.2f"|format(contribution.sentiment) }}</p>
-                <p>{{contribution.contribution}}</p>
+                <p>{{ contribution.contribution }}</p>
             </div>
+            {% endfor %}
         </div>
-        
-        
-        
+ 
     </body>
 </html>
-        

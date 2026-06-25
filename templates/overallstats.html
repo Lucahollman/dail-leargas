@@ -2,6 +2,7 @@
 <head>
     <title>Dáil Léargas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='debateindex.css') }}">
 </head>
 <body>
     <header>
@@ -16,7 +17,12 @@
                 <li><a href="{{ url_for('info') }}">Website Info</a></li>
             </ul>
         </nav>
+    </header>
+        <p>Percentage of Irish language within this debate = {{ irish_per.irish_per }}&#37;</p>
         <h2>Overall Statistics for all debates in the 34th Dáil</h2>
+        <canvas id="overallprobdist" width="500" height="200"></canvas>
+        <canvas id="overall_irishper" width="500" height="200"></canvas>
+            
         <div class = contentwrapper>
             <table class = debateindextable>
             <tr>
@@ -33,5 +39,15 @@
             {% endfor %}
             </table>
         </div>
+        <script>
+            const words = {{ words | tojson }};
+            const freq = {{ freq | tojson }};
+            const prob = {{ prob | tojson }};
+        </script>
+         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+         <div>
+            <script src="{{ url_for('static', filename='graphs.js') }}"></script>
+         </div>
+         
     </body>
 </html>

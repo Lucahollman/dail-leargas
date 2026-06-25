@@ -33,7 +33,12 @@ def home():
 @app.route("/overallstats")
 def overallstats():
     stats = get_database().execute("select words, freq, prob from full_text").fetchall()
-    return render_template("overallstats.html", full_text = stats)
+    irish_per = get_database().execute("select irish_per from fulltext_irishper").fetchone()
+    #labels for js chart
+    words = [stat["words"] for stat in stats]
+    freq = [stat["freq"] for stat in stats]
+    prob = [stat["prob"] * 100 for stat in stats]
+    return render_template("overallstats.html", full_text=stats, irish_per=irish_per, words=words, freq=freq, prob=prob)
 
 @app.route("/tds")
 def tds():
@@ -44,7 +49,11 @@ def tds():
 def tdspecific(id):
     td = get_database().execute("select name, party, constituency, id, photo, sentiment, irish_per from td_metadata where id = ?", (id,)).fetchone()
     prob_dist = get_database().execute(f'select words, freq, prob from "{td['name']}"').fetchall()
-    return render_template("td.html", td = td, prob_dist = prob_dist)
+    contributions = get_database().execute(
+    "select distinct contributions.debate_id, debates.title from contributions join debates on contributions.debate_id = debates.id where contributions.td = ?",
+    (td["name"],)
+).fetchall()
+    return render_template("td.html", td = td, prob_dist = prob_dist, contributions = contributions)
 
 @app.route("/parties")
 def parties():
@@ -71,11 +80,11 @@ def debatespeaker(debate_id, td_name):
     debate = get_database().execute(
          "select title, id, date from debates where id = ?", (debate_id,)
     ).fetchone()
-    contribution = get_database().execute(
-        f'select td, contribution, sentiment from contributions where td = ?',
-        (td_name,)
-    ).fetchone()
-    return render_template("speakercontribution.html", debate=debate, contribution=contribution)
+    contributions = get_database().execute(
+        "select contributions.td, contributions.contribution, contributions.sentiment, td_metadata.id from contributions join td_metadata on contributions.td = td_metadata.name where contributions.td = ? and contributions.debate_id = ?",
+        (td_name, debate_id)
+    ).fetchall()
+    return render_template("speakercontribution.html", debate=debate, contributions=contributions)
 
 @app.route("/debates/<int:debate_id>/text")
 def debatetext(debate_id):

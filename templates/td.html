@@ -19,53 +19,57 @@
             </ul>
         </nav>
     </header>
-
-     <div class="debateheader">
+ 
+    <div class="debateheader">
         <h1>{{ td.name }}</h1>
     </div>
-
+ 
     <div class="td-profile-container">
-
-    <div class="td-info-card">
-        <img class="td-photo" src="{{ td.photo }}" alt="{{ td.name }}">
-        
-        <div class="td-basic-info">
-            <h2 class="td-name">{{ td.name }}</h2>
-            <p class="td-constituency">{{ td.constituency }}</p>
-            <p class="td-party">{{ td.party }}</p>
+ 
+        <div class="td-info-card">
+            <img class="td-photo" src="{{ td.photo }}" alt="{{ td.name }}">
+            <div class="td-basic-info">
+                <h2 class="td-name">{{ td.name }}</h2>
+                <p class="td-constituency">{{ td.constituency }}</p>
+                <p class="td-party">{{ td.party }}</p>
+            </div>
         </div>
+ 
+        <div class="td-stats">
+            <div class="stat-box">
+                <h3>Average Sentiment</h3>
+                <p>{{ "%.2f"|format(td.sentiment) }}</p>
+            </div>
+            <div class="stat-box">
+                <h3>Irish Usage</h3>
+                <p>{{ "%.2f"|format(td.irish_per) }}%</p>
+            </div>
+        </div>
+ 
+        <h2 class="table-title">Contributions</h2>
+        <div class="contributions-container">
+            {% for contribution in contributions %}
+            <a class="contribution-link" href="{{ url_for('debatespeaker', debate_id=contribution.debate_id, td_name=td.name) }}">{{ contribution.title }}</a>
+            {% endfor %}
+        </div>
+ 
+        <h2 class="table-title">Word Probability Distribution</h2>
+        <table class="prob-table">
+            <tr>
+                <th>Words</th>
+                <th>Frequency</th>
+                <th>Probability</th>
+            </tr>
+            {% for row in prob_dist %}
+            <tr>
+                <td>{{ row.words }}</td>
+                <td>{{ row.freq }}</td>
+                <td>{{ "%.2f"|format(row.prob * 100) }}%</td>
+            </tr>
+            {% endfor %}
+        </table>
+ 
     </div>
-
-    <div class="td-stats">
-        <div class="stat-box">
-            <h3>Average Sentiment</h3>
-            <p>{{ "%.2f"|format(td.sentiment) }}</p>
-        </div>
-
-        <div class="stat-box">
-            <h3>Irish Usage</h3>
-            <p>{{ "%.2f"|format(td.irish_per) }}%</p>
-        </div>
-    </div>
-
-    <h2 class="table-title">Word Probability Distribution</h2>
-
-    <table class="prob-table">
-        <tr>
-            <th>Words</th>
-            <th>Frequency</th>
-            <th>Probability</th>
-        </tr>
-        {% for row in prob_dist %}
-        <tr>
-            <td>{{ row.words }}</td>
-            <td>{{ row.freq }}</td>
-            <td>{{ "%.2f"|format(row.prob * 100) }}%</td>
-        </tr>
-        {% endfor %}
-    </table>
-
-</div>
-
+ 
 </body>
 </html>

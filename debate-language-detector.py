@@ -43,6 +43,20 @@ def main():
         where id = ?             
         ''', (irish_per, debate[0]))
 
+    #Same for full text
+    full_text = " ".join(debate[4] for debate in debates)
+    irish_detect = detector.detect_multiple_languages_of(strip_confound_words(full_text))
+    irish = sum(full_text.word_count for full_text in irish_detect if full_text.language == Language.IRISH)
+    total = len(full_text.split())
+    irish_per_full = (f"{irish/total*100:.2f}")
+
+    #Uploading to SQL
+    cursor.execute('''create table if not exists fulltext_irishper(
+                   irish_per decimal)''')
+    cursor.execute('''insert or ignore into fulltext_irishper(irish_per)
+                values(?)''', (float(irish_per_full),))
+    
+
     connection.commit() 
     connection.close() 
 

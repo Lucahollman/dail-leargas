@@ -37,10 +37,8 @@ def main():
     cursor.execute("SELECT id, name FROM td_metadata")
     metadata = cursor.fetchall()
 
-    metadata_dataframe = pd.DataFrame({
-        "id": [metadata[0] for d in metadata],
-        "name": [metadata[1] for d in metadata]
-    })
+    # Build set of names from td_metadata for mismatch checking
+    metadata_names = {row[1] for row in metadata}
 
     contribution_dataframe = pd.DataFrame({
             "name": [td[1] for td in tds],
@@ -57,6 +55,11 @@ def main():
             })
     )
 
+     # Warn about any names in contributions that won't match td_metadata
+    for name in combined_contribution["name"]:
+        if name not in metadata_names:
+            print(f"WARNING: '{name}' in contributions has no matching row in td_metadata — irish_per and sentiment will remain NULL for this TD.")
+
     #Iterating through data -> conducting language analysis 
     for index, row in combined_contribution.iterrows():
         text = (row["contribution"])
@@ -64,7 +67,7 @@ def main():
         if len(irish_detect) == 0:
             irish_per = 0
         else:
-            irish = sum(text.word_count for text in irish_detect if text.language == Language.IRISH)
+            irish = sum(segment.word_count for segment in irish_detect if segment.language == Language.IRISH)
             total = len(text.split())
             irish_per = (f"{irish/total*100:.2f}")
         cursor.execute(f'''
