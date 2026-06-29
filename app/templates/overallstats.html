@@ -3,6 +3,7 @@
     <title>Dáil Léargas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='debateindex.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='overallstats.css') }}">
 </head>
 <body>
     <header>
@@ -12,42 +13,56 @@
                 <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
                 <li><a href="{{ url_for('debates') }}">Debates</a></li>
                 <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
-                <li><a href="{{ url_for('parties') }}">Parties</a></li>
+                <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
                 <li><a href="{{ url_for('votes') }}">Votes</a></li>
                 <li><a href="{{ url_for('info') }}">Website Info</a></li>
             </ul>
         </nav>
     </header>
-        <p>Percentage of Irish language within this debate = {{ irish_per.irish_per }}&#37;</p>
-        <h2>Overall Statistics for all debates in the 34th Dáil</h2>
-        <canvas id="overallprobdist" width="500" height="200"></canvas>
-        <canvas id="overall_irishper" width="500" height="200"></canvas>
-            
-        <div class = contentwrapper>
-            <table class = debateindextable>
+ 
+    <div class="debateheader">
+        <h2>Overall Statistics — 34th Dáil</h2>
+    </div>
+ 
+    <div class="chart-container">
+        <div class="chart-box">
+            <h3>Word Frequency Distribution</h3>
+            <div id="overallprobdist"></div>
+        </div>
+        <div class="chart-box">
+            <h3>Language Share</h3>
+            <div id="overallirishper"></div>
+        </div>
+    </div>
+ 
+    <script>
+        const words = {{ words | tojson }};
+        const freq = {{ freq | tojson }};
+        const irish = {{ irish_per | tojson }};
+        const english = 100 - irish;
+        const labels = ["Irish %", "English %"];
+        const values = [irish, english];
+    </script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="{{ url_for('static', filename='graphs.js') }}"></script>
+ 
+    <div class="contentwrapper">
+        <h3>Full Frequency Table</h3>
+        <table class="debateindextable">
             <tr>
-                <th>Words</th>
+                <th>Word</th>
                 <th>Frequency</th>
                 <th>Probability</th>
             </tr>
-            {%for row in full_text%}
+            {% for row in full_text %}
             <tr>
-                <td>{{row.words}}</td>
-                <td>{{row.freq}}</td>
-                <td>{{ "%.2f"|format(row.prob * 100)}}&#37;</td>
+                <td>{{ row.words }}</td>
+                <td>{{ row.freq }}</td>
+                <td>{{ "%.2f"|format(row.prob * 100) }}&#37;</td>
             </tr>
             {% endfor %}
-            </table>
-        </div>
-        <script>
-            const words = {{ words | tojson }};
-            const freq = {{ freq | tojson }};
-            const prob = {{ prob | tojson }};
-        </script>
-         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-         <div>
-            <script src="{{ url_for('static', filename='graphs.js') }}"></script>
-         </div>
-         
-    </body>
+        </table>
+    </div>
+ 
+</body>
 </html>

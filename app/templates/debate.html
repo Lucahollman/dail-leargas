@@ -3,6 +3,7 @@
     <title>Dáil Léargas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='debate.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='overallstats.css') }}">
 </head>
 
 <body>
@@ -13,7 +14,7 @@
                 <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
                 <li><a href="{{ url_for('debates') }}">Debates</a></li>
                 <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
-                <li><a href="{{ url_for('parties') }}">Parties</a></li>
+                <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
                 <li><a href="{{ url_for('votes') }}">Votes</a></li>
                 <li><a href="{{ url_for('info') }}">Website Info</a></li>
             </ul>
@@ -26,28 +27,30 @@
         <a class="fulltext_link" href="{{ url_for('debatetext', debate_id=debate.id) }}">See Full Text</a>
     </div>
 
-    <div class="debate_container">
-
-        <table class="debatetable">
-            <tr>
-                <th>Words</th>
-                <th>Frequency</th>
-                <th>Probability</th>
-            </tr>
-            {% for row in prob_dist %}
-            <tr>
-                <td>{{ row.words }}</td>
-                <td>{{ row.freq }}</td>
-                <td>{{ "%.2f"|format(row.prob * 100) }}&#37;</td>
-            </tr>
-            {% endfor %}
-        </table>
-
-        <div class="right_column">
-
-            <div class="irish_box">
-                <p>Percentage of Irish language within this debate = {{ debate.irish_per }}&#37;</p>
+        <div class="chart-container">
+            <div class="chart-box">
+                <h3>Word Frequency Distribution</h3>
+                <div id="overallprobdist"></div>
             </div>
+            <div class="chart-box">
+                <h3>Language Share</h3>
+                <div id="overallirishper"></div>
+            </div>
+        </div>
+
+        <script>
+            const words = {{ words | tojson }};
+            const freq = {{ freq | tojson }};
+            const irish = {{ debate.irish_per | tojson }};
+            const english = 100 - irish;
+            const labels = ["Irish %", "English %"];
+            const values = [irish, english];
+        </script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="{{ url_for('static', filename='graphs.js') }}"></script>
+
+        
+            <
 
             <div class="speakers_box">
                 <h3>Speakers</h3>
@@ -64,7 +67,23 @@
                     {% endfor %}
                 </table>
             </div>
-        </div>
+        
+            <div class="debate_container">
+
+            <table class="debatetable">
+                <tr>
+                    <th>Words</th>
+                    <th>Frequency</th>
+                    <th>Probability</th>
+                </tr>
+                {% for row in prob_dist %}
+                <tr>
+                    <td>{{ row.words }}</td>
+                    <td>{{ row.freq }}</td>
+                    <td>{{ "%.2f"|format(row.prob * 100) }}&#37;</td>
+                </tr>
+                {% endfor %}
+            </table>
 
     </div>
 

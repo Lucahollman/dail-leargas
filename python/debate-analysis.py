@@ -39,7 +39,7 @@ for debate in tqdm(debates, desc="Uploading to database"):
     for word in tokenised_text_without_stop:
         fdist[word] += 1
 
-    common = fdist.most_common(200)
+    common = fdist.most_common(50)
     labels = [label[0] for label in common]
     pdist = DictionaryProbDist(fdist, normalize=True)
 
@@ -73,7 +73,7 @@ tokenised_text_without_stop = [w for w in tokenised_text if w not in stop_words]
 for word in tokenised_text_without_stop:
         fdist[word] += 1
 
-common = fdist.most_common(200)
+common = fdist.most_common(50)
 labels = [label[0] for label in common]
 pdist = DictionaryProbDist(fdist, normalize=True)
 

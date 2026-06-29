@@ -11,8 +11,24 @@
                 <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
                 <li><a href="{{ url_for('debates') }}">Debates</a></li>
                 <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
-                <li><a href="{{ url_for('parties') }}">Parties</a></li>
+                <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
                 <li><a href="{{ url_for('votes') }}">Votes</a></li>
                 <li><a href="{{ url_for('info') }}">Website Info</a></li>
             </ul>
         </nav>
+    </header>
+    <div class = contentwrapper>
+            <div class = debateheader>
+                <h1>Parties</h1>
+            </div>
+            <table class =debateindextable>
+                <tr>
+                    <th>Party Name</th>
+                </tr>
+            {% for party in parties%}
+                <tr>
+                    <td><a href="{{ url_for('party', party_name=party.party_name) }}">{{ party.party_name }}</a></td>
+                </tr>
+            {% endfor %}
+            </table>
+        </div> 

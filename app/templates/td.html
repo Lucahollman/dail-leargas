@@ -2,38 +2,33 @@
 <head>
     <title>Dáil Léargas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='debateindex.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='tdprofile.css') }}">
 </head>
 <body>
     <header>
-        <nav class=titlenavbar>
+        <nav class="titlenavbar">
             <ul>
                 <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
                 <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
                 <li><a href="{{ url_for('debates') }}">Debates</a></li>
                 <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
-                <li><a href="{{ url_for('parties') }}">Parties</a></li>
+                <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
                 <li><a href="{{ url_for('votes') }}">Votes</a></li>
                 <li><a href="{{ url_for('info') }}">Website Info</a></li>
             </ul>
         </nav>
     </header>
  
-    <div class="debateheader">
-        <h1>{{ td.name }}</h1>
+    <div class="td-hero">
+        <img class="td-hero-photo" src="{{ td.photo }}" alt="{{ td.name }}">
+        <div class="td-hero-info">
+            <h1>{{ td.name }}</h1>
+            <p class="td-party">{{ td.party }}</p>
+            <p class="td-constituency">{{ td.constituency }}</p>
+        </div>
     </div>
  
     <div class="td-profile-container">
- 
-        <div class="td-info-card">
-            <img class="td-photo" src="{{ td.photo }}" alt="{{ td.name }}">
-            <div class="td-basic-info">
-                <h2 class="td-name">{{ td.name }}</h2>
-                <p class="td-constituency">{{ td.constituency }}</p>
-                <p class="td-party">{{ td.party }}</p>
-            </div>
-        </div>
  
         <div class="td-stats">
             <div class="stat-box">
@@ -41,22 +36,32 @@
                 <p>{{ "%.2f"|format(td.sentiment) }}</p>
             </div>
             <div class="stat-box">
-                <h3>Irish Usage</h3>
+                <h3>Irish Language Usage</h3>
                 <p>{{ "%.2f"|format(td.irish_per) }}%</p>
             </div>
         </div>
  
-        <h2 class="table-title">Contributions</h2>
+        <h2 class="section-title">Word Frequency</h2>
+        <div class="chart-container">
+            <div class="chart-box">
+                <div id="tdprobdist"></div>
+            </div>
+            <div class="chart-box">
+                <div id="tdirishper"></div>
+            </div>
+        </div>
+ 
+        <h2 class="section-title">Debates Contributed To</h2>
         <div class="contributions-container">
             {% for contribution in contributions %}
             <a class="contribution-link" href="{{ url_for('debatespeaker', debate_id=contribution.debate_id, td_name=td.name) }}">{{ contribution.title }}</a>
             {% endfor %}
         </div>
  
-        <h2 class="table-title">Word Probability Distribution</h2>
+        <h2 class="section-title">Word Probability Distribution</h2>
         <table class="prob-table">
             <tr>
-                <th>Words</th>
+                <th>Word</th>
                 <th>Frequency</th>
                 <th>Probability</th>
             </tr>
@@ -71,5 +76,29 @@
  
     </div>
  
+    <script>
+        const words = {{ words | tojson }};
+        const freq = {{ freq | tojson }};
+        const irish = {{ td.irish_per | tojson }};
+        const english = 100 - irish;
+        const labels = ["Irish %", "English %"];
+        const values = [irish, english];
+    </script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+        Plotly.newPlot('tdprobdist',
+            [{ labels: ['', ...words], values: [0, ...freq], parents: ['', ...words.map(() => '')], type: 'treemap', pathbar: { visible: false }, marker: { colorscale: 'Greens', pad: 0, line: { color: 'white', width: 1 } } }],
+            { paper_bgcolor: 'white', plot_bgcolor: 'white', margin: { t: 10, b: 10, l: 10, r: 10 } },
+            { responsive: true, displayModeBar: false }
+        );
+ 
+        Plotly.newPlot('tdirishper',
+            [{ labels: labels, values: values, type: 'pie', marker: { colors: ['#2e6b47', '#c9a84c'] } }],
+            { paper_bgcolor: 'white', margin: { t: 10, b: 10, l: 10, r: 10 } },
+            { responsive: true, displayModeBar: false }
+        );
+    </script>
+ 
 </body>
 </html>
+         

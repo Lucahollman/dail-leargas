@@ -22,4 +22,7 @@ def init_app():
     with app.app_context():
         from . import routes
 
+    from .plotlydash.dashboard import create_dashboard
+    app = create_dashboard(app)
+
     return app

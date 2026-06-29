@@ -25,6 +25,7 @@ def main():
     cursor.execute(f"""
                     CREATE TABLE IF NOT EXISTS contributions(    
                         debate_id integer,
+                        date DATE,
                         td text,
                         contribution text,
                         sentiment real
@@ -32,6 +33,7 @@ def main():
 
     for debate in tqdm(debates, desc="Uploading to database"):
         text = debate[4]
+        date = debate[3]
         #Creating contribution Dictionary
         speaker_pattern = r"^(Deputy|Deputies|The Tánaiste|The Taoiseach|An Ceann Comhairle|An Leas-Cheann Comhairle)(\s+[A-ZÀ-Ö][a-zA-ZÀ-ÿ']*){0,5}$"
         deputy_list = {}
@@ -62,9 +64,9 @@ def main():
                 sentiment = sum(scores) / len(scores)
 
             cursor.execute('''
-            INSERT INTO contributions (debate_id, td, contribution, sentiment)
-            VALUES (?, ?, ?, ?)
-                        ''', (debate[0], td, contribution, sentiment))
+            INSERT INTO contributions (debate_id, date, td, contribution, sentiment)
+            VALUES (?, ?, ?, ?, ?)
+                        ''', (debate[0], date, td, contribution, sentiment))
 
 
     connection.commit() 
