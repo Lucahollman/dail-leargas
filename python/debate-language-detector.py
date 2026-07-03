@@ -36,7 +36,10 @@ def main():
         irish_detect = detector.detect_multiple_languages_of(strip_confound_words(text))
         irish = sum(text.word_count for text in irish_detect if text.language == Language.IRISH)
         total = len(text.split())
-        irish_per = (f"{irish/total*100:.2f}")
+        if total == 0:
+            irish_per = "0.00"
+        else:
+            irish_per = (f"{irish/total*100:.2f}")
         cursor.execute(f'''
         update debates 
         set irish_per = ?
