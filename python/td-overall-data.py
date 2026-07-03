@@ -22,9 +22,8 @@ def main():
     detector = builder.build()
 
     #Defining stop words
-    stop = spacy.load("en_core_web_sm")
-    stop_words = stop.Defaults.stop_words
-    stop_words.update([".", ",", "'", "%", "s", "?", "``", "''", "-", "deputy", "--", ":", "(", ")", ";", "—", "[", "]", "’"])
+    with open('stop-words.txt', 'r', encoding='utf-8') as f:
+        stop_words = set(line.strip() for line in f)
 
     #Fetching data from database and organising
     connection = sqlite3.connect(r"dail-debates.db")

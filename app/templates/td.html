@@ -13,7 +13,7 @@
                 <li><a href="{{ url_for('debates') }}">Debates</a></li>
                 <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
                 <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
-                <li><a href="{{ url_for('votes') }}">Votes</a></li>
+                <li><a href="{{ url_for('words') }}">Words</a></li>
                 <li><a href="{{ url_for('info') }}">Website Info</a></li>
             </ul>
         </nav>
@@ -84,7 +84,8 @@
         const labels = ["Irish %", "English %"];
         const values = [irish, english];
     </script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-3.6.0.min.js" charset="utf-8"></script>
+
     <script>
         Plotly.newPlot('tdprobdist',
             [{ labels: ['', ...words], values: [0, ...freq], parents: ['', ...words.map(() => '')], type: 'treemap', pathbar: { visible: false }, marker: { colorscale: 'Greens', pad: 0, line: { color: 'white', width: 1 } } }],

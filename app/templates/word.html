@@ -2,6 +2,7 @@
 <head>
     <title>Dáil Léargas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='word.css') }}">
 </head>
 <body>
     <header>
@@ -17,18 +18,25 @@
             </ul>
         </nav>
     </header>
-    <div class = contentwrapper>
-            <div class = debateheader>
-                <h1>Parties</h1>
-            </div>
-            <table class =debateindextable>
-                <tr>
-                    <th>Party Name</th>
-                </tr>
-            {% for party in parties%}
-                <tr>
-                    <td><a href="{{ url_for('party', party_name=party.party_name) }}">{{ party.party_name }}</a></td>
-                </tr>
-            {% endfor %}
-            </table>
-        </div> 
+ 
+    <div class="word-hero">
+        <h2>{{ word }}</h2>
+        <p>Word usage over time</p>
+    </div>
+ 
+    <div class="word-container">
+        <div class="chart-box">
+            <div id="word_chart"></div>
+        </div>
+    </div>
+ 
+    <script>
+      const dates = {{ dates | tojson }};
+      const counts = {{ counts | tojson }};
+      const word = {{ word | tojson }};
+    </script>
+    <script src="https://cdn.plot.ly/plotly-3.6.0.min.js" charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='wordgraphs.js') }}"></script>
+ 
+</body>
+</html>

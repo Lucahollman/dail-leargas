@@ -23,10 +23,8 @@ def main():
     detector = builder.build()
 
     #Defining stop words
-    stop = spacy.load("en_core_web_sm")
-    stop_words = stop.Defaults.stop_words
-    stop_words.update([".", ",", "'", "%", "s", "?", "``", "''", "-", "deputy", "--", ":", "(", ")", ";", "—", "[", "]", "’"])
-
+    with open('stop-words.txt', 'r', encoding='utf-8') as f:
+        stop_words = set(line.strip() for line in f)
     #Database connection
     connection = sqlite3.connect(r"dail-debates.db")
     cursor=connection.cursor()
@@ -45,9 +43,9 @@ def main():
     })
 
     contribution_dataframe = pd.DataFrame({
-        "name":[c[1] for c in contributions],
-        "contribution": [c[2] for c in contributions],
-        "sentiment": [c[3] for c in contributions]
+        "name":[c[2] for c in contributions],
+        "contribution": [c[3] for c in contributions],
+        "sentiment": [c[4] for c in contributions]
     })
 
     combined_contribution = (

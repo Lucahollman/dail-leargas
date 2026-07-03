@@ -82,19 +82,20 @@ cursor.execute("""
                DELETE FROM debates WHERE title LIKE '%Chuaigh an Cathaoirleach Gníomhach%' 
                 OR title LIKE '%Chuaigh an Ceann Comhairle i gceannas%'
                 OR title LIKE '%Comhaltaí Nua a Chur in Aithne%'
-                OR title LIKE '%Message from Select Committee%'                
+                OR title LIKE '%Message from Select Committee%'
+                OR title LIKE '%Ministerial Rota for Parliamentary Questions%'                
                """)
 
 cursor.execute("""UPDATE debates SET category = CASE
-                WHEN title LIKE '%Order of Business%' THEN 'orderbusiness' 
-                WHEN title LIKE '%Business of Dáil%' THEN 'orderbusiness' 
-                WHEN title LIKE '%LEADER%' THEN 'leadersq'
-                WHEN title LIKE '%Priority Questions%' THEN 'priorityq'
-                WHEN title LIKE '%Bill%' THEN 'bills'
-                WHEN title LIKE '%topical%' THEN 'topical'
-                WHEN title LIKE '%motion%' THEN 'motions'
-                WHEN title LIKE '%Questions%' THEN 'otherq'
-                ELSE 'other'
+                WHEN title LIKE '%Order of Business%' THEN 'Business of Dáil' 
+                WHEN title LIKE '%Business of Dáil%' THEN 'Business of Dáil' 
+                WHEN title LIKE '%LEADER%' THEN 'Leaders Questions'
+                WHEN title LIKE '%Priority Questions%' THEN 'Priority Questions'
+                WHEN title LIKE '%Bill%' THEN 'Bill'
+                WHEN title LIKE '%topical%' THEN 'Topical Issue Matter'
+                WHEN title LIKE '%motion%' THEN 'Motion'
+                WHEN title LIKE '%Questions%' THEN 'Other Questions'
+                ELSE 'Other'
                END""")
 
 connection.commit() 

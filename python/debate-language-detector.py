@@ -32,7 +32,7 @@ def main():
 
     #Iterating through database
     for debate in tqdm(debates, desc="detecting language"):
-        text = debate[4]
+        text = debate[3]
         irish_detect = detector.detect_multiple_languages_of(strip_confound_words(text))
         irish = sum(text.word_count for text in irish_detect if text.language == Language.IRISH)
         total = len(text.split())
@@ -44,7 +44,7 @@ def main():
         ''', (irish_per, debate[0]))
 
     #Same for full text
-    full_text = " ".join(debate[4] for debate in debates)
+    full_text = " ".join(debate[3] for debate in debates)
     irish_detect = detector.detect_multiple_languages_of(strip_confound_words(full_text))
     irish = sum(full_text.word_count for full_text in irish_detect if full_text.language == Language.IRISH)
     total = len(full_text.split())

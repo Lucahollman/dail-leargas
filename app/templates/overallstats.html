@@ -14,7 +14,7 @@
                 <li><a href="{{ url_for('debates') }}">Debates</a></li>
                 <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
                 <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
-                <li><a href="{{ url_for('votes') }}">Votes</a></li>
+                <li><a href="{{ url_for('words') }}">Words</a></li>
                 <li><a href="{{ url_for('info') }}">Website Info</a></li>
             </ul>
         </nav>
@@ -43,7 +43,7 @@
         const labels = ["Irish %", "English %"];
         const values = [irish, english];
     </script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-3.6.0.min.js" charset="utf-8"></script>
     <script src="{{ url_for('static', filename='graphs.js') }}"></script>
  
     <div class="contentwrapper">
@@ -63,6 +63,11 @@
             {% endfor %}
         </table>
     </div>
+    <footer>
+        <p>Author: Luca Hollman</p>
+        <p><a href="lucahollman@gmail.com">lucahollman@gmail.com</a></p>
+    </footer>
+</body>
  
 </body>
 </html>

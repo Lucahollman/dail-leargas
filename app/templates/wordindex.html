@@ -1,9 +1,9 @@
 <html>
-    <head>
-        <title>Oireachtas Revealed</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='debate.css') }}">
-    </head>
+<head>
+    <title>Dáil Léargas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
+</head>
+<body>
     <header>
         <nav class="titlenavbar">
             <ul>
@@ -17,15 +17,16 @@
             </ul>
         </nav>
     </header>
-    <div class="debateheader">
-            <h2>{{debate.title}} — {{debate.date}}</h2> 
-            <a href="{{ url_for('debatespecific', debate_id=debate.id) }}">Back to Debate</a>
-        </div>
-    <body>
-        <div class = contentwrapper>
-            <div class = debatetext>
-                {{debate.text}}
-            </div>
-        </div>
-    </body>
+
+    <div class = contentwrapper>
+        <h3>Search for a word</h3>
+        <form>
+            <input type="text" id="word_search" placeholder="Search for a word...">
+        </form>
+        <ul id="search_results"></ul>
+    </div>
+     
+
+</body>
+<script src="{{ url_for('static', filename='search.js') }}"></script>
 </html>

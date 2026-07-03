@@ -19,6 +19,9 @@ body {
     height: 52px;
     display: flex;
     align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .titlenavbar ul {
@@ -136,3 +139,27 @@ body {
     color: #166534;
 }
 
+footer {
+  text-align: center;
+  padding: 16px;
+  background-color: #1a3d2b;
+  border-top: 4px solid #c9a84c;
+  color: #f5f2eb;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}
+
+footer p {
+  margin: 4px 0;
+  color: #f5f2eb;
+}
+
+footer a {
+  color: #c9a84c;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}

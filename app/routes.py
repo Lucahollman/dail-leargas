@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request, jsonify
 from flask import current_app as app
 from . import get_database
 
@@ -47,9 +47,29 @@ def party(party_name):
     return render_template("party.html", party = party)
 
 
-@app.route("/votes")
-def votes():
-    return render_template("voteindex.html")
+@app.route("/words")
+def words():
+    return render_template("wordindex.html")
+
+@app.route("/words/<word>")
+def word(word):
+    word_data = get_database().execute("select date, sum(frequency) as frequency from word_freq where word = ? group by date order by date", (word,)).fetchall()
+    word_counts = {d["date"]: d["frequency"] for d in word_data}
+    all_dates = get_database().execute("select distinct date from contributions where date between ? and ? order by date", (min(word_counts.keys()), max(word_counts.keys()))).fetchall()
+    dates = [d["date"] for d in all_dates]
+    counts = [word_counts.get(date, 0) for date in dates]
+    return render_template("word.html", word=word, dates=dates, counts=counts)
+
+@app.route("/words/search")
+def searchwords():
+    userquery = request.args.get('q','')
+    pattern = userquery + '%'
+    search_result = get_database().execute("select distinct word from word_freq where word like ? limit 20", (pattern,)).fetchall()
+    words = [row[0] for row in search_result]
+    return jsonify(words)
+
+
+    
 
 @app.route("/debates")
 def debates():

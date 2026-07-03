@@ -12,7 +12,6 @@ from nltk.tokenize import word_tokenize
 from nltk.probability import FreqDist
 from nltk.probability import DictionaryProbDist
 
-
 #Fetching data from database 
 connection = sqlite3.connect(r"dail-debates.db")
 cursor = connection.cursor()
@@ -24,16 +23,13 @@ debates = cursor.fetchall()
 
 
 #Defining stop words
-stop = spacy.load("en_core_web_sm")
-stop_words = stop.Defaults.stop_words
-stop_words.update([".", ",", "'", "%", "s", "?", "``", "''", "-", "deputy", "--", ":", "(", ")", ";", "—", "[", "]", "’"])
-
-
+with open('stop-words.txt', 'r', encoding='utf-8') as f:
+    stop_words = set(line.strip() for line in f)
 
 #Tokenising and cleaning text data, building dataframes, and uploading to database
 for debate in tqdm(debates, desc="Uploading to database"):
     fdist = nltk.FreqDist()
-    text = debate[4]
+    text = debate[3]
     tokenised_text = word_tokenize(text.lower())
     tokenised_text_without_stop = [w for w in tokenised_text if w not in stop_words]    
     for word in tokenised_text_without_stop:
@@ -41,7 +37,10 @@ for debate in tqdm(debates, desc="Uploading to database"):
 
     common = fdist.most_common(50)
     labels = [label[0] for label in common]
-    pdist = DictionaryProbDist(fdist, normalize=True)
+    if fdist.N() > 0:
+         pdist = DictionaryProbDist(fdist, normalize=True)
+    else:
+         continue
 
     cursor.execute(f"""drop table if exists "{debate[0]}" """)
 
@@ -67,7 +66,7 @@ for debate in tqdm(debates, desc="Uploading to database"):
 
 #Same for full text
 fdist = nltk.FreqDist()
-full_text = " ".join([debate[4] for debate in debates])
+full_text = " ".join([debate[3] for debate in debates])
 tokenised_text = word_tokenize(full_text.lower())
 tokenised_text_without_stop = [w for w in tokenised_text if w not in stop_words]    
 for word in tokenised_text_without_stop:
