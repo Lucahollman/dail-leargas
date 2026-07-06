@@ -23,8 +23,31 @@
         </div>
     <body>
         <div class = contentwrapper>
-            <div class = debatetext>
-                {{debate.text}}
+            <div class="contributions_list">
+                {% for contribution in contributions %}
+                    {% if contribution.td %}
+                        <div class="contribution">
+                            <div class="contribution_speaker">
+                                {% if contribution.td_id %}
+                                <a class="contribution_speaker_link" href="{{ url_for('tdspecific', id=contribution.td_id) }}">
+                                    {% if contribution.photo %}
+                                    <img class="contribution_photo" src="{{ contribution.photo }}" alt="{{ contribution.td }}">
+                                    {% endif %}
+                                    <div class="contribution_name">{{ contribution.td }}</div>
+                                </a>
+                                {% else %}
+                                    {% if contribution.photo %}
+                                    <img class="contribution_photo" src="{{ contribution.photo }}" alt="{{ contribution.td }}">
+                                    {% endif %}
+                                    <div class="contribution_name">{{ contribution.td }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="contribution_text">{{ contribution.contribution }}</div>
+                        </div>
+                    {% else %}
+                        <div class="contribution_plain">{{ contribution.contribution }}</div>
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
     </body>

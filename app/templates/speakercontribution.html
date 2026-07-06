@@ -21,17 +21,23 @@
         <div class="debateheader">
             <h2><a href="{{ url_for('tdspecific', id=contributions[0].id) }}">{{ contributions[0].td }}</a></h2>
             <p>{{ debate.title }} — {{ debate.date }}</p>
+            {% if average_sentiment is not none %}
+            <p><span class="overall_sentiment_badge">Overall sentiment: {{ "%.2f"|format(average_sentiment) }}</span></p>
+            {% endif %}
             <a href="{{ url_for('debatespecific', debate_id=debate.id) }}">Back to Debate</a>
         </div>
  
         <div class=contentwrapper>
-            {% for contribution in contributions %}
-            <div class=debatetext>
-                <p>Sentiment score: {{ "%.2f"|format(contribution.sentiment) }}</p>
-                <p>{{ contribution.contribution }}</p>
+            <div class="speaker_contributions_list">
+                {% for contribution in contributions %}
+                <div class="speaker_contribution">
+                    <p class="speaker_contribution_text">{{ contribution.contribution }}</p>
+                    <p class="speaker_contribution_sentiment">Sentiment score: {{ "%.2f"|format(contribution.sentiment) }}</p>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
  
     </body>
 </html>
+ 

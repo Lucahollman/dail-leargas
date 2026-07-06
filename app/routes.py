@@ -79,7 +79,7 @@ def debates():
 @app.route("/debates/<int:debate_id>")
 def debatespecific(debate_id):
     debate = get_database().execute("select title, id, date, irish_per from debates where id = ?", (debate_id,)).fetchone()
-    speaker_list = get_database().execute("select distinct td, sentiment from contributions where debate_id = ?", (debate_id,)).fetchall()
+    speaker_list = get_database().execute("select  td, avg(sentiment) as average_sentiment  from contributions where debate_id = ? group by td", (debate_id,)).fetchall()
     prob_dist = get_database().execute(f'select words, freq, prob from "{debate_id}"').fetchall()
     #labels for js chart
     words = [d["words"] for d in prob_dist]
@@ -95,12 +95,24 @@ def debatespeaker(debate_id, td_name):
         "select contributions.td, contributions.contribution, contributions.sentiment, td_metadata.id from contributions join td_metadata on contributions.td = td_metadata.name where contributions.td = ? and contributions.debate_id = ?",
         (td_name, debate_id)
     ).fetchall()
-    return render_template("speakercontribution.html", debate=debate, contributions=contributions)
+    average_sentiment = get_database().execute(
+        "select avg(sentiment) as average_sentiment from contributions where td = ? and debate_id = ?",
+        (td_name, debate_id)
+    ).fetchone()["average_sentiment"]
+    return render_template("speakercontribution.html", debate=debate, contributions=contributions, average_sentiment=average_sentiment)
 
 @app.route("/debates/<int:debate_id>/text")
 def debatetext(debate_id):
     debate = get_database().execute("select title, id, date, text from debates where id = ?", (debate_id,)).fetchone()
-    return render_template("debatetext.html", debate=debate)
+    contributions = get_database().execute(
+        """select contributions.rowid as rowid, contributions.td, contributions.contribution, td_metadata.photo, td_metadata.id as td_id
+           from contributions
+           left join td_metadata on contributions.td = td_metadata.name
+           where contributions.debate_id = ?
+           order by contributions.rowid""",
+        (debate_id,)
+    ).fetchall()
+    return render_template("debatetext.html", debate=debate, contributions=contributions)
 
 @app.route("/info")
 def info():

@@ -57,12 +57,12 @@
                 <table>
                     <tr>
                         <th>Speaker</th>
-                        <th>Sentiment</th>
+                        <th>Overall Sentiment</th>
                     </tr>
                     {% for name in speaker_list %}
                     <tr>
                         <td><a href="{{ url_for('debatespeaker', debate_id=debate.id, td_name=name.td) }}">{{ name.td }}</a></td>
-                        <td>{{ "%.2f"|format(name.sentiment) }}</td>
+                        <td>{{ "%.2f"|format(name.average_sentiment) }}</td>
                     </tr>
                     {% endfor %}
                 </table>
