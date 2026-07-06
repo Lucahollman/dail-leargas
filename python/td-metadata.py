@@ -15,7 +15,7 @@ td_meta_table = '''create table if not exists td_metadata(
             party text,
             constituency text,
             photo text,
-            sentiment integer,
+            sentiment real,
             irish_per integer,
             unique(id, name) 
             )'''
@@ -34,7 +34,7 @@ tds = []
 data = response.json()
 for member in data["results"]:
     m = member["member"]
-    name = "Deputy " + m["fullName"]
+    name = m["fullName"]
     member_code = m["memberCode"]
     photo_url = f"https://data.oireachtas.ie/ie/oireachtas/member/id/{member_code}/image/large"
     membership = m["memberships"][0]["membership"]

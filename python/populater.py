@@ -5,19 +5,25 @@ Script that populates sql database - WARNING: delete database + debates.csv befo
 #Packages
 import sys 
 import subprocess
+import os
 from tqdm import tqdm  
 from pathlib import Path
 
 script_dir = Path(__file__).parent
 scripts = [
-    "scraper.py",
+    "api-query.py",
+    "td-metadata.py",
     "debate-analysis.py",
     "debate-language-detector.py",
-    "td-metadata.py",
-    "debate-get-contributions.py",
+    "sentiment-analysis.py",
     "td-overall-data.py",
-    "party-data.py"
+    "party-data.py",
+    "word-anaylsis.py"
 ]
+if os.path.exists("dail-debates.db"):
+    print("Delete Database before you run script !!")
+    1/0
+
 
 for script in tqdm(scripts, desc = "populating database"):
     result = subprocess.run(
@@ -26,7 +32,7 @@ for script in tqdm(scripts, desc = "populating database"):
         capture_output=True,
         text=True
     )
-    print(f"\n--- {script} ---")
+    print(f"\n---Beginning {script} ---")
     print(result.stdout)
     if result.returncode != 0:
         print("ERROR:")
