@@ -10,6 +10,7 @@ from nltk.probability import DictionaryProbDist
 import nltk
 import spacy
 from tqdm import tqdm  
+from collections import Counter
 from lingua import Language, LanguageDetectorBuilder
 import re
 
@@ -83,28 +84,30 @@ def main():
             where name = ?
         ''', (row["sentiment"], row["name"]))
     #Creating Probability Distribution Tables
+    cursor.execute('''create table if not exists td_frequency_tables(
+                   name integer,
+                   words text,
+                   freq integer,
+                   prob real)''')
+    
     for i, row in tqdm(combined_contribution.iterrows(), desc ="Creating tables"):
         text = (row["contribution"]) 
+        name = (row["name"])
         fdist = nltk.FreqDist()
         tokenised_text = word_tokenize(text.lower())
         tokenised_text_without_stop = [w for w in tokenised_text if w not in stop_words] 
         if not tokenised_text_without_stop:
            continue   
-        for word in tokenised_text_without_stop:
-            fdist[word] += 1
+        fdist = Counter(tokenised_text_without_stop)
         common = fdist.most_common(50)
         labels = [label[0] for label in common]
-        pdist = DictionaryProbDist(fdist, normalize=True)
-
-        td_table = f'''create table if not exists "{row["name"]}"(
-            words text primary key,
-            freq integer,
-            prob integer
-            )''' 
-    
-        cursor.execute(td_table)
+        if fdist:
+            pdist = DictionaryProbDist(fdist, normalize=True)
+        else:
+            continue
 
         td_dataframe = pd.DataFrame({
+        "name": name,
         "words": labels,
         "freq": [frequency[1] for frequency in common],
         "probability": [pdist.prob(word[0]) for word in common]
@@ -112,8 +115,8 @@ def main():
 
         for j, jrow in td_dataframe.iterrows():
             cursor.execute(f'''
-            insert or ignore into "{row["name"]}" (words, freq, prob)
-            values("{jrow["words"]}", "{jrow["freq"]}", "{jrow["probability"]}")              
+            insert or ignore into td_frequency_tables (name, words, freq, prob)
+            values("{jrow["name"]}", "{jrow["words"]}", "{jrow["freq"]}", "{jrow["probability"]}")              
             ''')
 
     connection.commit()

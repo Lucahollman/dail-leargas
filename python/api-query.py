@@ -36,7 +36,7 @@ cursor.execute('''create table if not exists contributions(
 #Accessing API
 response = requests.get("https://api.oireachtas.ie/v1/debates", params={
     "chamber": "dail",
-    "date_start": "2026-05-20",   
+    "date_start": "2026-06-20",   
     "date_end": "2026-07-03",
     "limit": 1000
 })
@@ -86,14 +86,6 @@ for day in tqdm(data["results"], desc = "uploading to database"):
             text_blocks.append(c["ot_text"])
         overall_text = "\n\n".join(text_blocks)
 
-        
-        # speaker_list = []
-        # for c in contributions:
-        #     speaker_list.append(c["speaker"])
-        # speaker_list = set(speaker_list)
-        # for value in [None, " A Deputy", " Deputies"]:
-        #     speaker_list.discard(value)
-
         cursor.execute('''insert or ignore into debates(title, date, text)
                     values(?, ?, ?)''', (title, date, overall_text))
         
@@ -124,6 +116,8 @@ cursor.execute("""UPDATE debates SET category = CASE
                 WHEN title LIKE '%Questions%' THEN 'Other Questions'
                 ELSE 'Other'
                END""")
+
+cursor.execute("""delete from contributions where td is null""")   ### Temporary fix for html not rendering due to null values appearing in contributions (Need to integrate structural text)
             
 connection.commit()
 connection.close()

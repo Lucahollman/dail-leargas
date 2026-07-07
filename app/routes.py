@@ -26,7 +26,7 @@ def tds():
 @app.route("/tds/<int:id>")
 def tdspecific(id):
     td = get_database().execute("select name, party, constituency, id, photo, sentiment, irish_per from td_metadata where id = ?", (id,)).fetchone()
-    prob_dist = get_database().execute(f'select words, freq, prob from "{td['name']}"').fetchall()
+    prob_dist = get_database().execute("select words, freq, prob from td_frequency_tables where name = ?", (td["name"],)).fetchall()
     contributions = get_database().execute(
     "select distinct contributions.debate_id, debates.title from contributions join debates on contributions.debate_id = debates.id where contributions.td = ?",
     (td["name"],)).fetchall()
@@ -44,7 +44,11 @@ def partyindex():
 def party(party_name):
     party = get_database().execute(
         "select * from parties where party_name = ?", [party_name]).fetchone()
-    return render_template("party.html", party = party)
+    prob_dist = get_database().execute("select words, freq, prob from party_freq_tables where name = ?", (party["party_name"],)).fetchall()
+    #Labels for js chart
+    words = [d["words"] for d in prob_dist]
+    freq = [d["freq"] for d in prob_dist]
+    return render_template("party.html", party = party, prob_dist = prob_dist, words = words, freq = freq)
 
 
 @app.route("/words")
@@ -80,7 +84,7 @@ def debates():
 def debatespecific(debate_id):
     debate = get_database().execute("select title, id, date, irish_per from debates where id = ?", (debate_id,)).fetchone()
     speaker_list = get_database().execute("select  td, avg(sentiment) as average_sentiment  from contributions where debate_id = ? group by td", (debate_id,)).fetchall()
-    prob_dist = get_database().execute(f'select words, freq, prob from "{debate_id}"').fetchall()
+    prob_dist = get_database().execute("select words, freq, prob from debate_frequency_tables where id = ?", (debate_id,)).fetchall()
     #labels for js chart
     words = [d["words"] for d in prob_dist]
     freq = [d["freq"] for d in prob_dist]

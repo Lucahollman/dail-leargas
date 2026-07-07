@@ -18,7 +18,7 @@ scripts = [
     "sentiment-analysis.py",
     "td-overall-data.py",
     "party-data.py",
-    "word-anaylsis.py"
+    "word-analysis.py"
 ]
 if os.path.exists("dail-debates.db"):
     print("Delete Database before you run script !!")

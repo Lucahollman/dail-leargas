@@ -13,6 +13,7 @@ import spacy
 from tqdm import tqdm  
 from lingua import Language, LanguageDetectorBuilder
 import re
+from collections import Counter
 
 def main():
 
@@ -98,28 +99,29 @@ def main():
                    where party_name = ?''', (irish_per, row["party"]))
         
     #Creating Probability Distribution Tables
+    cursor.execute("""create table if not exists party_freq_tables(
+                    name text,
+                    words text,
+                    freq integer,
+                    prob real
+                    )""")
+    
     for i, row in tqdm(party_df.iterrows(), desc ="Creating tables"):
         text = (row["contribution"]) 
-        fdist = nltk.FreqDist()
+        name = (row["party"])
         tokenised_text = word_tokenize(text.lower())
-        tokenised_text_without_stop = [w for w in tokenised_text if w not in stop_words] 
-        if not tokenised_text_without_stop:
-           continue   
-        for word in tokenised_text_without_stop:
-            fdist[word] += 1
+        tokenised_text_without_stop = [w for w in tokenised_text if w not in stop_words]
+        fdist = Counter(tokenised_text_without_stop)
         common = fdist.most_common(50)
         labels = [label[0] for label in common]
-        pdist = DictionaryProbDist(fdist, normalize=True)
+        if fdist:
+            pdist = DictionaryProbDist(fdist, normalize=True)
+        else:
+            continue 
 
-        party_table = f'''create table if not exists "{row["party"]}"(
-            words text primary key,
-            freq integer,
-            prob integer
-            )''' 
-    
-        cursor.execute(party_table)
 
         party_dataframe = pd.DataFrame({
+        "name": name,
         "words": labels,
         "freq": [frequency[1] for frequency in common],
         "probability": [pdist.prob(word[0]) for word in common]
@@ -127,8 +129,8 @@ def main():
 
         for j, jrow in party_dataframe.iterrows():
             cursor.execute(f'''
-            insert or ignore into "{row["party"]}" (words, freq, prob)
-            values("{jrow["words"]}", "{jrow["freq"]}", "{jrow["probability"]}")              
+            insert or ignore into party_freq_tables (name, words, freq, prob)
+            values("{jrow["name"]}", "{jrow["words"]}", "{jrow["freq"]}", "{jrow["probability"]}")              
             ''')
 
 

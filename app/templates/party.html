@@ -20,6 +20,48 @@
     <div class = contentwrapper>
             <div class = debateheader>
                 <h1>{{ party.party_name }}</h1>
+    </div>
+
+    <div class="chart-container">
+            <div class="chart-box">
+                <h3>Word Frequency Distribution</h3>
+                <div id="overallprobdist"></div>
+            </div>
+            <div class="chart-box">
+                <h3>Language Share</h3>
+                <div id="overallirishper"></div>
+            </div>
+        </div>
+
+        <script>
+            const words = {{ words | tojson }};
+            const freq = {{ freq | tojson }};
+            const irish = {{ party.party_irish_per | tojson }};
+            const english = 100 - irish;
+            const labels = ["Irish %", "English %"];
+            const values = [irish, english];
+        </script>
+        <script src="https://cdn.plot.ly/plotly-3.6.0.min.js" charset="utf-8"></script>
+        <script src="{{ url_for('static', filename='graphs.js') }}"></script>
+        
+            <div class="debate_container">
+
+            <table class="debatetable">
+                <tr>
+                    <th>Words</th>
+                    <th>Frequency</th>
+                    <th>Probability</th>
+                </tr>
+                {% for row in prob_dist %}
+                <tr>
+                    <td>{{ row.words }}</td>
+                    <td>{{ row.freq }}</td>
+                    <td>{{ "%.2f"|format(row.prob * 100) }}&#37;</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+    </div>
     
     
     
