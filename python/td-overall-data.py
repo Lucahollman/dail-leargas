@@ -30,20 +30,17 @@ def main():
     connection = sqlite3.connect(r"dail-debates.db")
     cursor = connection.cursor()
 
-    sql_statement = f"select * from contributions"
+    sql_statement = f"select td, contribution, sentiment from contributions"
     cursor.execute(sql_statement)
     tds = cursor.fetchall()
 
     cursor.execute("SELECT id, name FROM td_metadata")
     metadata = cursor.fetchall()
 
-    # # Build set of names from td_metadata for mismatch checking
-    # metadata_names = {row[1] for row in metadata}
-
     contribution_dataframe = pd.DataFrame({
-            "name": [td[2] for td in tds],
-            "contribution": [td[3] for td in tds],
-            "sentiment": [td[4] for td in tds]
+            "name": [td[0] for td in tds],
+            "contribution": [td[1] for td in tds],
+            "sentiment": [td[2] for td in tds]
         })
     
 
@@ -54,11 +51,6 @@ def main():
             "sentiment": "mean"
             })
     )
-
-    #  # Warn about any names in contributions that won't match td_metadata
-    # for name in combined_contribution["name"]:
-    #     if name not in metadata_names:
-    #         print(f"WARNING: '{name}' in contributions has no matching row in td_metadata — irish_per and sentiment will remain NULL for this TD.")
 
     #Iterating through data -> conducting language analysis 
     for index, row in combined_contribution.iterrows():

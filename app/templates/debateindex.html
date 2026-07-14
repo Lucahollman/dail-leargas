@@ -1,38 +1,78 @@
 <html>
 <head>
     <title>Dáil Léargas</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='generalt.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='debateindex.css') }}">
 </head>
 <body>
     <header>
-        <nav class=titlenavbar>
+        <nav class="navbar">
             <ul>
                 <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
                 <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
-                <li><a href="{{ url_for('debates') }}">Debates</a></li>
+                <li><a href="{{ url_for('debates') }}" class="active">Debates</a></li>
                 <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
                 <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
                 <li><a href="{{ url_for('words') }}">Words</a></li>
                 <li><a href="{{ url_for('info') }}">Website Info</a></li>
             </ul>
         </nav>
-        <div class = contentwrapper>
-            <div class = debateheader>
-                <h1>Debates</h1>
+    </header>
+ 
+    <div class="pagebanner">
+        <h2>Debates</h2>
+    </div>
+ 
+    <div class="contentwrapper">
+        <div class="debate-controls">
+            <div class="debate-search">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.4"/>
+                    <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                <input type="text" id="search-input" placeholder="Search the record…" autocomplete="off">
             </div>
-            <table class =debateindextable>
-                <tr>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>Category</th>
-                </tr>
-            {% for debate in debates%}
-                <tr>
-                    <td><a href="{{ url_for('debatespecific', debate_id=debate.id)}}">{{ debate.title }}</a></td>
-                    <td><p>{{ debate.date }}</p>
-                    <td><p>{{ debate.category}}</p></td>
-                </tr>
-            {% endfor %}
-            </table>
-        </div>      
+            <div class="debate-filters">
+                <span class="filter-pill is-active" data-cat="all">All</span>
+                {% for cat in categories %}
+                <span class="filter-pill" data-cat="{{ cat | lower }}">{{ cat }}</span>
+                {% endfor %}
+                <span class="filter-placeholder">Custom range</span>
+            </div>
+        </div>
+ 
+        <div class="debate-layout">
+            <div class="date-rail" id="date-rail">
+                <div class="rail-item is-active" data-date="all">All dates</div>
+                {% set ns = namespace(current_date=None, current_year=None) %}
+                {% for debate in debates %}
+                    {% if debate.date != ns.current_date %}
+                        {% set ns.current_date = debate.date %}
+                        {% set this_year = debate.date | year_of %}
+                        {% if this_year != ns.current_year %}
+                            {% set ns.current_year = this_year %}
+                        <div class="rail-year">{{ this_year }}</div>
+                        {% endif %}
+                        <div class="rail-item" data-date="{{ debate.date }}">{{ debate.date | short_date }}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+ 
+            <div class="debate-entries">
+                <div class="entries-meta"><span id="result-count"></span></div>
+                <div class="entries-list" id="entries-list">
+                {% for debate in debates %}
+                    <div class="entry-row" data-category="{{ debate.category | lower }}" data-date="{{ debate.date }}" data-title="{{ debate.title | lower }}">
+                        <a href="{{ url_for('debatespecific', debate_id=debate.id) }}">{{ debate.title }}</a>
+                        <span class="entry-leader"></span>
+                        <span class="entry-tag">{{ debate.category }}</span>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    <script src="{{ url_for('static', filename='debateindex.js') }}"></script>
+</body>
+</html>

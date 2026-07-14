@@ -1,11 +1,15 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Dáil Léargas</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dáil Leargas</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='generalt.css') }}">
+     <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
 </head>
 <body>
     <header>
-        <nav class="titlenavbar">
+        <nav class="navbar">
             <ul>
                 <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
                 <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
@@ -16,20 +20,59 @@
                 <li><a href="{{ url_for('info') }}">Website Info</a></li>
             </ul>
         </nav>
-        <div class="titleheader">
-            <h2>Welcome to Dáil Léargas</h2>
-            <p>This website is the home for Irish parliamentary text and sentiment anaylsis. Browse TDs, debates, and see who said what, the most common words, how much Gaeilge is being spoken, and the sentiment of TD contributions.</p>
-        </div>
     </header>
- 
-    <div class="contentwrapper">
-        <p></p>
+    <div class="titlebanner">
+        <h1>Welcome to Dáil Léargas</h1>
+        <p>This website is the home for Irish parliamentary text and sentiment analysis. Browse TDs, debates, and see who said what, the most common words, how much Gaeilge is being spoken, and the sentiment of TD contributions.</p>
+    </div>
+    <div class="content-section">
+        <div class="section-header">
+            <h2>Recent debates</h2>
+            <a href="#" class="section-link">See all →</a>
+        </div>
+        <div class="debate-grid">
+            <div class="debate-card">
+                <div class="debate-tag">Dáil debate</div>
+                <div class="debate-title">Health (Amendment) Bill 2026</div>
+                <div class="debate-meta">3 Jul 2026 · 214 contributions</div>
+            </div>
+            <div class="debate-card">
+                <div class="debate-tag">Dáil debate</div>
+                <div class="debate-title">Housing Supply Motion</div>
+                <div class="debate-meta">2 Jul 2026 · 178 contributions</div>
+            </div>
+            <div class="debate-card">
+                <div class="debate-tag">Dáil debate</div>
+                <div class="debate-title">Finance Bill: Second Stage</div>
+                <div class="debate-meta">1 Jul 2026 · 302 contributions</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <div class="section-header">
+            <h2>Gaeilge leaderboard</h2>
+            <a href="#" class="section-link">See all →</a>
+        </div>
+        <div class="leaderboard">
+            <div class="leaderboard-row">
+                <span class="leaderboard-name"><span class="leaderboard-rank">1</span>Éamon Ó Cuív</span>
+                <span class="leaderboard-value">38.2%</span>
+            </div>
+            <div class="leaderboard-row">
+                <span class="leaderboard-name"><span class="leaderboard-rank">2</span>Aengus Ó Snodaigh</span>
+                <span class="leaderboard-value">31.6%</span>
+            </div>
+            <div class="leaderboard-row">
+                <span class="leaderboard-name"><span class="leaderboard-rank">3</span>Catherine Connolly</span>
+                <span class="leaderboard-value">24.9%</span>
+            </div>
+        </div>
     </div>
 
     <footer>
-  <p>Author: Luca Hollman</p>
-  <p><a href="lucahollman@gmail.com">lucahollman@gmail.com</a></p>
+        <p>Author: Luca Hollman</p>
+        <p><a href="lucahollman@gmail.com">lucahollman@gmail.com</a></p>
     </footer>
 </body>
 </html>
- 

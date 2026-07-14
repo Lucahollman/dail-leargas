@@ -13,14 +13,15 @@ from nltk.tokenize import sent_tokenize
 connection = sqlite3.connect(r"dail-debates.db")
 cursor = connection.cursor()
 
-cursor.execute("select * from contributions")
+cursor.execute("select td, contribution from contributions")
 contributions = cursor.fetchall()
 
 #Sentiment Analysis
 analyser = SentimentIntensityAnalyzer()
 average_scores = []
 for contribution in tqdm(contributions, desc = "conducting sentiment analysis"):
-    text = contribution[3]
+    td = contribution[0]
+    text = contribution[1]
     if not text:
         sentiment = 0
     else:
@@ -33,7 +34,7 @@ for contribution in tqdm(contributions, desc = "conducting sentiment analysis"):
 
     cursor.execute('''update contributions 
                    set sentiment = ? 
-                   where contribution = ?''', (sentiment, contribution[3]))
+                   where contribution = ?''', (sentiment, contribution[1]))
     
 
 connection.commit()

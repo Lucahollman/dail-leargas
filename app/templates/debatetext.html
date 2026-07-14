@@ -1,8 +1,8 @@
 <html>
     <head>
         <title>Oireachtas Revealed</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='debate.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='generalt.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='debatetext.css') }}">
     </head>
     <header>
         <nav class="titlenavbar">
@@ -22,33 +22,41 @@
             <a href="{{ url_for('debatespecific', debate_id=debate.id) }}">Back to Debate</a>
         </div>
     <body>
-        <div class = contentwrapper>
-            <div class="contributions_list">
-                {% for contribution in contributions %}
-                    {% if contribution.td %}
-                        <div class="contribution">
-                            <div class="contribution_speaker">
-                                {% if contribution.td_id %}
-                                <a class="contribution_speaker_link" href="{{ url_for('tdspecific', id=contribution.td_id) }}">
-                                    {% if contribution.photo %}
-                                    <img class="contribution_photo" src="{{ contribution.photo }}" alt="{{ contribution.td }}">
-                                    {% endif %}
-                                    <div class="contribution_name">{{ contribution.td }}</div>
-                                </a>
-                                {% else %}
-                                    {% if contribution.photo %}
-                                    <img class="contribution_photo" src="{{ contribution.photo }}" alt="{{ contribution.td }}">
-                                    {% endif %}
-                                    <div class="contribution_name">{{ contribution.td }}</div>
-                                {% endif %}
-                            </div>
-                            <div class="contribution_text">{{ contribution.contribution }}</div>
-                        </div>
-                    {% else %}
-                        <div class="contribution_plain">{{ contribution.contribution }}</div>
+     <div class="contentwrapper">
+        <div class="contributions_list">
+            {% set ns = namespace(current_section=None) %}
+            {% for contribution in contributions %}
+                {% if contribution.section_title != ns.current_section %}
+                    {% set ns.current_section = contribution.section_title %}
+                    {% if show_headers %}
+                        <h3 class="section_header">{{ contribution.section_title }}</h3>
                     {% endif %}
-                {% endfor %}
-            </div>
+                {% endif %}
+
+                {% if contribution.td %}
+                    <div class="contribution">
+                        <div class="contribution_speaker">
+                            {% if contribution.td_id %}
+                            <a class="contribution_speaker_link" href="{{ url_for('tdspecific', id=contribution.td_id) }}">
+                                {% if contribution.photo %}
+                                <img class="contribution_photo" src="{{ contribution.photo }}" alt="{{ contribution.td }}">
+                                {% endif %}
+                                <div class="contribution_name">{{ contribution.td }}</div>
+                            </a>
+                            {% else %}
+                                {% if contribution.photo %}
+                                <img class="contribution_photo" src="{{ contribution.photo }}" alt="{{ contribution.td }}">
+                                {% endif %}
+                                <div class="contribution_name">{{ contribution.td }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="contribution_text">{{ contribution.contribution }}</div>
+                    </div>
+                {% else %}
+                    <div class="contribution_plain">{{ contribution.contribution }}</div>
+                {% endif %}
+            {% endfor %}
         </div>
+    </div>
     </body>
 </html>

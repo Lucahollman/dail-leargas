@@ -1,16 +1,15 @@
 <html>
 <head>
     <title>Dáil Léargas</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='debateindex.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='generalt.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='overallstats.css') }}">
 </head>
 <body>
     <header>
-        <nav class="titlenavbar">
+        <nav class="navbar">
             <ul>
                 <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
-                <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
+                <li><a href="{{ url_for('overallstats') }}" class="active">Overall Statistics</a></li>
                 <li><a href="{{ url_for('debates') }}">Debates</a></li>
                 <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
                 <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
@@ -20,8 +19,24 @@
         </nav>
     </header>
  
-    <div class="debateheader">
+    <div class="pagebanner">
         <h2>Overall Statistics — 34th Dáil</h2>
+        <p>This page displays .. </p>
+    </div>
+ 
+    <div class="quickstats">
+        <div class="stat-card">
+            <div class="stat-value">{{ total_debates | default("—") }}</div>
+            <div class="stat-label">Debates recorded</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">{{ total_words | default("—") }}</div>
+            <div class="stat-label">Words spoken</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">{{ total_contributions | default("—") }}</div>
+            <div class="stat-label">Contributions</div>
+        </div>
     </div>
  
     <div class="chart-container">
@@ -63,11 +78,10 @@
             {% endfor %}
         </table>
     </div>
+ 
     <footer>
         <p>Author: Luca Hollman</p>
-        <p><a href="lucahollman@gmail.com">lucahollman@gmail.com</a></p>
+        <p><a href="mailto:lucahollman@gmail.com">lucahollman@gmail.com</a></p>
     </footer>
-</body>
- 
 </body>
 </html>

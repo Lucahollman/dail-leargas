@@ -32,12 +32,12 @@ cursor.execute('''create table if not exists word_freq(
                speaker text,
                frequency integer)''')
 
-cursor.execute('''create index index_word_speaker on word_freq(word, speaker);''')
+cursor.execute('''create index if not exists index_word_speaker on word_freq(word, speaker);''')
 
 
 for contribution in tqdm(contributions, desc= "uploading to database"):
-    text = contribution[3]
-    td = contribution[2]
+    text = contribution[5]
+    td = contribution[4]
     date = contribution[1]
     tokenised_text = word_tokenize(text.lower())
     tokenised_text_without_stop = [w for w in tokenised_text if w not in stop_words]

@@ -27,6 +27,8 @@ cursor.execute('''create table if not exists debates(
 cursor.execute('''create table if not exists contributions(
                debate_id integer,
                date date,
+               section_title,
+               text_type text,
                td text,
                contribution text,
                sentiment real
@@ -36,7 +38,7 @@ cursor.execute('''create table if not exists contributions(
 #Accessing API
 response = requests.get("https://api.oireachtas.ie/v1/debates", params={
     "chamber": "dail",
-    "date_start": "2026-06-20",   
+    "date_start": "2026-05-20",   
     "date_end": "2026-07-03",
     "limit": 1000
 })
@@ -47,9 +49,7 @@ for day in tqdm(data["results"], desc = "uploading to database"):
     debate_record = day["debateRecord"]
     date = debate_record["date"]
 
-    debate_list = {}
-    q_headers = []
-
+    debates = {}
     for debate_entry in debate_record["debateSections"]:
         debate = debate_entry["debateSection"]
         if debate.get("containsDebate") == False:
@@ -58,44 +58,48 @@ for day in tqdm(data["results"], desc = "uploading to database"):
             title = debate["parentDebateSection"]["showAs"]
         else:
             title = debate["showAs"]
-
-        if title not in debate_list:
-            debate_list[title] = []
-        
         section_title = debate["showAs"]
+
+        contributions_list = debates.setdefault(title, [])
         
         for contribution in debate.get("text", []):
-            if contribution.get("textType") == "heading":
+            if contribution.get("textType") != "heading":
+                type = contribution.get("textType")
+            else:
                 continue
             text = contribution.get("text")
             if text and "  " in text:
-                clean_text = text.split("  ", 1)[1].strip()
+                prefix, text = text.split("  ", 1)
+                if len(prefix) > 100:  
+                    text = text.strip()
+            else:
+                text = text.strip() if text else text
+            if contribution["speaker"] != None:
+                speaker = contribution["speaker"]["showAs"]
+            else:
+                speaker = None
+            contributions_list.append({ "text_type": type, "speaker": speaker, "text": text, "section_title": section_title})
+            
+   
+    for title, contribution_list in debates.items():
+        overall_text = []
+        for contribution in contribution_list:
+            if contribution["text_type"] == "speech":
+                overall_text.append(contribution["text"])
             else:
                 continue
-            speaker = contribution["speaker"]["showAs"] if contribution.get("speaker") else None
-            debate_list[title].append({"speaker": speaker, "text": clean_text, "ot_text": text, "section_title": section_title})
-            
-    for title, contributions in debate_list.items():
-        text_blocks = []
-        last_section_title = None
-
-        for c in contributions:
-            if c["section_title"] != last_section_title:
-                text_blocks.append(f"{c['section_title']}")
-                last_section_title = c["section_title"]
-            text_blocks.append(c["ot_text"])
-        overall_text = "\n\n".join(text_blocks)
+        overall_text = "\n".join(overall_text)
 
         cursor.execute('''insert or ignore into debates(title, date, text)
                     values(?, ?, ?)''', (title, date, overall_text))
-        
-        debate_id = cursor.lastrowid
-
-        for contribution in contributions:
-            cursor.execute('''insert or ignore into contributions(debate_id, date, td, contribution)
-                        values(?, ?, ?, ?)''', (debate_id, date, contribution["speaker"], contribution["text"]))
-
     
+        debate_id = cursor.execute("""select id from debates where title = ? and date = ?""", (title, date)).fetchone()[0]
+
+        for contribution in contribution_list:
+            cursor.execute('''insert or ignore into contributions(debate_id, date, section_title, text_type, td, contribution)
+                        values(?, ?, ?, ?, ?, ?)''', (debate_id, date, contribution["section_title"], contribution["text_type"], contribution["speaker"], contribution["text"]))
+
+        
 
 cursor.execute("""
                DELETE FROM debates WHERE title LIKE '%Chuaigh an Cathaoirleach Gníomhach%' 
@@ -117,7 +121,7 @@ cursor.execute("""UPDATE debates SET category = CASE
                 ELSE 'Other'
                END""")
 
-cursor.execute("""delete from contributions where td is null""")   ### Temporary fix for html not rendering due to null values appearing in contributions (Need to integrate structural text)
+
             
 connection.commit()
 connection.close()

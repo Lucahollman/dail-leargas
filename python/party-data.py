@@ -31,10 +31,10 @@ def main():
     cursor=connection.cursor()
 
     #Accessing database
-    cursor.execute(f"select * from contributions")
+    cursor.execute("select td, contribution, sentiment from contributions")
     contributions = cursor.fetchall()
 
-    cursor.execute(f"select name, party from td_metadata")
+    cursor.execute("select name, party from td_metadata")
     tds = cursor.fetchall()
 
     #Sorting into party contributions through pandas
@@ -44,9 +44,9 @@ def main():
     })
 
     contribution_dataframe = pd.DataFrame({
-        "name":[c[2] for c in contributions],
-        "contribution": [c[3] for c in contributions],
-        "sentiment": [c[4] for c in contributions]
+        "name":[c[0] for c in contributions],
+        "contribution": [c[1] for c in contributions],
+        "sentiment": [c[2] for c in contributions]
     })
 
     combined_contribution = (

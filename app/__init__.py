@@ -1,5 +1,7 @@
 from flask import Flask, g
+from datetime import datetime, date
 import sqlite3
+from .filters import filters
 
 path = "dail-debates.db"
 
@@ -12,6 +14,7 @@ def get_database():
 
 def init_app():
     app = Flask(__name__)
+    filters(app)
 
     @app.teardown_appcontext
     def close_connection(exception):

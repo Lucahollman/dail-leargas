@@ -1,18 +1,16 @@
 <html>
 <head>
     <title>Dáil Léargas</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='generalt.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='debate.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='overallstats.css') }}">
 </head>
-
 <body>
     <header>
-        <nav class="titlenavbar">
+        <nav class="navbar">
             <ul>
                 <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
                 <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
-                <li><a href="{{ url_for('debates') }}">Debates</a></li>
+                <li><a href="{{ url_for('debates') }}" class="active">Debates</a></li>
                 <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
                 <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
                 <li><a href="{{ url_for('words') }}">Words</a></li>
@@ -21,71 +19,93 @@
         </nav>
     </header>
 
-    <div class="debateheader">
+    <div class="debate-hero">
+        {% if debate.category %}
+        <span class="debate-badge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 3v18M5 8l-3 6a4 4 0 008 0l-3-6M19 8l-3 6a4 4 0 008 0l-3-6M5 8h4M19 8h-4M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            {{ debate.category }}
+        </span>
+        {% endif %}
         <h1>{{ debate.title }}</h1>
-        <p class="debate_date">{{ debate.date }}</p>
-        <a class="fulltext_link" href="{{ url_for('debatetext', debate_id=debate.id) }}">See Full Text</a>
+        <p class="debate_date">{{ debate.date | weekday_date }}</p>
+        <a class="fulltext_link" href="{{ url_for('debatetext', debate_id=debate.id) }}">
+            See Full Text
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
     </div>
 
-        <div class="chart-container">
-            <div class="chart-box">
-                <h3>Word Frequency Distribution</h3>
-                <div id="overallprobdist"></div>
-            </div>
-            <div class="chart-box">
-                <h3>Language Share</h3>
-                <div id="overallirishper"></div>
-            </div>
+    <div class="chart-container">
+        <div class="chart-box">
+            <h3>Word Frequency Distribution</h3>
+            <div id="overallprobdist"></div>
         </div>
-
-        <script>
-            const words = {{ words | tojson }};
-            const freq = {{ freq | tojson }};
-            const irish = {{ debate.irish_per | tojson }};
-            const english = 100 - irish;
-            const labels = ["Irish %", "English %"];
-            const values = [irish, english];
-        </script>
-        <script src="https://cdn.plot.ly/plotly-3.6.0.min.js" charset="utf-8"></script>
-        <script src="{{ url_for('static', filename='graphs.js') }}"></script>
-
-        
-            <
-
-            <div class="speakers_box">
-                <h3>Speakers</h3>
-                <table>
-                    <tr>
-                        <th>Speaker</th>
-                        <th>Overall Sentiment</th>
-                    </tr>
-                    {% for name in speaker_list %}
-                    <tr>
-                        <td><a href="{{ url_for('debatespeaker', debate_id=debate.id, td_name=name.td) }}">{{ name.td }}</a></td>
-                        <td>{{ "%.2f"|format(name.average_sentiment) }}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        
-            <div class="debate_container">
-
-            <table class="debatetable">
-                <tr>
-                    <th>Words</th>
-                    <th>Frequency</th>
-                    <th>Probability</th>
-                </tr>
-                {% for row in prob_dist %}
-                <tr>
-                    <td>{{ row.words }}</td>
-                    <td>{{ row.freq }}</td>
-                    <td>{{ "%.2f"|format(row.prob * 100) }}&#37;</td>
-                </tr>
-                {% endfor %}
-            </table>
-
+        <div class="chart-box">
+            <h3>Language Share</h3>
+            <div id="overallirishper"></div>
+        </div>
     </div>
 
+    <script>
+        const words = {{ words | tojson }};
+        const freq = {{ freq | tojson }};
+        const irish = {{ debate.irish_per | tojson }};
+        const english = 100 - irish;
+        const labels = ["Irish %", "English %"];
+        const values = [irish, english];
+    </script>
+    <script src="https://cdn.plot.ly/plotly-3.6.0.min.js" charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='graphs.js') }}"></script>
+
+    <div class="participants-section">
+        <div class="participants-header">
+            <h3>Key Participants</h3>
+            <span class="participants-count">{{ speaker_list | length }} Speaker{{ "s" if speaker_list | length != 1 else "" }} Listed</span>
+        </div>
+        <table class="participants-table">
+            <tr>
+                <th>Speaker</th>
+                <th>Constituency</th>
+                <th>Stance</th>
+                <th>Overall Sentiment</th>
+            </tr>
+            {% for name in speaker_list %}
+                {% set stance = name.average_sentiment | sentiment_stance %}
+            <tr>
+                <td>
+                    <div class="speaker-cell">
+                        {% if name.photo %}
+                        <img class="speaker-avatar" src="{{ name.photo }}" alt="{{ name.td }}">
+                        {% else %}
+                        <div class="speaker-avatar speaker-avatar-fallback">{{ name.td | initials }}</div>
+                        {% endif %}
+                        <div>
+                            <div class="speaker-name"><a href="{{ url_for('debatespeaker', debate_id=debate.id, td_name=name.td) }}">{{ name.td }}</a></div>
+                            {% if name.party %}<div class="speaker-party">{{ name.party }}</div>{% endif %}
+                        </div>
+                    </div>
+                </td>
+                <td>{{ name.constituency if name.constituency else "—" }}</td>
+                <td><span class="stance-pill {{ stance.css_class }}">{{ stance.label }}</span></td>
+                <td>
+                    <div class="sentiment-cell">
+                        <div class="sentiment-bar-track">
+                            <div class="sentiment-bar-fill" style="width: {{ (((name.average_sentiment + 1) / 2 * 100) | round(0)) | int }}%;"></div>
+                        </div>
+                        <span class="sentiment-value">{{ "%.2f"|format(name.average_sentiment) }}</span>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <footer>
+        <p>Author: Luca Hollman</p>
+        <p><a href="mailto:lucahollman@gmail.com">lucahollman@gmail.com</a></p>
+    </footer>
 </body>
 </html>

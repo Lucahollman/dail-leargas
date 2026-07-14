@@ -20,7 +20,7 @@ def overallstats():
 
 @app.route("/tds")
 def tds():
-    tds = get_database().execute("select name, party, constituency, id from td_metadata").fetchall()
+    tds = get_database().execute("select name, party, constituency, id from td_metadata order by name").fetchall()
     return render_template("tdindex.html", tds = tds)
 
 @app.route("/tds/<int:id>")
@@ -77,13 +77,31 @@ def searchwords():
 
 @app.route("/debates")
 def debates():
-    debates = get_database().execute("select id, title, date, category from debates").fetchall()
-    return render_template("debateindex.html", debates = debates)
+    debates = get_database().execute(
+        "select id, title, date, category from debates order by date desc, title"
+    ).fetchall()
+    categories = [
+        row["category"]
+        for row in get_database().execute("select distinct category from debates order by category").fetchall()]
+    return render_template("debateindex.html", debates=debates, categories=categories)
 
 @app.route("/debates/<int:debate_id>")
 def debatespecific(debate_id):
     debate = get_database().execute("select title, id, date, irish_per from debates where id = ?", (debate_id,)).fetchone()
-    speaker_list = get_database().execute("select  td, avg(sentiment) as average_sentiment  from contributions where debate_id = ? group by td", (debate_id,)).fetchall()
+    speaker_list = get_database().execute("""
+        select contributions.td,
+               avg(contributions.sentiment) as average_sentiment,
+               td_metadata.party,
+               td_metadata.constituency,
+               td_metadata.photo
+        from contributions
+        join td_metadata on contributions.td = td_metadata.name
+        where contributions.debate_id = ?
+            and contributions.td is not null
+        group by contributions.td
+        """,
+        (debate_id,)
+    ).fetchall()
     prob_dist = get_database().execute("select words, freq, prob from debate_frequency_tables where id = ?", (debate_id,)).fetchall()
     #labels for js chart
     words = [d["words"] for d in prob_dist]
@@ -109,14 +127,16 @@ def debatespeaker(debate_id, td_name):
 def debatetext(debate_id):
     debate = get_database().execute("select title, id, date, text from debates where id = ?", (debate_id,)).fetchone()
     contributions = get_database().execute(
-        """select contributions.rowid as rowid, contributions.td, contributions.contribution, td_metadata.photo, td_metadata.id as td_id
+        """select contributions.rowid as rowid, contributions.td, contributions.contribution, contributions.section_title, td_metadata.photo, td_metadata.id as td_id
            from contributions
            left join td_metadata on contributions.td = td_metadata.name
-           where contributions.debate_id = ?
+           where contributions.debate_id = ? 
            order by contributions.rowid""",
         (debate_id,)
     ).fetchall()
-    return render_template("debatetext.html", debate=debate, contributions=contributions)
+    distinct_sections = {c["section_title"] for c in contributions}
+    show_headers = len(distinct_sections) > 1
+    return render_template("debatetext.html", debate=debate, contributions=contributions, show_headers=show_headers)
 
 @app.route("/info")
 def info():

@@ -1,163 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
- 
-/* === Tokens === */
-:root {
-    --green-deep:   #1a3d2b;
-    --green-mid:    #2e6b47;
-    --green-light:  #e8ede9;
-    --gold:         #c9a84c;
-    --gold-light:   #f0e4bc;
-    --off-white:    #f5f2eb;
-    --text-dark:    #1c1c1c;
-    --text-muted:   #5a6b60;
-    --border:       #cdd8cf;
-}
- 
-/* === Base === */
-body {
-    background-color: var(--off-white);
-    color: var(--text-dark);
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    padding: 0;
-}
- 
-/* === Page Header Band === */
-.debateheader {
-    background-color: var(--green-deep);
-    border-bottom: 4px solid var(--gold);
-    padding: 2.5rem 3rem 2rem;
-    margin-bottom: 2rem;
-}
- 
-.debateheader h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: var(--off-white);
-    margin: 0;
-    letter-spacing: 0.01em;
-}
- 
-.debateheader p {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    color: var(--gold-light);
-    margin: 0.5rem 0 0;
-    font-weight: 300;
-}
- 
-/* === Irish % stat line === */
-.stat-line {
-    display: inline-block;
-    background: var(--gold-light);
-    border-left: 4px solid var(--gold);
-    padding: 0.5rem 1.2rem;
-    border-radius: 0 4px 4px 0;
-    font-size: 0.9rem;
-    color: var(--green-deep);
-    font-weight: 500;
-    margin: 0 3rem 2rem;
-}
- 
-/* === Charts Area === */
-.chart-container {
+/* Styling for Overall Statistics page */
+
+/* Quick Stats */
+.quickstats {
+    max-width: 1400px;
+    margin: 32px auto 0;
+    padding: 0 48px;
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 1.5rem;
-    padding: 0 3rem 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
 }
- 
-.chart-box {
-    background: white;
+
+.stat-card {
+    background: #ffffff;
     border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 1.2rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
 }
- 
-.chart-box h3 {
+
+.stat-card .stat-value {
     font-family: 'Playfair Display', serif;
-    font-size: 1rem;
+    font-size: 30px;
+    font-weight: 600;
     color: var(--green-deep);
-    margin: 0 0 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--border);
 }
- 
-#overallprobdist,
-#overallirishper {
-    width: 100%;
-    min-height: 380px;
-}
- 
-/* === Table Section === */
-.contentwrapper {
-    padding: 0 3rem 3rem;
-}
- 
-.contentwrapper h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    color: var(--green-deep);
-    margin: 0 0 1rem;
-}
- 
-.debateindextable {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.875rem;
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-}
- 
-.debateindextable th {
-    background-color: var(--green-deep);
-    color: var(--off-white);
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 0.8rem;
+
+.stat-card .stat-label {
+    font-size: 12px;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    padding: 0.75rem 1.2rem;
-    text-align: left;
-}
- 
-.debateindextable td {
-    padding: 0.65rem 1.2rem;
-    border-bottom: 1px solid var(--green-light);
-    color: var(--text-dark);
-}
- 
-.debateindextable tr:last-child td {
-    border-bottom: none;
-}
- 
-.debateindextable tr:nth-child(even) td {
-    background-color: var(--green-light);
-}
- 
-.debateindextable tr:hover td {
-    background-color: var(--gold-light);
-    transition: background-color 0.15s ease;
-}
- 
-/* === Responsive === */
-@media (max-width: 900px) {
-    .chart-container {
-        grid-template-columns: 1fr;
-        padding: 0 1.5rem 2rem;
-    }
-    .debateheader {
-        padding: 1.5rem;
-    }
-    .contentwrapper {
-        padding: 0 1.5rem 2rem;
-    }
-    .stat-line {
-        margin: 0 1.5rem 1.5rem;
-    }
+    color: var(--text-muted);
+    margin-top: 6px;
 }

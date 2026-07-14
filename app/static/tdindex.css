@@ -1,0 +1,76 @@
+/* Styling for Teachta Dála index page */
+
+.index-controls {
+    margin-bottom: 24px;
+}
+
+.index-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--green-deep);
+    padding-bottom: 8px;
+}
+
+.index-search svg {
+    flex-shrink: 0;
+    color: var(--text-muted);
+}
+
+.index-search input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--text-dark);
+    padding: 0;
+}
+
+.entries-meta {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.entry-row {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--green-light);
+}
+
+.entry-row:last-child {
+    border-bottom: none;
+}
+
+.entry-row a {
+    color: var(--text-dark);
+    text-decoration: none;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.entry-row a:hover {
+    color: var(--green-mid);
+}
+
+.entry-leader {
+    flex: 1;
+    border-bottom: 1px dotted var(--border);
+    margin: 0 4px 4px;
+}
+
+.entry-tag {
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
