@@ -65,11 +65,14 @@ def home():
 def overallstats():
     stats = get_database().execute("select words, freq, prob from full_text").fetchall()
     irish_per = get_database().execute("select irish_per from fulltext_irishper").fetchone()["irish_per"]
+    debates_num = get_database().execute("select count(id) from debates").fetchone()[0]
+    words_num = get_database().execute("select sum(wordsnum) from debates").fetchone()[0]
+    contributions_num = get_database().execute("select sum(contributionsnum) from debates").fetchone()[0]
     #labels for js chart
     words = [stat["words"] for stat in stats]
     freq = [stat["freq"] for stat in stats]
     prob = [stat["prob"] * 100 for stat in stats]
-    return render_template("overallstats.html", full_text=stats, irish_per=irish_per, words=words, freq=freq, prob=prob)
+    return render_template("overallstats.html", full_text=stats, irish_per=irish_per, debates_num = debates_num, words_num = words_num, contributions_num = contributions_num, words=words, freq=freq, prob=prob)
 
 @app.route("/tds")
 def tds():

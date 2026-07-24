@@ -1,5 +1,21 @@
 /* Styling for Debates index page */
 
+.debates-hero {
+    background: var(--green-light);
+    border-bottom: 3px solid var(--green-mid);
+    padding: 40px 56px;
+    text-align: left;
+}
+
+.debates-hero h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--green-deep);
+    margin: 0;
+}
+
 .debateindex-wrapper {
     margin: 0 auto;
     padding: 40px 56px;

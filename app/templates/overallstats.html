@@ -21,20 +21,19 @@
  
     <div class="pagebanner">
         <h2>Overall Statistics — 34th Dáil</h2>
-        <p>This page displays .. </p>
     </div>
  
     <div class="quickstats">
         <div class="stat-card">
-            <div class="stat-value">{{ total_debates | default("—") }}</div>
+            <div class="stat-value">{{ debates_num }}</div>
             <div class="stat-label">Debates recorded</div>
         </div>
         <div class="stat-card">
-            <div class="stat-value">{{ total_words | default("—") }}</div>
+            <div class="stat-value">{{ words_num }}</div>
             <div class="stat-label">Words spoken</div>
         </div>
         <div class="stat-card">
-            <div class="stat-value">{{ total_contributions | default("—") }}</div>
+            <div class="stat-value">{{ contributions_num }}</div>
             <div class="stat-label">Contributions</div>
         </div>
     </div>

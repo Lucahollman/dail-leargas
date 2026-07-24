@@ -25,12 +25,11 @@ contributions = cursor.fetchall()
 
 #Calcuating and uploading meta debate data to database
 for debate in debates:
+     id = debate[0]
      count = len(debate[3].split())
-     cursor.execute('''insert or ignore into debates (wordsnum),
-     "values(?)''', (count))
-
-for contribution in contributions:
-
+     cursor.execute('''select count(*) from contributions where debate_id = ? and text_type = 'speech' ''', (id,))
+     contribution_count = cursor.fetchone()[0]
+     cursor.execute("update debates set wordsnum = ?, contributionsnum = ? where id = ?", (count, contribution_count, id))
 
 #Defining stop words
 with open('stop-words.txt', 'r', encoding='utf-8') as f:
