@@ -1,7 +1,7 @@
 <html>
 <head>
     <title>Dáil Léargas</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='generalt.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='debate.css') }}">
 </head>
 <body>
@@ -30,22 +30,31 @@
         {% endif %}
         <h1>{{ debate.title }}</h1>
         <p class="debate_date">{{ debate.date | weekday_date }}</p>
-        <a class="fulltext_link" href="{{ url_for('debatetext', debate_id=debate.id) }}">
+        <a class="fulltext_button" href="{{ url_for('debatetext', debate_id=debate.id) }}">
             See Full Text
-            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </a>
     </div>
 
-    <div class="chart-container">
-        <div class="chart-box">
-            <h3>Word Frequency Distribution</h3>
-            <div id="overallprobdist"></div>
-        </div>
-        <div class="chart-box">
-            <h3>Language Share</h3>
-            <div id="overallirishper"></div>
+    <div class="insights-wrapper">
+        <div class="insights-card">
+            <div class="insights-header">
+                <h3>Debate Insights</h3>
+                <p class="insights-subtitle">Word usage and language breakdown for this sitting</p>
+            </div>
+            <div class="insights-body">
+                <div class="insights-panel insights-panel-main">
+                    <div class="insights-panel-label">Word Frequency Distribution</div>
+                    <div id="overallprobdist"></div>
+                </div>
+                <div class="insights-divider"></div>
+                <div class="insights-panel insights-panel-side">
+                    <div class="insights-panel-label">Language Share</div>
+                    <div id="overallirishper"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -83,7 +92,14 @@
                         <div class="speaker-avatar speaker-avatar-fallback">{{ name.td | initials }}</div>
                         {% endif %}
                         <div>
-                            <div class="speaker-name"><a href="{{ url_for('debatespeaker', debate_id=debate.id, td_name=name.td) }}">{{ name.td }}</a></div>
+                            <div class="speaker-name">
+                                <a href="{{ url_for('debatespeaker', debate_id=debate.id, td_name=name.td) }}">
+                                    {{ name.td }}
+                                    <svg class="speaker-link-icon" width="11" height="11" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3.5 8.5L8.5 3.5M8.5 3.5H4.5M8.5 3.5V7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </a>
+                            </div>
                             {% if name.party %}<div class="speaker-party">{{ name.party }}</div>{% endif %}
                         </div>
                     </div>

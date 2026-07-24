@@ -1,15 +1,16 @@
 <html>
     <head>
         <title>Oireachtas Revealed</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='generalt.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='debatetext.css') }}">
     </head>
+    <body>
     <header>
-        <nav class="titlenavbar">
+        <nav class="navbar">
             <ul>
                 <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
                 <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
-                <li><a href="{{ url_for('debates') }}">Debates</a></li>
+                <li><a href="{{ url_for('debates') }}" class="active">Debates</a></li>
                 <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
                 <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
                 <li><a href="{{ url_for('words') }}">Words</a></li>
@@ -18,10 +19,15 @@
         </nav>
     </header>
     <div class="debateheader">
-            <h2>{{debate.title}} — {{debate.date}}</h2> 
-            <a href="{{ url_for('debatespecific', debate_id=debate.id) }}">Back to Debate</a>
-        </div>
-    <body>
+        <a class="back_button" href="{{ url_for('debatespecific', debate_id=debate.id) }}">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 7H2M6 3L2 7l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Back to Debate
+        </a>
+        <h2>{{ debate.title }}</h2>
+        <p class="debateheader_date">{{ debate.date }}</p>
+    </div>
      <div class="contentwrapper">
         <div class="contributions_list">
             {% set ns = namespace(current_section=None) %}

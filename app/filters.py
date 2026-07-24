@@ -32,6 +32,13 @@ def short_date(value):
     if d is None:
         return value
     return d.strftime("%a %d %b")
+
+
+def card_date(value):
+    d = _parse_date(value)
+    if d is None:
+        return value
+    return d.strftime("%d %b %Y").lstrip("0")
  
  
 def year_of(value):
@@ -53,5 +60,6 @@ def sentiment_stance(value):
 def filters(app):
     app.jinja_env.filters['weekday_date'] = weekday_date
     app.jinja_env.filters['short_date'] = short_date
+    app.jinja_env.filters['card_date'] = card_date
     app.jinja_env.filters['year_of'] = year_of
     app.jinja_env.filters['sentiment_stance'] = sentiment_stance

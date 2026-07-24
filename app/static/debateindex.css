@@ -1,5 +1,10 @@
 /* Styling for Debates index page */
 
+.debateindex-wrapper {
+    margin: 0 auto;
+    padding: 40px 56px;
+}
+
 .debate-controls {
     margin-bottom: 24px;
 }

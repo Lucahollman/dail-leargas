@@ -2,11 +2,11 @@
 <head>
     <title>Oireachtas Revealed</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='debate.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='speakercontribution.css') }}">
 </head>
     <body>
         <header>
-            <nav class="titlenavbar">
+            <nav class="navbar">
                 <ul>
                     <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
                     <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
@@ -18,13 +18,18 @@
                 </ul>
             </nav>
         </header>
-        <div class="debateheader">
+        <div class="contribheader">
+            <a class="back_button" href="{{ url_for('debatespecific', debate_id=debate.id) }}">
+                <svg width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 7H2M6 3L2 7l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Back to Debate
+            </a>
             <h2><a href="{{ url_for('tdspecific', id=contributions[0].id) }}">{{ contributions[0].td }}</a></h2>
-            <p>{{ debate.title }} — {{ debate.date }}</p>
+            <p class="contribheader_meta">{{ debate.title }} · {{ debate.date }}</p>
             {% if average_sentiment is not none %}
-            <p><span class="overall_sentiment_badge">Overall sentiment: {{ "%.2f"|format(average_sentiment) }}</span></p>
+            <span class="overall_sentiment_badge">Overall sentiment: {{ "%.2f"|format(average_sentiment) }}</span>
             {% endif %}
-            <a href="{{ url_for('debatespecific', debate_id=debate.id) }}">Back to Debate</a>
         </div>
  
         <div class=contentwrapper>
@@ -40,4 +45,3 @@
  
     </body>
 </html>
- 

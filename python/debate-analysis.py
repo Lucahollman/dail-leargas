@@ -17,10 +17,19 @@ from collections import Counter
 connection = sqlite3.connect(r"dail-debates.db")
 cursor = connection.cursor()
 
-sql_statement = f"select * from debates"
-cursor.execute(sql_statement)
-
+cursor.execute("select * from debates")
 debates = cursor.fetchall()
+
+cursor.execute("select * from contributions")
+contributions = cursor.fetchall()
+
+#Calcuating and uploading meta debate data to database
+for debate in debates:
+     count = len(debate[3].split())
+     cursor.execute('''insert or ignore into debates (wordsnum),
+     "values(?)''', (count))
+
+for contribution in contributions:
 
 
 #Defining stop words

@@ -21,7 +21,9 @@ cursor.execute('''create table if not exists debates(
                date text,
                text text,
                category text,
-               irish_per integer
+               irish_per integer,
+               wordsnum,
+               contributionsnum
                )''')
 
 cursor.execute('''create table if not exists contributions(

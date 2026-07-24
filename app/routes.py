@@ -2,10 +2,63 @@ from flask import render_template, request, jsonify
 from flask import current_app as app
 from . import get_database
 
+def _build_sparkline_points(counts, width=220, height=40, padding=4):
+    if not counts:
+        return ""
+    if len(counts) == 1:
+        counts = counts * 2
+    n = len(counts)
+    max_c = max(counts)
+    min_c = min(counts)
+    range_c = (max_c - min_c) or 1
+    step = (width - 2 * padding) / (n - 1)
+    points = []
+    for i, c in enumerate(counts):
+        x = padding + i * step
+        y = height - padding - ((c - min_c) / range_c) * (height - 2 * padding)
+        points.append(f"{x:.1f},{y:.1f}")
+    return " ".join(points)
+
 
 @app.route("/")
 def home():
-    return render_template("home.html")
+    recent_debates = get_database().execute("""
+        select debates.id, debates.title, debates.date, debates.category,
+               count(contributions.rowid) as contribution_count
+        from debates
+        left join contributions on contributions.debate_id = debates.id
+        group by debates.id
+        order by debates.date desc
+        limit 10
+        """).fetchall()
+    leaderboard = get_database().execute(
+        """select id, name, party, constituency, irish_per
+           from td_metadata
+           where irish_per is not null
+           order by irish_per desc"""
+    ).fetchall()
+    top_words = get_database().execute(
+        "select words, freq from full_text order by freq desc limit 3"
+    ).fetchall()
+    word_trends = []
+    for row in top_words:
+        w = row["words"]
+        history = get_database().execute(
+            "select date, sum(frequency) as frequency from word_freq where word = ? group by date order by date",
+            (w,)
+        ).fetchall()
+        counts = [h["frequency"] for h in history]
+        word_trends.append({
+            "word": w,
+            "total": row["freq"],
+            "points": _build_sparkline_points(counts)
+        })
+    return render_template(
+        "home.html",
+        recent_debates=recent_debates,
+        leaderboard=leaderboard,
+        word_trends=word_trends
+    )
 
 #Dáil Index Routes
 @app.route("/overallstats")

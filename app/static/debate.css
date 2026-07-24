@@ -3,7 +3,7 @@
 .debate-hero {
     max-width: 900px;
     margin: 0 auto;
-    padding: 48px 24px 32px;
+    padding: 48px 24px 36px;
     text-align: center;
 }
 
@@ -11,7 +11,7 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: var(--gold-light);
+    background: var(--green-light);
     color: var(--green-deep);
     font-size: 12px;
     font-weight: 600;
@@ -19,44 +19,119 @@
     text-transform: uppercase;
     padding: 6px 14px;
     border-radius: 999px;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
 .debate-hero h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 34px;
+    font-size: 38px;
     font-weight: 600;
+    letter-spacing: -0.01em;
     color: var(--green-deep);
-    line-height: 1.3;
-    margin-bottom: 16px;
+    line-height: 1.25;
+    margin-bottom: 14px;
 }
 
 .debate_date {
     font-size: 14px;
     color: var(--text-muted);
-    margin-bottom: 12px;
+    margin-bottom: 26px;
 }
 
-.fulltext_link {
+/* Prominent full-text call to action, sat directly beneath the title/date */
+.fulltext_button {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    color: var(--gold);
+    gap: 8px;
+    background: var(--green-deep);
+    color: #ffffff;
     font-size: 14px;
     font-weight: 600;
     text-decoration: none;
+    padding: 11px 24px;
+    border-radius: 999px;
+    box-shadow: 0 2px 6px rgba(26, 61, 43, 0.18);
+    transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.fulltext_link:hover {
-    color: var(--green-mid);
+.fulltext_button:hover {
+    background: var(--green-mid);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(26, 61, 43, 0.22);
 }
 
-.fulltext_link svg {
+.fulltext_button svg {
     transition: transform 0.15s ease;
 }
 
-.fulltext_link:hover svg {
+.fulltext_button:hover svg {
     transform: translateX(3px);
+}
+
+/* Debate Insights (merged word-frequency + language-share card) */
+.insights-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+}
+
+.insights-card {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    padding: 28px 32px 32px;
+}
+
+.insights-header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-bottom: 18px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--green-light);
+}
+
+.insights-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--green-deep);
+}
+
+.insights-subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.insights-body {
+    display: grid;
+    grid-template-columns: 2fr 1px 1fr;
+    gap: 28px;
+    align-items: stretch;
+}
+
+.insights-panel-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+.insights-divider {
+    background: var(--green-light);
+}
+
+@media (max-width: 800px) {
+    .insights-body {
+        grid-template-columns: 1fr;
+    }
+
+    .insights-divider {
+        display: none;
+    }
 }
 
 /* Key Participants */
@@ -145,6 +220,9 @@
 }
 
 .speaker-name a {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     color: var(--text-dark);
     text-decoration: none;
     font-weight: 600;
@@ -153,6 +231,19 @@
 
 .speaker-name a:hover {
     color: var(--green-mid);
+}
+
+/* Small always-visible affordance marking the name as clickable */
+.speaker-link-icon {
+    color: var(--green-mid);
+    opacity: 0.85;
+    flex-shrink: 0;
+    transition: color 0.15s ease, opacity 0.15s ease;
+}
+
+.speaker-name a:hover .speaker-link-icon {
+    color: var(--green-deep);
+    opacity: 1;
 }
 
 .speaker-party {

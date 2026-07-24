@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dáil Leargas</title>
-     <link rel="stylesheet" href="{{ url_for('static', filename='generalt.css') }}">
+     <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
      <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
 </head>
 <body>
@@ -21,52 +21,77 @@
             </ul>
         </nav>
     </header>
-    <div class="titlebanner">
-        <h1>Welcome to Dáil Léargas</h1>
-        <p>This website is the home for Irish parliamentary text and sentiment analysis. Browse TDs, debates, and see who said what, the most common words, how much Gaeilge is being spoken, and the sentiment of TD contributions.</p>
-    </div>
-    <div class="content-section">
-        <div class="section-header">
-            <h2>Recent debates</h2>
-            <a href="#" class="section-link">See all →</a>
-        </div>
-        <div class="debate-grid">
-            <div class="debate-card">
-                <div class="debate-tag">Dáil debate</div>
-                <div class="debate-title">Health (Amendment) Bill 2026</div>
-                <div class="debate-meta">3 Jul 2026 · 214 contributions</div>
-            </div>
-            <div class="debate-card">
-                <div class="debate-tag">Dáil debate</div>
-                <div class="debate-title">Housing Supply Motion</div>
-                <div class="debate-meta">2 Jul 2026 · 178 contributions</div>
-            </div>
-            <div class="debate-card">
-                <div class="debate-tag">Dáil debate</div>
-                <div class="debate-title">Finance Bill: Second Stage</div>
-                <div class="debate-meta">1 Jul 2026 · 302 contributions</div>
+
+    <div class="hero">
+        <div class="hero-inner">
+            <h1>Welcome to Dáil Léargas</h1>
+            <p>The home for Irish parliamentary text and sentiment analysis.</p>
+            <div class="hero-actions">
+                <a class="hero-btn hero-btn-primary" href="{{ url_for('debates') }}">Browse Debates</a>
+                <a class="hero-btn hero-btn-secondary" href="{{ url_for('overallstats') }}">View Statistics</a>
             </div>
         </div>
     </div>
 
-    <div class="content-section">
-        <div class="section-header">
-            <h2>Gaeilge leaderboard</h2>
-            <a href="#" class="section-link">See all →</a>
+    <div class="section">
+        <div class="section-header-row">
+            <h2>Recent Debates</h2>
+            <div class="section-header-controls">
+                <button class="carousel-btn" type="button" data-dir="-1" aria-label="Scroll left">&lsaquo;</button>
+                <button class="carousel-btn" type="button" data-dir="1" aria-label="Scroll right">&rsaquo;</button>
+                <a href="{{ url_for('debates') }}" class="section-link">See all →</a>
+            </div>
         </div>
-        <div class="leaderboard">
-            <div class="leaderboard-row">
-                <span class="leaderboard-name"><span class="leaderboard-rank">1</span>Éamon Ó Cuív</span>
-                <span class="leaderboard-value">38.2%</span>
+        <div class="debate-grid" id="debate-scroll">
+            {% for debate in recent_debates %}
+            <a class="debate-card" href="{{ url_for('debatespecific', debate_id=debate.id) }}">
+                <div class="debate-tag">{{ debate.category if debate.category else "Dáil debate" }}</div>
+                <div class="debate-title">{{ debate.title }}</div>
+                <div class="debate-card-footer">
+                    <span class="debate-date">{{ debate.date | card_date }}</span>
+                    <span class="debate-view">View →</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="lower-grid">
+        <div class="leaderboard-section">
+            <div class="section-header-row">
+                <h2>Gaeilge Leaderboard</h2>
+                <a href="{{ url_for('tds') }}" class="section-link">See all →</a>
             </div>
-            <div class="leaderboard-row">
-                <span class="leaderboard-name"><span class="leaderboard-rank">2</span>Aengus Ó Snodaigh</span>
-                <span class="leaderboard-value">31.6%</span>
+            <div class="leaderboard-list">
+                {% for td in leaderboard %}
+                <a class="leaderboard-row" href="{{ url_for('tdspecific', id=td.id) }}">
+                    <div class="leaderboard-row-main">
+                        <div class="leaderboard-rank-label">Rank {{ loop.index }}</div>
+                        <div class="leaderboard-row-title">{{ td.name }}</div>
+                        <div class="leaderboard-row-sub">{{ td.party if td.party else "—" }} · {{ td.constituency if td.constituency else "—" }}</div>
+                    </div>
+                    <span class="leaderboard-pill">{{ "%.1f"|format(td.irish_per) }}%</span>
+                </a>
+                {% endfor %}
             </div>
-            <div class="leaderboard-row">
-                <span class="leaderboard-name"><span class="leaderboard-rank">3</span>Catherine Connolly</span>
-                <span class="leaderboard-value">24.9%</span>
+        </div>
+
+        <div class="lower-divider"></div>
+
+        <div class="polling-section">
+            <div class="section-header-row">
+                <h2>Word Usage</h2>
+                <a href="{{ url_for('words') }}" class="section-link">See all →</a>
             </div>
+            {% for trend in word_trends %}
+            <div class="polling-card">
+                <div class="polling-card-title">{{ trend.word }}</div>
+                <div class="polling-card-sub">{{ trend.total }} mentions</div>
+                <svg class="sparkline" viewBox="0 0 220 40" preserveAspectRatio="none">
+                    <polyline points="{{ trend.points }}" fill="none" stroke="var(--green-mid)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            {% endfor %}
         </div>
     </div>
 
@@ -74,5 +99,7 @@
         <p>Author: Luca Hollman</p>
         <p><a href="lucahollman@gmail.com">lucahollman@gmail.com</a></p>
     </footer>
+
+    <script src="{{ url_for('static', filename='home.js') }}"></script>
 </body>
 </html>
