@@ -1,10 +1,25 @@
 /* Styling for Overall Statistics page */
 
+.overallstats-hero {
+    background: var(--green-light);
+    border-bottom: 3px solid var(--green-mid);
+    padding: 20px 56px;
+    text-align: left;
+}
+
+.overallstats-hero h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--green-deep);
+    margin: 0;
+}
+
 /* Quick Stats */
 .quickstats {
-    max-width: 1400px;
     margin: 32px auto 0;
-    padding: 0 48px;
+    padding: 0 56px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
@@ -31,4 +46,36 @@
     text-transform: uppercase;
     color: var(--text-muted);
     margin-top: 6px;
+}
+
+/* Charts */
+.stats-chart-container {
+    margin: 32px auto 56px;
+    padding: 0 56px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 16px;
+}
+
+.stats-chart-box {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.stats-chart-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--green-deep);
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--green-light);
+}
+
+@media (max-width: 800px) {
+    .stats-chart-container {
+        grid-template-columns: 1fr;
+    }
 }

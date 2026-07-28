@@ -2,24 +2,6 @@ from flask import render_template, request, jsonify
 from flask import current_app as app
 from . import get_database
 
-def _build_sparkline_points(counts, width=220, height=40, padding=4):
-    if not counts:
-        return ""
-    if len(counts) == 1:
-        counts = counts * 2
-    n = len(counts)
-    max_c = max(counts)
-    min_c = min(counts)
-    range_c = (max_c - min_c) or 1
-    step = (width - 2 * padding) / (n - 1)
-    points = []
-    for i, c in enumerate(counts):
-        x = padding + i * step
-        y = height - padding - ((c - min_c) / range_c) * (height - 2 * padding)
-        points.append(f"{x:.1f},{y:.1f}")
-    return " ".join(points)
-
-
 @app.route("/")
 def home():
     recent_debates = get_database().execute("""
@@ -38,21 +20,9 @@ def home():
            order by irish_per desc"""
     ).fetchall()
     top_words = get_database().execute(
-        "select words, freq from full_text order by freq desc limit 3"
+        "select words, freq from full_text order by freq desc limit 10"
     ).fetchall()
-    word_trends = []
-    for row in top_words:
-        w = row["words"]
-        history = get_database().execute(
-            "select date, sum(frequency) as frequency from word_freq where word = ? group by date order by date",
-            (w,)
-        ).fetchall()
-        counts = [h["frequency"] for h in history]
-        word_trends.append({
-            "word": w,
-            "total": row["freq"],
-            "points": _build_sparkline_points(counts)
-        })
+    word_trends = [{"word": row["words"], "total": row["freq"]} for row in top_words]
     return render_template(
         "home.html",
         recent_debates=recent_debates,
@@ -162,7 +132,11 @@ def debatespecific(debate_id):
     #labels for js chart
     words = [d["words"] for d in prob_dist]
     freq = [d["freq"] for d in prob_dist]
-    return render_template("debate.html", debate=debate, prob_dist=prob_dist, speaker_list=speaker_list, words=words, freq=freq)
+    words_spoken = sum(freq)
+    contribution_count = get_database().execute(
+        "select count(*) as count from contributions where debate_id = ?", (debate_id,)
+    ).fetchone()["count"]
+    return render_template("debate.html", debate=debate, prob_dist=prob_dist, speaker_list=speaker_list, words=words, freq=freq, words_spoken = words_spoken, contribution_count = contribution_count)
 
 @app.route("/debates/<int:debate_id>/speaker/<td_name>")
 def debatespeaker(debate_id, td_name):

@@ -19,7 +19,7 @@
         </nav>
     </header>
  
-    <div class="pagebanner">
+    <div class="overallstats-hero">
         <h2>Overall Statistics — 34th Dáil</h2>
     </div>
  
@@ -34,16 +34,16 @@
         </div>
         <div class="stat-card">
             <div class="stat-value">{{ contributions_num }}</div>
-            <div class="stat-label">Contributions</div>
+            <div class="stat-label">TD contributions</div>
         </div>
     </div>
  
-    <div class="chart-container">
-        <div class="chart-box">
+    <div class="stats-chart-container">
+        <div class="stats-chart-box">
             <h3>Word Frequency Distribution</h3>
             <div id="overallprobdist"></div>
         </div>
-        <div class="chart-box">
+        <div class="stats-chart-box">
             <h3>Language Share</h3>
             <div id="overallirishper"></div>
         </div>
@@ -59,24 +59,6 @@
     </script>
     <script src="https://cdn.plot.ly/plotly-3.6.0.min.js" charset="utf-8"></script>
     <script src="{{ url_for('static', filename='graphs.js') }}"></script>
- 
-    <div class="contentwrapper">
-        <h3>Full Frequency Table</h3>
-        <table class="debateindextable">
-            <tr>
-                <th>Word</th>
-                <th>Frequency</th>
-                <th>Probability</th>
-            </tr>
-            {% for row in full_text %}
-            <tr>
-                <td>{{ row.words }}</td>
-                <td>{{ row.freq }}</td>
-                <td>{{ "%.2f"|format(row.prob * 100) }}&#37;</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
  
     <footer>
         <p>Author: Luca Hollman</p>

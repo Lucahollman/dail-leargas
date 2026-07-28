@@ -1,255 +1,192 @@
-/* Styling for home page */
+/* Home-page-styling */
 
 /* Hero */
 .hero {
-    background: var(--green-light);
-    border-bottom: 3px solid var(--green-mid);
-}
-
-.hero-inner {
-    margin: 0 auto;
-    padding: 72px 56px;
-    text-align: left;
+    border-bottom: 1px solid var(--rule-warm);
+    text-align: center;
+    margin-top: 10px;
 }
 
 .hero h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 44px;
+    font-size: 64px;
     font-weight: 600;
+    line-height: 1.1;
     letter-spacing: -0.01em;
-    color: var(--green-deep);
-    max-width: 720px;
-    margin: 0 0 18px;
+    color: var(--ink);
 }
 
 .hero p {
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--text-muted);
-    max-width: 560px;
-    margin: 0 0 28px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 15px;
+    margin-bottom: 28px;
 }
 
 .hero-actions {
     display: flex;
+    justify-content: center;
     gap: 12px;
     flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 
 .hero-btn {
     display: inline-flex;
     align-items: center;
-    padding: 12px 26px;
-    border-radius: 999px;
-    font-size: 14px;
+    padding: 11px 22px;
+    border: 1px solid var(--ink);
+    border-radius: 2px;
+    font-size: 12px;
     font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     text-decoration: none;
-    transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
-}
-
-.hero-btn-primary {
-    background: var(--green-deep);
-    color: #ffffff;
-    box-shadow: 0 2px 6px rgba(26, 61, 43, 0.18);
-}
-
-.hero-btn-primary:hover {
     background: var(--green-mid);
-    transform: translateY(-1px);
+    color: white;
+    transition: background 0.15s ease, color 0.15s ease;
 }
 
-.hero-btn-secondary {
-    background: #ffffff;
-    color: var(--green-deep);
-    border: 1px solid var(--border);
+.hero-btn:hover {
+    background: orange;
+    color: white;
 }
 
-.hero-btn-secondary:hover {
-    border-color: var(--green-deep);
-    transform: translateY(-1px);
-}
-
-/* Shared section header row (title + controls/link) */
+/* Shared section header row */
 .section {
-    margin: 0 auto;
-    padding: 56px 56px 0;
+    padding: 48px clamp(24px, 4vw, 64px) 0;
 }
 
 .section-header-row {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
     gap: 16px;
 }
 
 .section-header-row h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 26px;
+    font-size: 12px;
     font-weight: 700;
-    letter-spacing: -0.01em;
-    color: var(--green-deep);
-}
-
-.section-header-controls {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
 }
 
 .section-link {
-    font-size: 13px;
-    color: var(--text-muted);
+    font-size: 12px;
+    color: var(--ink-soft);
     text-decoration: none;
     white-space: nowrap;
 }
 
 .section-link:hover {
-    color: var(--green-deep);
+    color: var(--seal);
 }
 
-.carousel-btn {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 1px solid var(--border);
-    background: #ffffff;
-    color: var(--green-deep);
-    font-size: 16px;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    padding: 0;
-    transition: background 0.15s ease, border-color 0.15s ease;
-}
-
-.carousel-btn:hover {
-    background: var(--green-light);
-    border-color: var(--green-mid);
-}
-
-/* Recent Debates - horizontally scrolling row of cards */
-.debate-grid {
-    display: flex;
-    gap: 16px;
-    overflow-x: auto;
-    padding-bottom: 16px;
-    scroll-snap-type: x proximity;
+/* Recent Debates — register-style list, not cards */
+.register-list {
+    max-height: 360px;
+    overflow-y: auto;
+    border: 1px solid var(--rule-warm);
     scrollbar-width: thin;
-    scrollbar-color: var(--green-light) transparent;
+    scrollbar-color: var(--rule-warm) transparent;
 }
 
-.debate-grid::-webkit-scrollbar {
-    height: 8px;
+.register-list::-webkit-scrollbar {
+    width: 8px;
 }
 
-.debate-grid::-webkit-scrollbar-track {
+.register-list::-webkit-scrollbar-track {
     background: transparent;
 }
 
-.debate-grid::-webkit-scrollbar-thumb {
-    background: var(--green-light);
+.register-list::-webkit-scrollbar-thumb {
+    background: var(--rule-warm);
     border-radius: 999px;
 }
 
-.debate-grid::-webkit-scrollbar-thumb:hover {
-    background: var(--border);
-}
-
-.debate-card {
-    flex: 0 0 270px;
-    scroll-snap-align: start;
+.register-row {
     display: flex;
-    flex-direction: column;
-    background: #ffffff;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 18px;
+    align-items: baseline;
+    gap: 14px;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--rule-warm);
     text-decoration: none;
     color: inherit;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.debate-card:hover {
-    border-color: var(--green-mid);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+.register-row:last-child {
+    border-bottom: none;
 }
 
-.debate-card .debate-tag {
+.register-row:hover .register-title {
+    color: var(--seal);
+}
+
+.register-tag {
+    flex: 0 0 150px;
     font-size: 11px;
+    font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--green-mid);
-    font-weight: 600;
-    margin-bottom: 10px;
+    color: var(--ink-soft);
 }
 
-.debate-card .debate-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text-dark);
-    line-height: 1.4;
+.register-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--ink);
+    transition: color 0.15s ease;
+}
+
+.register-leader {
     flex: 1;
-    margin-bottom: 16px;
+    border-bottom: 1px dotted var(--rule-warm);
+    margin: 0 4px 5px;
 }
 
-.debate-card-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 12px;
-    border-top: 1px solid var(--green-light);
+.register-date {
+    flex-shrink: 0;
     font-size: 12px;
+    color: var(--ink-soft);
 }
 
-.debate-card-footer .debate-date {
-    color: var(--text-muted);
+.register-arrow {
+    flex-shrink: 0;
+    font-size: 13px;
+    color: var(--seal);
 }
 
-.debate-card-footer .debate-view {
-    color: var(--green-mid);
-    font-weight: 600;
-}
-
-.debate-card:hover .debate-view {
-    color: var(--green-deep);
-}
-
-/* Lower two-column section, with a horizontal divider that flows straight
-   into the vertical divider between the two columns (no gap between them) */
+/* Lower two-column section */
 .lower-grid {
-    margin: 56px auto 0;
-    padding: 0 56px 56px;
-    border-top: 1px solid var(--border);
+    margin: 48px 0 0;
+    padding: 0 clamp(24px, 4vw, 64px) 64px;
+    border-top: 1px solid var(--rule-warm);
     display: grid;
     grid-template-columns: 2fr 1px 1fr;
-    gap: 24px;
-    align-items: stretch;
+    gap: 40px;
 }
 
 .lower-divider {
-    background: var(--border);
+    background: var(--rule-warm);
 }
 
-.leaderboard-section {
+.leaderboard-section,
+.wordusage-section {
     padding-top: 40px;
 }
 
-.polling-section {
-    padding-top: 40px;
-}
-
-/* Gaeilge Leaderboard (left column) */
+/* Gaeilge Leaderboard */
 .leaderboard-list {
-    background: #ffffff;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    max-height: 560px;
+    max-height: 320px;
     overflow-y: auto;
+    border: 1px solid var(--rule-warm);
     scrollbar-width: thin;
-    scrollbar-color: var(--green-light) transparent;
+    scrollbar-color: var(--rule-warm) transparent;
 }
 
 .leaderboard-list::-webkit-scrollbar {
@@ -261,93 +198,93 @@
 }
 
 .leaderboard-list::-webkit-scrollbar-thumb {
-    background: var(--green-light);
+    background: var(--rule-warm);
     border-radius: 999px;
-}
-
-.leaderboard-list::-webkit-scrollbar-thumb:hover {
-    background: var(--border);
 }
 
 .leaderboard-row {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    align-items: baseline;
     gap: 16px;
-    padding: 16px 22px;
-    border-bottom: 1px solid var(--green-light);
+    padding: 13px 18px;
+    border-bottom: 1px solid var(--rule-warm);
     text-decoration: none;
     color: inherit;
-    transition: background 0.15s ease;
 }
 
 .leaderboard-row:last-child {
     border-bottom: none;
 }
 
-.leaderboard-row:hover {
-    background: var(--off-white);
+.leaderboard-row:hover .leaderboard-name {
+    color: var(--seal);
 }
 
-.leaderboard-rank-label {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 4px;
+.leaderboard-rank {
+    flex-shrink: 0;
+    width: 18px;
+    font-size: 13px;
+    color: var(--ink-soft);
 }
 
-.leaderboard-row-title {
+.leaderboard-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.leaderboard-name {
+    font-family: 'Playfair Display', serif;
     font-size: 15px;
     font-weight: 600;
-    color: var(--text-dark);
-    margin-bottom: 2px;
+    color: var(--ink);
+    transition: color 0.15s ease;
 }
 
-.leaderboard-row-sub {
+.leaderboard-sub {
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--ink-soft);
 }
 
-.leaderboard-pill {
+.leaderboard-percent {
     flex-shrink: 0;
-    background: var(--green-light);
-    color: var(--green-deep);
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
-    padding: 6px 14px;
-    border-radius: 999px;
+    color: var(--ink);
 }
 
-/* Word Usage (right column) */
-.polling-card {
-    background: #ffffff;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 18px 20px;
-    margin-bottom: 14px;
+/* Word Usage */
+.wordusage-list {
+    border-top: 1px solid var(--rule-warm);
 }
 
-.polling-card-title {
+.wordusage-row {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--rule-warm);
+}
+
+.wordusage-word {
     font-family: 'Playfair Display', serif;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
-    color: var(--green-deep);
     text-transform: capitalize;
-    margin-bottom: 2px;
+    color: var(--ink);
 }
 
-.polling-card-sub {
+.wordusage-leader {
+    flex: 1;
+    border-bottom: 1px dotted var(--rule-warm);
+    margin: 0 4px 5px;
+}
+
+.wordusage-count {
+    flex-shrink: 0;
     font-size: 12px;
-    color: var(--text-muted);
-    margin-bottom: 12px;
-}
-
-.sparkline {
-    width: 100%;
-    height: 40px;
-    display: block;
+    color: var(--ink-soft);
 }
 
 @media (max-width: 900px) {
@@ -359,15 +296,19 @@
         display: none;
     }
 
-    .polling-section {
-        border-top: 1px solid var(--border);
-        padding-top: 28px;
+    .wordusage-section {
+        border-top: 1px solid var(--rule-warm);
+        padding-top: 24px;
         margin-top: 8px;
     }
 }
 
 @media (max-width: 600px) {
     .hero h1 {
-        font-size: 32px;
+        font-size: 34px;
+    }
+
+    .register-tag {
+        flex-basis: 100px;
     }
 }

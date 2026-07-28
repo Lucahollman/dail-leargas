@@ -2,10 +2,11 @@
 <head>
     <title>Dáil Léargas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='partyindex.css') }}">
 </head>
 <body>
     <header>
-        <nav class="titlenavbar">
+        <nav class="navbar">
             <ul>
                 <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
                 <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
@@ -18,8 +19,8 @@
         </nav>
     </header>
     <div class = contentwrapper>
-            <div class = debateheader>
-                <h1>Parties</h1>
+            <div class = index_title>
+                <h2>Parties</h2>
             </div>
             <table class =debateindextable>
                 <tr>

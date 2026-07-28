@@ -1,5 +1,31 @@
 /* Styling for Teachta Dála index page */
 
+/* Page Title */
+
+.title {
+    text-align: center;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.title h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;         
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 8px;       
+}
+
+.title-line {
+    width: 100px;
+    height: 2px;
+    background: var(--green-mid);
+    margin: 0 auto;           
+}
+
+/* search engine */
+
 .index-controls {
     margin-bottom: 24px;
 }

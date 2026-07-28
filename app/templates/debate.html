@@ -20,38 +20,39 @@
     </header>
 
     <div class="debate-hero">
-        {% if debate.category %}
-        <span class="debate-badge">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 3v18M5 8l-3 6a4 4 0 008 0l-3-6M19 8l-3 6a4 4 0 008 0l-3-6M5 8h4M19 8h-4M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            {{ debate.category }}
-        </span>
-        {% endif %}
+        <span class="debate-eyebrow">{{ debate.category if debate.category else "Dáil debate" }}</span>
         <h1>{{ debate.title }}</h1>
-        <p class="debate_date">{{ debate.date | weekday_date }}</p>
-        <a class="fulltext_button" href="{{ url_for('debatetext', debate_id=debate.id) }}">
-            See Full Text
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </a>
+        <div class="debate-hero-row">
+            <span class="debate-date">{{ debate.date | weekday_date }}</span>
+            <a class="fulltext_button" href="{{ url_for('debatetext', debate_id=debate.id) }}">
+                See Full Text
+                <svg width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <div class="debate-quickstats">
+        <div class="debate-stat-card">
+            <div class="debate-stat-value">{{ words_spoken }}</div>
+            <div class="debate-stat-label">Words spoken</div>
+        </div>
+        <div class="debate-stat-card">
+            <div class="debate-stat-value">{{ contribution_count }}</div>
+            <div class="debate-stat-label">Contributions</div>
+        </div>
     </div>
 
     <div class="insights-wrapper">
         <div class="insights-card">
-            <div class="insights-header">
-                <h3>Debate Insights</h3>
-                <p class="insights-subtitle">Word usage and language breakdown for this sitting</p>
-            </div>
+            <div class="insights-label">Word Frequency &amp; Language Share</div>
             <div class="insights-body">
                 <div class="insights-panel insights-panel-main">
-                    <div class="insights-panel-label">Word Frequency Distribution</div>
                     <div id="overallprobdist"></div>
                 </div>
                 <div class="insights-divider"></div>
                 <div class="insights-panel insights-panel-side">
-                    <div class="insights-panel-label">Language Share</div>
                     <div id="overallirishper"></div>
                 </div>
             </div>
@@ -74,49 +75,32 @@
             <h3>Key Participants</h3>
             <span class="participants-count">{{ speaker_list | length }} Speaker{{ "s" if speaker_list | length != 1 else "" }} Listed</span>
         </div>
-        <table class="participants-table">
-            <tr>
-                <th>Speaker</th>
-                <th>Constituency</th>
-                <th>Stance</th>
-                <th>Overall Sentiment</th>
-            </tr>
+        <div class="participants-list">
             {% for name in speaker_list %}
                 {% set stance = name.average_sentiment | sentiment_stance %}
-            <tr>
-                <td>
-                    <div class="speaker-cell">
-                        {% if name.photo %}
-                        <img class="speaker-avatar" src="{{ name.photo }}" alt="{{ name.td }}">
-                        {% else %}
-                        <div class="speaker-avatar speaker-avatar-fallback">{{ name.td | initials }}</div>
-                        {% endif %}
-                        <div>
-                            <div class="speaker-name">
-                                <a href="{{ url_for('debatespeaker', debate_id=debate.id, td_name=name.td) }}">
-                                    {{ name.td }}
-                                    <svg class="speaker-link-icon" width="11" height="11" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M3.5 8.5L8.5 3.5M8.5 3.5H4.5M8.5 3.5V7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </a>
-                            </div>
-                            {% if name.party %}<div class="speaker-party">{{ name.party }}</div>{% endif %}
-                        </div>
-                    </div>
-                </td>
-                <td>{{ name.constituency if name.constituency else "—" }}</td>
-                <td><span class="stance-pill {{ stance.css_class }}">{{ stance.label }}</span></td>
-                <td>
-                    <div class="sentiment-cell">
-                        <div class="sentiment-bar-track">
-                            <div class="sentiment-bar-fill" style="width: {{ (((name.average_sentiment + 1) / 2 * 100) | round(0)) | int }}%;"></div>
-                        </div>
-                        <span class="sentiment-value">{{ "%.2f"|format(name.average_sentiment) }}</span>
-                    </div>
-                </td>
-            </tr>
+            <div class="participant-row">
+                {% if name.photo %}
+                <img class="participant-avatar" src="{{ name.photo }}" alt="{{ name.td }}">
+                {% else %}
+                <div class="participant-avatar participant-avatar-fallback">{{ name.td | initials }}</div>
+                {% endif %}
+                <div class="participant-main">
+                    <a class="participant-name" href="{{ url_for('debatespeaker', debate_id=debate.id, td_name=name.td) }}">
+                        {{ name.td }}
+                        <svg class="speaker-link-icon" width="11" height="11" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.5 8.5L8.5 3.5M8.5 3.5H4.5M8.5 3.5V7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <div class="participant-sub">{{ name.party if name.party else "—" }}{% if name.constituency %} · {{ name.constituency }}{% endif %}</div>
+                </div>
+                <span class="stance-pill {{ stance.css_class }}">{{ stance.label }}</span>
+                <div class="participant-bar-track">
+                    <div class="participant-bar-fill" style="width: {{ (((name.average_sentiment + 1) / 2 * 100) | round(0)) | int }}%;"></div>
+                </div>
+                <span class="participant-score">{{ "%.2f"|format(name.average_sentiment) }}</span>
+            </div>
             {% endfor %}
-        </table>
+        </div>
     </div>
 
     <footer>
