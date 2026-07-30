@@ -82,7 +82,7 @@
 }
 
 .entry-row a:hover {
-    color: var(--green-mid);
+    color: orange;
 }
 
 .entry-leader {

@@ -1,0 +1,82 @@
+/* Styling for Gaeilge Leaderboards */
+
+/* Page Title */
+
+.title {
+    text-align: center;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.title h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;         
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 8px;       
+}
+
+.title-line {
+    width: 100px;
+    height: 2px;
+    background: var(--green-mid);
+    margin: 0 auto;           
+}
+
+/* Gaeilge Leaderboard */
+.leaderboard-list {
+    border: 1px solid var(--rule-warm);
+}
+
+.leaderboard-row {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 13px 18px;
+    border-bottom: 1px solid var(--rule-warm);
+    text-decoration: none;
+    color: inherit;
+}
+
+.leaderboard-row:last-child {
+    border-bottom: none;
+}
+
+.leaderboard-row:hover .leaderboard-name {
+    color: orange;
+}
+
+.leaderboard-rank {
+    flex-shrink: 0;
+    width: 18px;
+    font-size: 13px;
+    color: var(--ink-soft);
+}
+
+.leaderboard-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.leaderboard-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    transition: color 0.15s ease;
+}
+
+.leaderboard-sub {
+    font-size: 12px;
+    color: var(--ink-soft);
+}
+
+.leaderboard-percent {
+    flex-shrink: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+}

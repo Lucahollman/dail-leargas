@@ -1,19 +1,27 @@
 /* Styling for Overall Statistics page */
 
-.overallstats-hero {
-    background: var(--green-light);
-    border-bottom: 3px solid var(--green-mid);
-    padding: 20px 56px;
-    text-align: left;
+/* Page Title */
+
+.title {
+    text-align: center;
+    margin-top: 6px;
+    margin-bottom: 6px;
 }
 
-.overallstats-hero h2 {
+.title h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 30px;
+    font-size: 32px;         
     font-weight: 600;
     letter-spacing: -0.01em;
-    color: var(--green-deep);
-    margin: 0;
+    color: var(--ink);
+    margin-bottom: 8px;       
+}
+
+.title-line {
+    width: 100px;
+    height: 2px;
+    background: var(--green-mid);
+    margin: 0 auto;           
 }
 
 /* Quick Stats */

@@ -5,23 +5,23 @@
       <link rel="stylesheet" href="{{ url_for('static', filename='partyindex.css') }}">
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <ul>
-                <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
-                <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
-                <li><a href="{{ url_for('debates') }}">Debates</a></li>
-                <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
-                <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
-                <li><a href="{{ url_for('words') }}">Words</a></li>
-                <li><a href="{{ url_for('info') }}">Website Info</a></li>
-            </ul>
-        </nav>
-    </header>
-    <div class = contentwrapper>
-            <div class = index_title>
+    <nav class="navbar">
+        <ul>
+            <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
+            <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
+            <li><a href="{{ url_for('debates') }}">Debates</a></li>
+            <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
+            <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
+            <li><a href="{{ url_for('words') }}">Words</a></li>
+            <li><a href="{{ url_for('info') }}">Website Info</a></li>
+        </ul>
+    </nav>
+    <div class=contentwrapper>
+            <div class =title>
                 <h2>Parties</h2>
+                <div class="title-line"></div>
             </div>
+            
             <table class =debateindextable>
                 <tr>
                     <th>Party Name</th>

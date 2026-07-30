@@ -47,7 +47,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: var(--green-deep);
+    background: var(--green-mid);
     color: #ffffff;
     font-size: 13px;
     font-weight: 600;
@@ -59,7 +59,7 @@
 }
 
 .fulltext_button:hover {
-    background: var(--green-mid);
+    background: orange;
     transform: translateY(-1px);
     box-shadow: 0 4px 10px rgba(26, 61, 43, 0.22);
 }
@@ -72,44 +72,77 @@
     transform: translateX(3px);
 }
 
-/* Quick stats: words spoken / contributions */
-.debate-quickstats {
-    max-width: 1400px;
-    margin: 24px auto 0;
-    padding: 0 56px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
+/* Hero stat strip */
+.debate-hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--green-mid);
 }
 
-.debate-stat-card {
-    background: #ffffff;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 18px 20px;
+.hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
-.debate-stat-value {
+.hero-stat-value {
     font-family: 'Playfair Display', serif;
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 600;
     color: var(--green-deep);
+    line-height: 1;
 }
 
-.debate-stat-label {
+.hero-stat-label {
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--text-muted);
-    margin-top: 4px;
 }
 
-/* Debate Insights (word frequency + language share) */
-.insights-wrapper {
-    max-width: 1400px;
+.hero-stat-divider {
+    width: 1px;
+    height: 28px;
+    background: var(--green-mid);
+    opacity: 0.35;
+}
+
+@media (max-width: 700px) {
+    .debate-hero-stats {
+        flex-wrap: wrap;
+        row-gap: 12px;
+    }
+
+    .hero-stat-divider {
+        display: none;
+    }
+}
+
+/* Two-column spread: chart left, participants register right */
+.debate-spread {
+    max-width: 1800px;
     margin: 24px auto 0;
     padding: 0 56px;
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    align-items: start;
+    gap: 24px;
+}
+
+@media (max-width: 900px) {
+    .debate-spread {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* word frequency + language share */
+.insights-wrapper {
+    margin: 0;
+    padding: 0;
 }
 
 .insights-card {
@@ -121,11 +154,11 @@
 }
 
 .insights-label {
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--green-deep);
     padding-bottom: 16px;
     margin-bottom: 20px;
     border-bottom: 1px solid var(--green-light);
@@ -152,14 +185,29 @@
     }
 }
 
+/* Fix chart height so axes always have room to render */
+#overallprobdist {
+    height: 380px;
+}
+
 /* Key Participants */
 .participants-section {
-    max-width: 1400px;
-    margin: 40px auto 0;
-    padding: 32px 56px;
-    background: var(--off-white);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+    margin: 0;
+    padding: 22px 24px 24px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    position: sticky;
+    top: 88px; /* below sticky navbar */
+    max-height: calc(100vh - 112px);
+    overflow-y: auto;
+}
+
+@media (max-width: 900px) {
+    .participants-section {
+        position: static;
+        max-height: none;
+    }
 }
 
 .participants-header {
@@ -237,20 +285,7 @@
 }
 
 .participant-name:hover {
-    color: var(--green-mid);
-}
-
-/* Small always-visible affordance marking the name as clickable */
-.speaker-link-icon {
-    color: var(--green-mid);
-    opacity: 0.85;
-    flex-shrink: 0;
-    transition: color 0.15s ease, opacity 0.15s ease;
-}
-
-.participant-name:hover .speaker-link-icon {
-    color: var(--green-deep);
-    opacity: 1;
+    color: orange;
 }
 
 .participant-sub {
@@ -276,7 +311,7 @@
 }
 
 .stance-neutral {
-    background: var(--border);
+    background: white;
     color: var(--text-muted);
 }
 

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dáil Leargas</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
+     <link rel="stylesheet" href="{{ url_for('static', filename='gaeilgeld.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
+            <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
+            <li><a href="{{ url_for('debates') }}">Debates</a></li>
+            <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
+            <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
+            <li><a href="{{ url_for('words') }}">Words</a></li>
+            <li><a href="{{ url_for('info') }}">Website Info</a></li>
+        </ul>
+    </nav>
+
+    <div class=title>
+        <h2>Gaeilge Use Leaderboard</h2>
+        <div class="title-line"></div>
+    </div>
+
+    <div class=contentwrapper>
+        <div class="leaderboard-list">
+            {% for td in leaderboard %}
+            <a class="leaderboard-row" href="{{ url_for('tdspecific', id=td.id) }}">
+                <span class="leaderboard-rank">{{ loop.index }}</span>
+                <span class="leaderboard-info">
+                    <span class="leaderboard-name">{{ td.name }}</span>
+                    <span class="leaderboard-sub">{{ td.party if td.party else "—" }} · {{ td.constituency if td.constituency else "—" }}</span>
+                </span>
+                <span class="leaderboard-percent">{{ "%.1f"|format(td.irish_per) }}%</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    
+</body>
+</html>

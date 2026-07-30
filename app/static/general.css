@@ -41,12 +41,14 @@ body {
 .navbar {
     background: var(--green-mid);
     border-bottom: 4px solid var(--green-mid);
+    border-bottom-left-radius: 12px;   
+    border-bottom-right-radius: 12px;
     padding: 16px 40px;
     display: flex;
     align-items: center;
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
 }
 
 .navbar ul {
@@ -114,7 +116,7 @@ body {
 
 /* Footer */
 footer {
-    background: lightsalmon;
+    background: var(--off-white);
     border-top: 1px solid var(--border);
     text-align: center;
     padding: 24px 48px;

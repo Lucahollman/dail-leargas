@@ -5,19 +5,17 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='debate.css') }}">
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <ul>
-                <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
-                <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
-                <li><a href="{{ url_for('debates') }}" class="active">Debates</a></li>
-                <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
-                <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
-                <li><a href="{{ url_for('words') }}">Words</a></li>
-                <li><a href="{{ url_for('info') }}">Website Info</a></li>
-            </ul>
-        </nav>
-    </header>
+    <nav class="navbar">
+        <ul>
+            <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
+            <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
+            <li><a href="{{ url_for('debates') }}">Debates</a></li>
+            <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
+            <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
+            <li><a href="{{ url_for('words') }}">Words</a></li>
+            <li><a href="{{ url_for('info') }}">Website Info</a></li>
+        </ul>
+    </nav>
 
     <div class="debate-hero">
         <span class="debate-eyebrow">{{ debate.category if debate.category else "Dáil debate" }}</span>
@@ -31,31 +29,73 @@
                 </svg>
             </a>
         </div>
+        <div class="debate-hero-stats">
+            <div class="hero-stat">
+                <span class="hero-stat-value">{{ words_spoken }}</span>
+                <span class="hero-stat-label">Words spoken</span>
+            </div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat">
+                <span class="hero-stat-value">{{ contribution_count }}</span>
+                <span class="hero-stat-label">Contributions</span>
+            </div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat">
+                <span class="hero-stat-value">{{ speaker_list | length }}</span>
+                <span class="hero-stat-label">Speaker{{ "s" if speaker_list | length != 1 else "" }}</span>
+            </div>
+        </div>
     </div>
 
-    <div class="debate-quickstats">
-        <div class="debate-stat-card">
-            <div class="debate-stat-value">{{ words_spoken }}</div>
-            <div class="debate-stat-label">Words spoken</div>
-        </div>
-        <div class="debate-stat-card">
-            <div class="debate-stat-value">{{ contribution_count }}</div>
-            <div class="debate-stat-label">Contributions</div>
-        </div>
-    </div>
+    <div class="contentwrapper">
+        <div class="debate-spread">
 
-    <div class="insights-wrapper">
-        <div class="insights-card">
-            <div class="insights-label">Word Frequency &amp; Language Share</div>
-            <div class="insights-body">
-                <div class="insights-panel insights-panel-main">
-                    <div id="overallprobdist"></div>
-                </div>
-                <div class="insights-divider"></div>
-                <div class="insights-panel insights-panel-side">
-                    <div id="overallirishper"></div>
+            <!-- Left: insights -->
+            <div class="insights-wrapper">
+                <div class="insights-card">
+                    <div class="insights-label">Word Frequency &amp; Language Share</div>
+                    <div class="insights-body">
+                        <div class="insights-panel insights-panel-main">
+                            <div id="overallprobdist"></div>
+                        </div>
+                        <div class="insights-divider"></div>
+                        <div class="insights-panel insights-panel-side">
+                            <div id="overallirishper"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Right: participants register -->
+            <aside class="participants-section">
+                <div class="insights-label">
+                    <p> Key Participants &amp; Sentiment Scores</p>
+                </div>
+                <div class="participants-list">
+                    {% for name in speaker_list %}
+                        {% set stance = name.average_sentiment | sentiment_stance %}
+                    <div class="participant-row">
+                        {% if name.photo %}
+                        <img class="participant-avatar" src="{{ name.photo }}" alt="{{ name.td }}">
+                        {% else %}
+                        <div class="participant-avatar participant-avatar-fallback">{{ name.td | initials }}</div>
+                        {% endif %}
+                        <div class="participant-main">
+                            <a class="participant-name" href="{{ url_for('debatespeaker', debate_id=debate.id, td_name=name.td) }}">
+                                {{ name.td }}
+                            </a>
+                            <div class="participant-sub">{{ name.party if name.party else "—" }}{% if name.constituency %} · {{ name.constituency }}{% endif %}</div>
+                        </div>
+                        <span class="stance-pill {{ stance.css_class }}">{{ stance.label }}</span>
+                        <div class="participant-bar-track">
+                            <div class="participant-bar-fill" style="width: {{ (((name.average_sentiment + 1) / 2 * 100) | round(0)) | int }}%;"></div>
+                        </div>
+                        <span class="participant-score">{{ "%.2f"|format(name.average_sentiment) }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </aside>
+
         </div>
     </div>
 
@@ -69,39 +109,6 @@
     </script>
     <script src="https://cdn.plot.ly/plotly-3.6.0.min.js" charset="utf-8"></script>
     <script src="{{ url_for('static', filename='graphs.js') }}"></script>
-
-    <div class="participants-section">
-        <div class="participants-header">
-            <h3>Key Participants</h3>
-            <span class="participants-count">{{ speaker_list | length }} Speaker{{ "s" if speaker_list | length != 1 else "" }} Listed</span>
-        </div>
-        <div class="participants-list">
-            {% for name in speaker_list %}
-                {% set stance = name.average_sentiment | sentiment_stance %}
-            <div class="participant-row">
-                {% if name.photo %}
-                <img class="participant-avatar" src="{{ name.photo }}" alt="{{ name.td }}">
-                {% else %}
-                <div class="participant-avatar participant-avatar-fallback">{{ name.td | initials }}</div>
-                {% endif %}
-                <div class="participant-main">
-                    <a class="participant-name" href="{{ url_for('debatespeaker', debate_id=debate.id, td_name=name.td) }}">
-                        {{ name.td }}
-                        <svg class="speaker-link-icon" width="11" height="11" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M3.5 8.5L8.5 3.5M8.5 3.5H4.5M8.5 3.5V7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                    <div class="participant-sub">{{ name.party if name.party else "—" }}{% if name.constituency %} · {{ name.constituency }}{% endif %}</div>
-                </div>
-                <span class="stance-pill {{ stance.css_class }}">{{ stance.label }}</span>
-                <div class="participant-bar-track">
-                    <div class="participant-bar-fill" style="width: {{ (((name.average_sentiment + 1) / 2 * 100) | round(0)) | int }}%;"></div>
-                </div>
-                <span class="participant-score">{{ "%.2f"|format(name.average_sentiment) }}</span>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
 
     <footer>
         <p>Author: Luca Hollman</p>

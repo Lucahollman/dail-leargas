@@ -7,20 +7,20 @@
      <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
      <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
 </head>
-<body class="home-page">
-    <header>
-        <nav class="navbar">
-            <ul>
-                <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
-                <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
-                <li><a href="{{ url_for('debates') }}">Debates</a></li>
-                <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
-                <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
-                <li><a href="{{ url_for('words') }}">Words</a></li>
-                <li><a href="{{ url_for('info') }}">Website Info</a></li>
-            </ul>
-        </nav>
-    </header>
+<body>
+    
+    <nav class="navbar">
+        <ul>
+            <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
+            <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
+            <li><a href="{{ url_for('debates') }}">Debates</a></li>
+            <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
+            <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
+            <li><a href="{{ url_for('words') }}">Words</a></li>
+            <li><a href="{{ url_for('info') }}">Website Info</a></li>
+        </ul>
+    </nav>
+    
 
     <div class="hero">
             <h1>Welcome to<br>Dáil Léargas</h1>
@@ -54,7 +54,7 @@
             <div class="leaderboard-section">
                 <div class="section-header-row">
                     <h2>Gaeilge Leaderboard</h2>
-                    <a href="{{ url_for('tds') }}" class="section-link">See all &rarr;</a>
+                    <a href="{{ url_for('leaderboard') }}" class="section-link">See all &rarr;</a>
                 </div>
                 <div class="leaderboard-list">
                     {% for td in leaderboard %}

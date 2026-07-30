@@ -1,9 +1,29 @@
 // Shared building blocks for a consistent, branded chart look
 const chartFont = { family: 'Inter, sans-serif', size: 13, color: '#1c1c1c' };
 const chartConfig = { displayModeBar: false, responsive: true };
-const treemapColors = freq.map((_, i) => (i === 0 ? '#1a3d2b' : i < 4 ? '#2e6b47' : '#8fae9c'));
 
-//Probability Distribution graph
+// --- Gradient treemap colours: darkest at highest frequency, lightening as frequency drops ---
+function hexToRgb(hex) {
+    const n = parseInt(hex.replace('#', ''), 16);
+    return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+}
+function rgbToHex(r, g, b) {
+    return '#' + [r, g, b].map(v => Math.round(v).toString(16).padStart(2, '0')).join('');
+}
+function interpolateColor(hexA, hexB, t) {
+    const a = hexToRgb(hexA), b = hexToRgb(hexB);
+    return rgbToHex(a.r + (b.r - a.r) * t, a.g + (b.g - a.g) * t, a.b + (b.b - a.b) * t);
+}
+
+const DARK_GREEN = '#1a3d2b';
+const LIGHT_GREEN = '#7fae91'; // lightest shade for the lowest-frequency word
+
+const treemapColors = freq.map((_, i) => {
+    const t = freq.length > 1 ? i / (freq.length - 1) : 0; // 0 = highest freq, 1 = lowest
+    return interpolateColor(DARK_GREEN, LIGHT_GREEN, t);
+});
+
+// Probability Distribution graph
 Plotly.newPlot('overallprobdist',
     [{
         labels: words,
@@ -24,8 +44,8 @@ Plotly.newPlot('overallprobdist',
         paper_bgcolor: 'rgba(0,0,0,0)',
         plot_bgcolor: 'rgba(0,0,0,0)',
         font: chartFont,
-        xaxis: { title: 'Word', fixedrange: false, showgrid: false },
-        yaxis: { title: 'Frequency', fixedrange: true, showgrid: false },
+        xaxis: { visible: false, fixedrange: false, showgrid: false },
+        yaxis: { visible: false, fixedrange: true, showgrid: false },
         updatemenus: [{
             direction: 'left',
             type: 'buttons',
@@ -37,8 +57,46 @@ Plotly.newPlot('overallprobdist',
             bordercolor: '#cdd8cf',
             font: { family: 'Inter, sans-serif', size: 12, color: '#1a3d2b' },
             buttons: [
-                { label: 'Treemap', method: 'restyle', args: [{ type: 'treemap', labels: [words], values: [freq], parents: [words.map(() => '')], x: [undefined], y: [undefined], marker: { colors: [treemapColors] } }] },
-                { label: 'Bar Chart', method: 'restyle', args: [{ type: 'bar', x: [words], y: [freq], labels: [undefined], values: [undefined], parents: [undefined], marker: { color: '#2e6b47' } }] }
+                {
+                    label: 'Treemap',
+                    method: 'update',
+                    args: [
+                        {
+                            type: 'treemap',
+                            labels: [words],
+                            values: [freq],
+                            parents: [words.map(() => '')],
+                            x: [undefined],
+                            y: [undefined],
+                            'marker.colors': [treemapColors],
+                            'marker.color': [undefined]
+                        },
+                        {
+                            xaxis: { visible: false, showgrid: false },
+                            yaxis: { visible: false, showgrid: false }
+                        }
+                    ]
+                },
+                {
+                    label: 'Bar Chart',
+                    method: 'update',
+                    args: [
+                        {
+                            type: 'bar',
+                            x: [words],
+                            y: [freq],
+                            labels: [undefined],
+                            values: [undefined],
+                            parents: [undefined],
+                            'marker.color': ['#2e6b47'],
+                            'marker.colors': [undefined]
+                        },
+                        {
+                            xaxis: { visible: true, title: 'Word', showgrid: true },
+                            yaxis: { visible: true, title: 'Frequency', showgrid: true }
+                        }
+                    ]
+                }
             ]
         }]
     },

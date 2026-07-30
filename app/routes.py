@@ -30,6 +30,16 @@ def home():
         word_trends=word_trends
     )
 
+@app.route("/leaderboard")
+def leaderboard():
+    leaderboard = get_database().execute(
+            """select id, name, party, constituency, irish_per
+               from td_metadata
+               where irish_per is not null
+               order by irish_per desc"""
+        ).fetchall()
+    return render_template("gaeilgeld.html", leaderboard = leaderboard)
+
 #Dáil Index Routes
 @app.route("/overallstats")
 def overallstats():
@@ -54,13 +64,12 @@ def tdspecific(id):
     td = get_database().execute("select name, party, constituency, id, photo, sentiment, irish_per from td_metadata where id = ?", (id,)).fetchone()
     prob_dist = get_database().execute("select words, freq, prob from td_frequency_tables where name = ?", (td["name"],)).fetchall()
     contributions = get_database().execute(
-    "select distinct contributions.debate_id, debates.title from contributions join debates on contributions.debate_id = debates.id where contributions.td = ?",
+    "select distinct contributions.debate_id, debates.title, debates.date, debates.category from contributions join debates on contributions.debate_id = debates.id where contributions.td = ?",
     (td["name"],)).fetchall()
     #labels for js chart
     words = [d["words"] for d in prob_dist]
     freq = [d["freq"] for d in prob_dist]
     return render_template("td.html", td = td, prob_dist = prob_dist, contributions = contributions, words = words, freq = freq)
-
 @app.route("/parties")
 def partyindex():
     parties = get_database().execute("select * from parties").fetchall()
@@ -134,7 +143,7 @@ def debatespecific(debate_id):
     freq = [d["freq"] for d in prob_dist]
     words_spoken = sum(freq)
     contribution_count = get_database().execute(
-        "select count(*) as count from contributions where debate_id = ?", (debate_id,)
+        "select count(*) as count from contributions where debate_id = ? and text_type = 'speech'", (debate_id,)
     ).fetchone()["count"]
     return render_template("debate.html", debate=debate, prob_dist=prob_dist, speaker_list=speaker_list, words=words, freq=freq, words_spoken = words_spoken, contribution_count = contribution_count)
 

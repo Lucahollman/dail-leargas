@@ -84,7 +84,7 @@
 }
 
 .section-link:hover {
-    color: var(--seal);
+    color: orange;
 }
 
 /* Recent Debates — register-style list, not cards */
@@ -124,7 +124,7 @@
 }
 
 .register-row:hover .register-title {
-    color: var(--seal);
+    color: orange;
 }
 
 .register-tag {
@@ -217,7 +217,7 @@
 }
 
 .leaderboard-row:hover .leaderboard-name {
-    color: var(--seal);
+    color: orange;
 }
 
 .leaderboard-rank {

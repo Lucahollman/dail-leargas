@@ -5,77 +5,101 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='tdprofile.css') }}">
 </head>
 <body>
-    <header>
-        <nav class="titlenavbar">
-            <ul>
-                <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
-                <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
-                <li><a href="{{ url_for('debates') }}">Debates</a></li>
-                <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
-                <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
-                <li><a href="{{ url_for('words') }}">Words</a></li>
-                <li><a href="{{ url_for('info') }}">Website Info</a></li>
-            </ul>
-        </nav>
-    </header>
- 
+    <nav class="navbar">
+        <ul>
+            <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
+            <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
+            <li><a href="{{ url_for('debates') }}">Debates</a></li>
+            <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
+            <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
+            <li><a href="{{ url_for('words') }}">Words</a></li>
+            <li><a href="{{ url_for('info') }}">Website Info</a></li>
+        </ul>
+    </nav>
+
     <div class="td-hero">
-        <img class="td-hero-photo" src="{{ td.photo }}" alt="{{ td.name }}">
-        <div class="td-hero-info">
-            <h1>{{ td.name }}</h1>
-            <p class="td-party">{{ td.party }}</p>
-            <p class="td-constituency">{{ td.constituency }}</p>
+        <span class="td-eyebrow">Teachta Dála</span>
+        <div class="td-hero-row">
+            <img class="td-hero-photo" src="{{ td.photo }}" alt="{{ td.name }}">
+            <div class="td-hero-info">
+                <h1>{{ td.name }}</h1>
+                <p class="td-party">{{ td.party }}</p>
+                <p class="td-constituency">{{ td.constituency }}</p>
+            </div>
+        </div>
+        <div class="td-hero-stats">
+            <div class="hero-stat">
+                <span class="hero-stat-value">{{ "%.2f"|format(td.sentiment) }}</span>
+                <span class="hero-stat-label">Average sentiment</span>
+            </div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat">
+                <span class="hero-stat-value">{{ contributions | length }}</span>
+                <span class="hero-stat-label">Debate{{ "s" if contributions | length != 1 else "" }} contributed to</span>
+            </div>
         </div>
     </div>
- 
-    <div class="td-profile-container">
- 
-        <div class="td-stats">
-            <div class="stat-box">
-                <h3>Average Sentiment</h3>
-                <p>{{ "%.2f"|format(td.sentiment) }}</p>
+
+    <div class="contentwrapper">
+        <div class="td-profile-container">
+
+            <div class="td-spread">
+
+                <!-- Left: word frequency + language share charts -->
+                <div class="insights-wrapper">
+                    <div class="insights-card">
+                        <div class="insights-label">Word Frequency &amp; Language Share</div>
+                        <div class="insights-body">
+                            <div class="insights-panel insights-panel-main">
+                                <div id="overallprobdist"></div>
+                            </div>
+                            <div class="insights-divider"></div>
+                            <div class="insights-panel insights-panel-side">
+                                <div id="overallirishper"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: debates contributed to, register-style, height-matched to chart card -->
+                <aside class="contributions-section">
+                    <div class="contributions-header">
+                        <h3>Debates Contributed To</h3>
+                    </div>
+                    <div class="contributions-container">
+                        {% for contribution in contributions %}
+                        <a class="contribution-link" href="{{ url_for('debatespeaker', debate_id=contribution.debate_id, td_name=td.name) }}">
+                            <span class="contribution-title">{{ contribution.title }}</span>
+                            <span class="contribution-meta">
+                                {% if contribution.category %}<span class="contribution-category">{{ contribution.category }}</span>{% endif %}
+                                {% if contribution.date %}<span class="contribution-date">{{ contribution.date | weekday_date }}</span>{% endif %}
+                            </span>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </aside>
+
             </div>
-            <div class="stat-box">
-                <h3>Irish Language Usage</h3>
-                <p>{{ "%.2f"|format(td.irish_per) }}%</p>
-            </div>
+
+            <h2 class="section-title">Word Probability Distribution</h2>
+            <table class="prob-table">
+                <tr>
+                    <th>Word</th>
+                    <th>Frequency</th>
+                    <th>Probability</th>
+                </tr>
+                {% for row in prob_dist %}
+                <tr>
+                    <td>{{ row.words }}</td>
+                    <td>{{ row.freq }}</td>
+                    <td>{{ "%.2f"|format(row.prob * 100) }}%</td>
+                </tr>
+                {% endfor %}
+            </table>
+
         </div>
- 
-        <h2 class="section-title">Word Frequency</h2>
-        <div class="chart-container">
-            <div class="chart-box">
-                <div id="tdprobdist"></div>
-            </div>
-            <div class="chart-box">
-                <div id="tdirishper"></div>
-            </div>
-        </div>
- 
-        <h2 class="section-title">Debates Contributed To</h2>
-        <div class="contributions-container">
-            {% for contribution in contributions %}
-            <a class="contribution-link" href="{{ url_for('debatespeaker', debate_id=contribution.debate_id, td_name=td.name) }}">{{ contribution.title }}</a>
-            {% endfor %}
-        </div>
- 
-        <h2 class="section-title">Word Probability Distribution</h2>
-        <table class="prob-table">
-            <tr>
-                <th>Word</th>
-                <th>Frequency</th>
-                <th>Probability</th>
-            </tr>
-            {% for row in prob_dist %}
-            <tr>
-                <td>{{ row.words }}</td>
-                <td>{{ row.freq }}</td>
-                <td>{{ "%.2f"|format(row.prob * 100) }}%</td>
-            </tr>
-            {% endfor %}
-        </table>
- 
     </div>
- 
+
     <script>
         const words = {{ words | tojson }};
         const freq = {{ freq | tojson }};
@@ -85,21 +109,7 @@
         const values = [irish, english];
     </script>
     <script src="https://cdn.plot.ly/plotly-3.6.0.min.js" charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='graphs.js') }}"></script>
 
-    <script>
-        Plotly.newPlot('tdprobdist',
-            [{ labels: ['', ...words], values: [0, ...freq], parents: ['', ...words.map(() => '')], type: 'treemap', pathbar: { visible: false }, marker: { colorscale: 'Greens', pad: 0, line: { color: 'white', width: 1 } } }],
-            { paper_bgcolor: 'white', plot_bgcolor: 'white', margin: { t: 10, b: 10, l: 10, r: 10 } },
-            { responsive: true, displayModeBar: false }
-        );
- 
-        Plotly.newPlot('tdirishper',
-            [{ labels: labels, values: values, type: 'pie', marker: { colors: ['#2e6b47', '#c9a84c'] } }],
-            { paper_bgcolor: 'white', margin: { t: 10, b: 10, l: 10, r: 10 } },
-            { responsive: true, displayModeBar: false }
-        );
-    </script>
- 
 </body>
 </html>
-         

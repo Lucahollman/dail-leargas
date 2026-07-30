@@ -133,8 +133,8 @@
 }
 
 .rail-item.is-active {
-    color: var(--green-deep);
-    border-left-color: var(--gold);
+    color: var(--green-mid);
+    border-left-color: var(--green-mid);
     font-weight: 600;
 }
 
@@ -177,7 +177,7 @@
 }
 
 .entry-row a:hover {
-    color: var(--green-mid);
+    color: orange;
 }
 
 .entry-leader {
