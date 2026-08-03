@@ -40,8 +40,8 @@ cursor.execute('''create table if not exists contributions(
 #Accessing API
 response = requests.get("https://api.oireachtas.ie/v1/debates", params={
     "chamber": "dail",
-    "date_start": "2026-05-20",   
-    "date_end": "2026-07-03",
+    "date_start": "2024-12-18",   
+    "date_end": "2026-08-03",
     "limit": 1000
 })
 data = response.json()

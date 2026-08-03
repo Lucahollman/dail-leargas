@@ -12,7 +12,7 @@ def get_database():
         database.row_factory = sqlite3.Row
     return database
 
-def init_app():
+def run():
     app = Flask(__name__)
     filters(app)
 
@@ -29,3 +29,5 @@ def init_app():
     app = create_dashboard(app)
 
     return app
+
+# uv run waitress-serve --call app:run
