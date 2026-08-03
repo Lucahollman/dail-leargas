@@ -16,52 +16,56 @@
             <li><a href="{{ url_for('info') }}">Website Info</a></li>
         </ul>
     </nav>
- 
-    <div class="title">
-        <h2>Overall Statistics — 34th Dáil</h2>
-        <div class="title-line"></div>
+    <div class="contentwrapper">
+        <div class="title">
+            <h2>Overall Statistics — 34th Dáil</h2>
+            <div class="title-line"></div>
+        </div>
+    
+        <div class="quickstats">
+            <div class="stat-card">
+                <div class="stat-value">{{ debates_num }}</div>
+                <div class="stat-label">Debates recorded</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ words_num }}</div>
+                <div class="stat-label">Words spoken</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ contributions_num }}</div>
+                <div class="stat-label">TD contributions</div>
+            </div>
+        </div>
+    
+        <div class="stats-chart-container">
+            <div class="stats-chart-box">
+                <h3>Word Frequency Distribution</h3>
+                <div id="overallprobdist"></div>
+            </div>
+            <div class="stats-chart-box">
+                <h3>Language Share</h3>
+                <div id="overallirishper"></div>
+            </div>
+        </div>
+    
+        <script>
+            const words = {{ words | tojson }};
+            const freq = {{ freq | tojson }};
+            const irish = {{ irish_per | tojson }};
+            const english = 100 - irish;
+            const labels = ["Irish %", "English %"];
+            const values = [irish, english];
+        </script>
+        <script src="https://cdn.plot.ly/plotly-3.6.0.min.js" charset="utf-8"></script>
+        <script src="{{ url_for('static', filename='graphs.js') }}"></script>
     </div>
- 
-    <div class="quickstats">
-        <div class="stat-card">
-            <div class="stat-value">{{ debates_num }}</div>
-            <div class="stat-label">Debates recorded</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-value">{{ words_num }}</div>
-            <div class="stat-label">Words spoken</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-value">{{ contributions_num }}</div>
-            <div class="stat-label">TD contributions</div>
-        </div>
-    </div>
- 
-    <div class="stats-chart-container">
-        <div class="stats-chart-box">
-            <h3>Word Frequency Distribution</h3>
-            <div id="overallprobdist"></div>
-        </div>
-        <div class="stats-chart-box">
-            <h3>Language Share</h3>
-            <div id="overallirishper"></div>
-        </div>
-    </div>
- 
-    <script>
-        const words = {{ words | tojson }};
-        const freq = {{ freq | tojson }};
-        const irish = {{ irish_per | tojson }};
-        const english = 100 - irish;
-        const labels = ["Irish %", "English %"];
-        const values = [irish, english];
-    </script>
-    <script src="https://cdn.plot.ly/plotly-3.6.0.min.js" charset="utf-8"></script>
-    <script src="{{ url_for('static', filename='graphs.js') }}"></script>
- 
     <footer>
-        <p>Author: Luca Hollman</p>
-        <p><a href="mailto:lucahollman@gmail.com">lucahollman@gmail.com</a></p>
+        <p>This project uses data provided by the Houses of the Oireachtas under the Oireachtas (Public Sector Information – Open Data) Licence.</p>
+        <p>All statistics displayed are estimates generated from Oireachtas data and do not represent official Oireachtas interpretations.</p>
+        <p>Official records are available at <a href="https://www.oireachtas.ie/">oireachtas.ie</a></p>
+        <div class="footer_break"></div>
+        <p>This project was created by Luca Hollman</p>
+        <p>Contact:<a href="mailto:lucahollman@gmail.com">lucahollman@gmail.com</a></p>
     </footer>
 </body>
 </html>

@@ -2,6 +2,7 @@
 <head>
     <title>Dáil Léargas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='wordindex.css') }}">
 </head>
 <body>
     <nav class="navbar">
@@ -16,15 +17,34 @@
         </ul>
     </nav>
 
-    <div class = contentwrapper>
-        <h3>Search for a word</h3>
-        <form>
-            <input type="text" id="word_search" placeholder="Search for a word...">
-        </form>
-        <ul id="search_results"></ul>
-    </div>
-     
+    <div class="contentwrapper">
+        <div class="title">
+            <h2>Words</h2>
+            <div class="title-line"></div>
+        </div>
 
+        <div class="word-search-wrapper">
+            <form>
+                <svg class="word-search-icon" width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.6"/>
+                    <path d="M14.3 14.3L18 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+                <input type="text" id="word_search" placeholder="Search for a word...">
+            </form>
+        </div>
+
+        <ul id="search_results" class="word-results-list"></ul>
+    </div>
+
+
+    <footer>
+        <p>This project uses data provided by the Houses of the Oireachtas under the Oireachtas (Public Sector Information – Open Data) Licence.</p>
+        <p>All statistics displayed are estimates generated from Oireachtas data and do not represent official Oireachtas interpretations.</p>
+        <p>Official records are available at <a href="https://www.oireachtas.ie/">oireachtas.ie</a></p>
+        <div class="footer_break"></div>
+        <p>This project was created by Luca Hollman</p>
+        <p>Contact:<a href="mailto:lucahollman@gmail.com">lucahollman@gmail.com</a></p>
+    </footer>
 </body>
 <script src="{{ url_for('static', filename='search.js') }}"></script>
 </html>

@@ -2,6 +2,7 @@
 <head>
     <title>Dáil Léargas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='party.css') }}">
 </head>
 <body>
     <nav class="navbar">
@@ -15,38 +16,53 @@
             <li><a href="{{ url_for('info') }}">Website Info</a></li>
         </ul>
     </nav>
-    <div class = contentwrapper>
-            <div class = debateheader>
-                <h1>{{ party.party_name }}</h1>
-    </div>
 
-    <div class="chart-container">
-            <div class="chart-box">
-                <h3>Word Frequency Distribution</h3>
-                <div id="overallprobdist"></div>
+    {% set is_independent = party.party_name|lower == "independent" %}
+    <div class="party-hero">
+        <span class="party-eyebrow{{ ' party-eyebrow-independent' if is_independent else '' }}">
+            {{ "Independent TDs" if is_independent else "Political Party" }}
+        </span>
+        <h1>{{ party.party_name }}</h1>
+        <div class="party-hero-stats">
+            <div class="hero-stat">
+                <span class="hero-stat-value">{{ "%.2f"|format(party.party_sentiment) }}</span>
+                <span class="hero-stat-label">Average sentiment</span>
             </div>
-            <div class="chart-box">
-                <h3>Language Share</h3>
-                <div id="overallirishper"></div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat">
+                <span class="hero-stat-value">{{ td_count }}</span>
+                <span class="hero-stat-label">{{ "Independent TDs" if is_independent else "TDs" }}</span>
+            </div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat">
+                <span class="hero-stat-value">{{ contribution_count }}</span>
+                <span class="hero-stat-label">Contributions</span>
             </div>
         </div>
+    </div>
 
-        <script>
-            const words = {{ words | tojson }};
-            const freq = {{ freq | tojson }};
-            const irish = {{ party.party_irish_per | tojson }};
-            const english = 100 - irish;
-            const labels = ["Irish %", "English %"];
-            const values = [irish, english];
-        </script>
-        <script src="https://cdn.plot.ly/plotly-3.6.0.min.js" charset="utf-8"></script>
-        <script src="{{ url_for('static', filename='graphs.js') }}"></script>
-        
-            <div class="debate_container">
+    <div class="contentwrapper">
+        <div class="party-profile-container">
 
-            <table class="debatetable">
+            <div class="insights-wrapper">
+                <div class="insights-card">
+                    <div class="insights-label">Word Frequency &amp; Language Share</div>
+                    <div class="insights-body">
+                        <div class="insights-panel insights-panel-main">
+                            <div id="overallprobdist"></div>
+                        </div>
+                        <div class="insights-divider"></div>
+                        <div class="insights-panel insights-panel-side">
+                            <div id="overallirishper"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Word Probability Distribution</h2>
+            <table class="prob-table">
                 <tr>
-                    <th>Words</th>
+                    <th>Word</th>
                     <th>Frequency</th>
                     <th>Probability</th>
                 </tr>
@@ -54,13 +70,32 @@
                 <tr>
                     <td>{{ row.words }}</td>
                     <td>{{ row.freq }}</td>
-                    <td>{{ "%.2f"|format(row.prob * 100) }}&#37;</td>
+                    <td>{{ "%.2f"|format(row.prob * 100) }}%</td>
                 </tr>
                 {% endfor %}
             </table>
 
+        </div>
     </div>
-    
-    
-    
-    
+
+    <script>
+        const words = {{ words | tojson }};
+        const freq = {{ freq | tojson }};
+        const irish = {{ party.party_irish_per | tojson }};
+        const english = 100 - irish;
+        const labels = ["Irish %", "English %"];
+        const values = [irish, english];
+    </script>
+    <script src="https://cdn.plot.ly/plotly-3.6.0.min.js" charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='graphs.js') }}"></script>
+
+    <footer>
+        <p>This project uses data provided by the Houses of the Oireachtas under the Oireachtas (Public Sector Information – Open Data) Licence.</p>
+        <p>All statistics displayed are estimates generated from Oireachtas data and do not represent official Oireachtas interpretations.</p>
+        <p>Official records are available at <a href="https://www.oireachtas.ie/">oireachtas.ie</a></p>
+        <div class="footer_break"></div>
+        <p>This project was created by Luca Hollman</p>
+        <p>Contact:<a href="mailto:lucahollman@gmail.com">lucahollman@gmail.com</a></p>
+    </footer>
+</body>
+</html>

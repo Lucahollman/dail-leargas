@@ -63,9 +63,7 @@
 
                 <!-- Right: debates contributed to, register-style, height-matched to chart card -->
                 <aside class="contributions-section">
-                    <div class="contributions-header">
-                        <h3>Debates Contributed To</h3>
-                    </div>
+                    <div class="insights-label">Debates Contributed To</div>
                     <div class="contributions-container">
                         {% for contribution in contributions %}
                         <a class="contribution-link" href="{{ url_for('debatespeaker', debate_id=contribution.debate_id, td_name=td.name) }}">
@@ -110,6 +108,15 @@
     </script>
     <script src="https://cdn.plot.ly/plotly-3.6.0.min.js" charset="utf-8"></script>
     <script src="{{ url_for('static', filename='graphs.js') }}"></script>
+
+    <footer>
+        <p>This project uses data provided by the Houses of the Oireachtas under the Oireachtas (Public Sector Information – Open Data) Licence.</p>
+        <p>All statistics displayed are estimates generated from Oireachtas data and do not represent official Oireachtas interpretations.</p>
+        <p>Official records are available at <a href="https://www.oireachtas.ie/">oireachtas.ie</a></p>
+        <div class="footer_break"></div>
+        <p>This project was created by Luca Hollman</p>
+        <p>Contact:<a href="mailto:lucahollman@gmail.com">lucahollman@gmail.com</a></p>
+    </footer>
 
 </body>
 </html>

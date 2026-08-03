@@ -1,28 +1,79 @@
 /* Styling for info page */
 
 /* Page Title */
-
 .title {
-    text-align: left;
-    margin-top: 6px;
-    margin-bottom: 30px;
+    text-align: center;
+    margin: 24px 0 12px;
 }
 
 .title h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 25px;         
+    font-size: 34px;
     font-weight: 600;
     letter-spacing: -0.01em;
     color: var(--ink);
-    margin-bottom: 8px;  
-    margin-left: 10px;
+    margin-bottom: 10px;
 }
 
 .title-line {
-    display: ;
     width: 100px;
     height: 2px;
     background: var(--green-mid);
-    margin: 0 auto;           
+    margin: 0 auto;
 }
 
+/* Main Info Layout */
+.info-sections {
+    max-width: 900px;
+    margin: 48px auto 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px; 
+
+/* Section Blocks */
+.info-card {
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+}
+
+/* Section Titles */
+.info-card .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--green-deep);
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--green-mid);
+    display: inline-block;
+}
+
+/* Paragraphs */
+.info-card p {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text-dark);
+    margin: 0 0 18px;
+}
+
+.info-card p:empty {
+    display: none;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+    .info-sections {
+        margin: 32px auto 48px;
+        gap: 36px;
+    }
+
+    .info-card .section-title {
+        font-size: 20px;
+    }
+
+    .info-card p {
+        font-size: 15px;
+    }
+}

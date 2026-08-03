@@ -16,23 +16,36 @@
             <li><a href="{{ url_for('info') }}">Website Info</a></li>
         </ul>
     </nav>
-    <div class = "contentwrapper">
-        <div class = "title">
-            <h2>What is This Website?</h2>
-            <div class = "title-line"></div>
-            <p>This website is a tool that allows users to view text and sentiment anaylsis data from Dáil Éireann. Currently, this website displays word frequency distribution tables, language share tables, sentiment scores for TD contributions, and various metadata statistics such as number of words spoken etc. Users can view statistics aggregated by debate, Teachta Dála, party, or word.</p>
+    <div class="contentwrapper">
+        <div class="title">
+            <h2>Website Info</h2>
+            <div class="title-line"></div>
         </div>
 
-        <div class = "title">
-            <h2>How Do We Calculate our Statistics?</h2>
-            <div class = "title-line"></div>
-            <p></p>
-        </div>
+        <div class="info-sections">
+            <section class="info-card">
+                <h3 class="section-title">What is This Website?</h3>
+                <p>This website is a tool that allows users to view text and sentiment anaylsis data from Dáil Éireann. Currently, this website displays word frequency distribution tables, language share tables, sentiment scores for TD contributions, and various metadata statistics such as number of words spoken etc. Users can view statistics aggregated by debate, Teachta Dála, party, or word.</p>
+            </section>
 
-        <div class = "title">
-            <h2>How Do We Calculate Our Sentiment Scores?</h2>
-            <div class = "title-line"></div>
-            <p>VADER is defined as a rule-based method that calculates four sentiment scores: Negative (Neg), Neutral (Neu), Positive (Pos), and Compound. The Compound score is a weighted composite that ranges from −1 (most negative) to +1 (most positive). It is computed by summing the valence scores of each word in the lexicon, adjusting for heuristics, and normalizing the result. Sentiment classification is then determined by the Compound score: a score ≥ 0.05 is classified as positive, ≤ −0.05 as negative, and between −0.05 and 0.05 as neutral.</p>
+            <section class="info-card">
+                <h3 class="section-title">How Do We Calculate our Statistics?</h3>
+                <p></p>
+            </section>
+
+            <section class="info-card">
+                <h3 class="section-title">How Do We Calculate Our Sentiment Scores?</h3>
+                <p>VADER is defined as a rule-based method that calculates four sentiment scores: Negative (Neg), Neutral (Neu), Positive (Pos), and Compound. The Compound score is a weighted composite that ranges from −1 (most negative) to +1 (most positive). It is computed by summing the valence scores of each word in the lexicon, adjusting for heuristics, and normalizing the result. Sentiment classification is then determined by the Compound score: a score ≥ 0.05 is classified as positive, ≤ −0.05 as negative, and between −0.05 and 0.05 as neutral.</p>
+            </section>
         </div>
     </div>
+    <footer>
+        <p>This project uses data provided by the Houses of the Oireachtas under the Oireachtas (Public Sector Information – Open Data) Licence.</p>
+        <p>All statistics displayed are estimates generated from Oireachtas data and do not represent official Oireachtas interpretations.</p>
+        <p>Official records are available at <a href="https://www.oireachtas.ie/">oireachtas.ie</a></p>
+        <div class="footer_break"></div>
+        <p>This project was created by Luca Hollman</p>
+        <p>Contact:<a href="mailto:lucahollman@gmail.com">lucahollman@gmail.com</a></p>
+    </footer>
 </body>
+</html>

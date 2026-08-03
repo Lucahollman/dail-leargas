@@ -124,7 +124,6 @@
 
 /* Two-column spread: chart left, participants register right */
 .debate-spread {
-    max-width: 1800px;
     margin: 24px auto 0;
     padding: 0 56px;
     display: grid;

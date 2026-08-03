@@ -1,0 +1,135 @@
+/* CSS page for the word search page */
+
+/* Page Title */
+
+.title {
+    text-align: center;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.title h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 8px;
+}
+
+.title-line {
+    width: 100px;
+    height: 2px;
+    background: var(--green-mid);
+    margin: 0 auto;
+}
+
+/* Search bar */
+.word-search-wrapper {
+    margin: 32px auto 0;
+}
+
+.word-search-wrapper form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 12px;
+    transition: border-color 0.15s ease;
+}
+
+.word-search-wrapper form:focus-within {
+    border-bottom-color: var(--green-mid);
+}
+
+.word-search-icon {
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.word-search-wrapper form:focus-within .word-search-icon {
+    color: var(--green-mid);
+}
+
+#word_search {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    color: var(--text-dark);
+}
+
+#word_search::placeholder {
+    color: var(--text-muted);
+    font-weight: 300;
+}
+
+/* Results list — ledger row style, matching party index rows */
+.word-results-list {
+    margin: 8px auto 48px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.word-results-list li {
+    border-bottom: 1px solid var(--green-light);
+}
+
+.word-results-list li:last-child {
+    border-bottom: none;
+}
+
+.word-results-list a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 4px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease, padding-left 0.15s ease;
+}
+
+.word-results-list a:hover {
+    background: var(--green-light);
+    color: orange;
+    padding-left: 12px;
+}
+
+.word-results-list a::after {
+    content: '\2192';
+    font-size: 15px;
+    color: var(--text-muted);
+    transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.word-results-list a:hover::after {
+    color: orange;
+    transform: translateX(3px);
+}
+
+/* Empty state before any search has been typed */
+.word-results-list:empty::after {
+    display: block;
+    padding: 24px 4px;
+    font-size: 14px;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+
+@media (max-width: 600px) {
+    .word-search-wrapper,
+    .word-results-list {
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+
+    #word_search {
+        font-size: 16px;
+    }
+}

@@ -23,3 +23,81 @@
     background: var(--green-mid);
     margin: 0 auto;           
 }
+
+/* Result count, right-aligned above the list */
+.party-index-meta {
+    margin: 32px auto 4px;
+    text-align: right;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+}
+
+/* Ledger-style party list */
+.party-list {
+    margin: 0 auto 48px;
+    display: flex;
+    flex-direction: column;
+}
+
+.party-row {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding: 15px 4px;
+    text-decoration: none;
+    color: var(--text-dark);
+    border-bottom: 1px solid var(--green-light);
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.party-row:last-child {
+    border-bottom: none;
+}
+
+.party-row:hover {
+    background: var(--green-light);
+}
+
+.party-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-dark);
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: color 0.15s ease;
+}
+
+.party-row:hover .party-name {
+    color: orange;
+}
+
+.party-row-leader {
+    flex: 1;
+    border-bottom: 1px dotted var(--border);
+    margin-bottom: 6px;
+}
+
+.party-row-arrow {
+    font-size: 15px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+    transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.party-row:hover .party-row-arrow {
+    color: orange;
+    transform: translateX(3px);
+}
+
+@media (max-width: 600px) {
+    .party-index-meta,
+    .party-list {
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+}

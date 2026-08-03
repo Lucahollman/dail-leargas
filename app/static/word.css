@@ -1,70 +1,117 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
- 
-:root {
-    --green-deep:  #1a3d2b;
-    --green-mid:   #2e6b47;
-    --green-light: #e8ede9;
-    --gold:        #c9a84c;
-    --gold-light:  #f0e4bc;
-    --off-white:   #f5f2eb;
-    --text-dark:   #1c1c1c;
-    --text-muted:  #5a6b60;
-    --border:      #cdd8cf;
-}
- 
-body {
-    background-color: var(--off-white);
-    font-family: 'Inter', sans-serif;
-}
- 
-/* === Word Hero Header === */
+/* Styling for individual word page */
+
+/* === Word Hero === */
 .word-hero {
-    background-color: var(--green-deep);
-    border-bottom: 4px solid var(--gold);
-    padding: 2.5rem 3rem;
-    text-align: center;
+    background: var(--green-light);
+    border-bottom: 3px solid var(--green-mid);
+    padding: 24px 56px;
+    text-align: left;
 }
- 
-.word-hero h2 {
+
+.word-eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    margin-bottom: 8px;
+}
+
+.word-hero h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
-    color: var(--off-white);
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--green-deep);
+    line-height: 1.2;
     margin: 0;
     text-transform: capitalize;
 }
- 
-.word-hero p {
-    font-size: 0.95rem;
-    color: var(--gold);
-    font-weight: 500;
+
+/* Hero stat strip — same pattern as the rest of the site */
+.word-hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--green-mid);
+}
+
+.hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.hero-stat-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--green-deep);
+    line-height: 1;
+}
+
+.hero-stat-label {
+    font-size: 11px;
+    font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    margin-top: 0.4rem;
+    color: var(--text-muted);
 }
- 
+
 /* === Page Body === */
-.word-container {
-    max-width: 1100px;
-    margin: 2.5rem auto;
-    padding: 0 2rem 3rem;
+.word-profile-container {
+    max-width: 1800px;
+    margin: 24px auto 0;
+    padding: 0 56px 48px;
 }
- 
-/* === Chart Box === */
-.chart-box {
-    background: white;
+
+/* === Chart card === */
+.insights-wrapper {
+    margin: 0;
+    padding: 0;
+}
+
+.insights-card {
+    background: #ffffff;
     border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 1.5rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    border-radius: 14px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    padding: 22px 28px 28px;
 }
- 
+
+.insights-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--green-light);
+}
+
+.chart-note {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin: -8px 0 12px;
+}
+
 #word_chart {
     width: 100%;
-    min-height: 420px;
+    height: 480px;
 }
- 
+
 /* === Responsive === */
 @media (max-width: 800px) {
-    .word-hero { padding: 1.5rem; }
-    .word-container { padding: 0 1rem 2rem; }
+    .word-hero {
+        padding: 20px;
+    }
+
+    .word-profile-container {
+        padding: 0 20px 32px;
+    }
 }

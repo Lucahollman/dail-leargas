@@ -1,0 +1,201 @@
+/* styling for party profile */
+
+/* === Party Hero === */
+.party-hero {
+    background: var(--green-light);
+    border-bottom: 3px solid var(--green-mid);
+    padding: 24px 56px;
+    text-align: left;
+}
+
+.party-eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    margin-bottom: 8px;
+}
+
+/* Independents aren't a party — give the page a visually distinct eyebrow */
+.party-eyebrow-independent {
+    color: var(--gold);
+}
+
+.party-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--green-deep);
+    line-height: 1.2;
+    margin: 0;
+}
+
+/* Hero stat strip — same pattern as the TD and debate pages */
+.party-hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--green-mid);
+}
+
+.hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.hero-stat-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--green-deep);
+    line-height: 1;
+}
+
+.hero-stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.hero-stat-divider {
+    width: 1px;
+    height: 28px;
+    background: var(--green-mid);
+    opacity: 0.35;
+}
+
+/* === Page Body === */
+.party-profile-container {
+    max-width: 1800px;
+    margin: 24px auto 0;
+    padding: 0 56px 48px;
+}
+
+/* === Section Titles === */
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--green-deep);
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--gold);
+    display: inline-block;
+}
+
+/* === Charts (word frequency + language share) === */
+.insights-wrapper {
+    margin: 0;
+    padding: 0;
+}
+
+.insights-card {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    padding: 22px 28px 28px;
+}
+
+.insights-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--green-light);
+}
+
+.insights-body {
+    display: grid;
+    grid-template-columns: 2fr 1px 1fr;
+    gap: 28px;
+    align-items: stretch;
+}
+
+.insights-divider {
+    background: var(--green-light);
+}
+
+@media (max-width: 800px) {
+    .insights-body {
+        grid-template-columns: 1fr;
+    }
+
+    .insights-divider {
+        display: none;
+    }
+}
+
+#overallprobdist,
+#overallirishper {
+    width: 100%;
+    height: 380px;
+}
+
+/* === Probability Table === */
+.prob-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.prob-table th {
+    background-color: var(--green-deep);
+    color: var(--off-white);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 12px 20px;
+    text-align: left;
+}
+
+.prob-table td {
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--green-light);
+    color: var(--text-dark);
+}
+
+.prob-table tr:last-child td {
+    border-bottom: none;
+}
+
+.prob-table tr:nth-child(even) td {
+    background-color: var(--green-light);
+}
+
+.prob-table tr:hover td {
+    background-color: var(--gold-light);
+    transition: background-color 0.15s ease;
+}
+
+/* === Responsive === */
+@media (max-width: 800px) {
+    .party-hero-stats {
+        flex-wrap: wrap;
+        row-gap: 12px;
+    }
+
+    .hero-stat-divider {
+        display: none;
+    }
+
+    .party-profile-container {
+        padding: 0 20px 32px;
+    }
+}

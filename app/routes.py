@@ -70,6 +70,7 @@ def tdspecific(id):
     words = [d["words"] for d in prob_dist]
     freq = [d["freq"] for d in prob_dist]
     return render_template("td.html", td = td, prob_dist = prob_dist, contributions = contributions, words = words, freq = freq)
+
 @app.route("/parties")
 def partyindex():
     parties = get_database().execute("select * from parties").fetchall()
@@ -80,10 +81,18 @@ def party(party_name):
     party = get_database().execute(
         "select * from parties where party_name = ?", [party_name]).fetchone()
     prob_dist = get_database().execute("select words, freq, prob from party_freq_tables where name = ?", (party["party_name"],)).fetchall()
+    td_count = get_database().execute("select count(*) as count from td_metadata where party = ?", (party["party_name"],)).fetchone()["count"]
+    contribution_count = get_database().execute(
+        """select count(*) as count
+           from contributions
+           join td_metadata on contributions.td = td_metadata.name
+           where td_metadata.party = ?""",
+        (party_name,)
+    ).fetchone()["count"]
     #Labels for js chart
     words = [d["words"] for d in prob_dist]
     freq = [d["freq"] for d in prob_dist]
-    return render_template("party.html", party = party, prob_dist = prob_dist, words = words, freq = freq)
+    return render_template("party.html", party = party, prob_dist = prob_dist, words = words, freq = freq, td_count = td_count, contribution_count = contribution_count)
 
 
 @app.route("/words")
