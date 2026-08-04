@@ -1,0 +1,1027 @@
+{
+    "head": {
+        "counts": {
+            "debateCount": 10,
+            "resultCount": 10
+        }
+    },
+    "results": [
+        {
+            "contextDate": "2026-01-21",
+            "debateRecord": {
+                "formats": {
+                    "xml": {
+                        "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_enterprise_tourism_and_employment/2026-01-21/debate/mul@/main.xml"
+                    },
+                    "writtens_pdf": null,
+                    "pdf": {
+                        "uri": "https://data.oireachtas.ie/ie/oireachtas/debateRecord/joint_committee_on_enterprise_tourism_and_employment/2026-01-21/debate/mul@/main.pdf"
+                    }
+                },
+                "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_enterprise_tourism_and_employment/2026-01-21/debate/main",
+                "lastUpdated": "2026-02-25T03:16:01+00:00",
+                "debateType": "debate",
+                "date": "2026-01-21",
+                "house": {
+                    "houseNo": "34",
+                    "chamberType": "committee",
+                    "showAs": "Joint Committee on Enterprise, Tourism and Employment",
+                    "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/joint_committee_on_enterprise_tourism_and_employment",
+                    "houseCode": "dail",
+                    "committeeCode": "joint_committee_on_enterprise_tourism_and_employment"
+                },
+                "chamber": {
+                    "showAs": "Joint Committee on Enterprise, Tourism and Employment",
+                    "uri": "https://data.oireachtas.ie/ie/oireachtas/def/committee"
+                },
+                "counts": {
+                    "divisionCount": 0,
+                    "contributorCount": 14,
+                    "debateSectionCount": 1,
+                    "questionCount": 0,
+                    "billCount": 0
+                },
+                "debateSections": [
+                    {
+                        "debateSection": {
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "bill": null,
+                            "speakers": [],
+                            "parentDebateSection": null,
+                            "containsDebate": true,
+                            "debateType": "debate",
+                            "showAs": "The Future of Irish Tourism: Irish Tourism Industry Confederation",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_enterprise_tourism_and_employment/2026-01-21/debate/dbsect_2",
+                            "counts": {
+                                "speechCount": 193,
+                                "speakerCount": 15
+                            },
+                            "debateSectionId": "dbsect_2"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "debateRecord": {
+                "lastUpdated": "2026-02-18T10:43:20+00:00",
+                "house": {
+                    "houseCode": "dail",
+                    "committeeCode": "joint_committee_on_agriculture_and_food",
+                    "chamberType": "committee",
+                    "houseNo": "34",
+                    "showAs": "Joint Committee on Agriculture and Food",
+                    "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/joint_committee_on_agriculture_and_food"
+                },
+                "chamber": {
+                    "showAs": "Joint Committee on Agriculture and Food",
+                    "uri": "https://data.oireachtas.ie/ie/oireachtas/def/committee"
+                },
+                "formats": {
+                    "pdf": {
+                        "uri": "https://data.oireachtas.ie/ie/oireachtas/debateRecord/joint_committee_on_agriculture_and_food/2026-01-21/debate/mul@/main.pdf"
+                    },
+                    "writtens_pdf": null,
+                    "xml": {
+                        "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_agriculture_and_food/2026-01-21/debate/mul@/main.xml"
+                    }
+                },
+                "counts": {
+                    "contributorCount": 12,
+                    "questionCount": 0,
+                    "divisionCount": 0,
+                    "debateSectionCount": 1,
+                    "billCount": 0
+                },
+                "debateSections": [
+                    {
+                        "debateSection": {
+                            "speakers": [],
+                            "containsDebate": true,
+                            "bill": null,
+                            "formats": {
+                                "pdf": null,
+                                "xml": null
+                            },
+                            "debateSectionId": "dbsect_2",
+                            "counts": {
+                                "speakerCount": 13,
+                                "speechCount": 175
+                            },
+                            "showAs": "Common Agricultural Policy Post 2027: Discussion (Resumed)",
+                            "parentDebateSection": null,
+                            "debateType": "debate",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_agriculture_and_food/2026-01-21/debate/dbsect_2"
+                        }
+                    }
+                ],
+                "debateType": "debate",
+                "date": "2026-01-21",
+                "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_agriculture_and_food/2026-01-21/debate/main"
+            },
+            "contextDate": "2026-01-21"
+        },
+        {
+            "contextDate": "2026-01-21",
+            "debateRecord": {
+                "chamber": {
+                    "uri": "https://data.oireachtas.ie/ie/oireachtas/def/house/dail",
+                    "showAs": "Dáil Éireann"
+                },
+                "lastUpdated": "2026-04-11T03:08:07+01:00",
+                "debateSections": [
+                    {
+                        "debateSection": {
+                            "containsDebate": true,
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 1,
+                                "speakerCount": 1
+                            },
+                            "showAs": "Ábhair Shaincheisteanna Tráthúla - Topical Issue Matters",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_2",
+                            "bill": null,
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "debateType": "topical",
+                            "parentDebateSection": null,
+                            "debateSectionId": "dbsect_2"
+                        }
+                    },
+                    {
+                        "debateSection": {
+                            "containsDebate": false,
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 0,
+                                "speakerCount": 0
+                            },
+                            "showAs": "Saincheisteanna Tráthúla - Topical Issue Debate",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_3",
+                            "bill": null,
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "debateType": "topical",
+                            "parentDebateSection": null,
+                            "debateSectionId": "dbsect_3"
+                        }
+                    },
+                    {
+                        "debateSection": {
+                            "containsDebate": true,
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 4,
+                                "speakerCount": 2
+                            },
+                            "showAs": "Health Services Staff",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_4",
+                            "bill": null,
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "debateType": "debate",
+                            "parentDebateSection": {
+                                "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_3",
+                                "formats": {
+                                    "xml": null,
+                                    "pdf": null
+                                },
+                                "showAs": "Saincheisteanna Tráthúla - Topical Issue Debate",
+                                "debateSectionId": "dbsect_3"
+                            },
+                            "debateSectionId": "dbsect_4"
+                        }
+                    },
+                    {
+                        "debateSection": {
+                            "containsDebate": true,
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 4,
+                                "speakerCount": 2
+                            },
+                            "showAs": "Disabilities Assessments",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_5",
+                            "bill": null,
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "debateType": "debate",
+                            "parentDebateSection": {
+                                "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_3",
+                                "formats": {
+                                    "xml": null,
+                                    "pdf": null
+                                },
+                                "showAs": "Saincheisteanna Tráthúla - Topical Issue Debate",
+                                "debateSectionId": "dbsect_3"
+                            },
+                            "debateSectionId": "dbsect_5"
+                        }
+                    },
+                    {
+                        "debateSection": {
+                            "containsDebate": true,
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 7,
+                                "speakerCount": 3
+                            },
+                            "showAs": "Mental Health Services",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_6",
+                            "bill": null,
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "debateType": "debate",
+                            "parentDebateSection": {
+                                "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_3",
+                                "formats": {
+                                    "xml": null,
+                                    "pdf": null
+                                },
+                                "showAs": "Saincheisteanna Tráthúla - Topical Issue Debate",
+                                "debateSectionId": "dbsect_3"
+                            },
+                            "debateSectionId": "dbsect_6"
+                        }
+                    },
+                    {
+                        "debateSection": {
+                            "containsDebate": true,
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 4,
+                                "speakerCount": 2
+                            },
+                            "showAs": "School Accommodation",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_7",
+                            "bill": null,
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "debateType": "debate",
+                            "parentDebateSection": {
+                                "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_3",
+                                "formats": {
+                                    "xml": null,
+                                    "pdf": null
+                                },
+                                "showAs": "Saincheisteanna Tráthúla - Topical Issue Debate",
+                                "debateSectionId": "dbsect_3"
+                            },
+                            "debateSectionId": "dbsect_7"
+                        }
+                    },
+                    {
+                        "debateSection": {
+                            "containsDebate": true,
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 4,
+                                "speakerCount": 2
+                            },
+                            "showAs": "School Admissions",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_8",
+                            "bill": null,
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "debateType": "debate",
+                            "parentDebateSection": {
+                                "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_3",
+                                "formats": {
+                                    "xml": null,
+                                    "pdf": null
+                                },
+                                "showAs": "Saincheisteanna Tráthúla - Topical Issue Debate",
+                                "debateSectionId": "dbsect_3"
+                            },
+                            "debateSectionId": "dbsect_8"
+                        }
+                    },
+                    {
+                        "debateSection": {
+                            "containsDebate": true,
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 44,
+                                "speakerCount": 36
+                            },
+                            "showAs": "Flexible Work and Commuter Delays: Motion [Private Members]",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_9",
+                            "bill": null,
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "debateType": "motion",
+                            "parentDebateSection": null,
+                            "debateSectionId": "dbsect_9"
+                        }
+                    },
+                    {
+                        "debateSection": {
+                            "containsDebate": true,
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 83,
+                                "speakerCount": 13
+                            },
+                            "showAs": "Ceisteanna ó Cheannairí - Leaders' Questions",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_10",
+                            "bill": null,
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "debateType": "questions",
+                            "parentDebateSection": null,
+                            "debateSectionId": "dbsect_10"
+                        }
+                    },
+                    {
+                        "debateSection": {
+                            "containsDebate": true,
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 4,
+                                "speakerCount": 2
+                            },
+                            "showAs": "Ceisteanna ó na Comhaltaí Eile - Other Members’ Questions",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_11",
+                            "bill": null,
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "debateType": "questions",
+                            "parentDebateSection": null,
+                            "debateSectionId": "dbsect_11"
+                        }
+                    },
+                    {
+                        "debateSection": {
+                            "containsDebate": true,
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 65,
+                                "speakerCount": 21
+                            },
+                            "showAs": "Ceisteanna ar Pholasaí nó ar Reachtaíocht - Questions on Policy or Legislation",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_12",
+                            "bill": null,
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "debateType": "questions",
+                            "parentDebateSection": null,
+                            "debateSectionId": "dbsect_12"
+                        }
+                    },
+                    {
+                        "debateSection": {
+                            "containsDebate": true,
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 83,
+                                "speakerCount": 28
+                            },
+                            "showAs": "International Developments: Statements",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_13",
+                            "bill": null,
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "debateType": "statement",
+                            "parentDebateSection": null,
+                            "debateSectionId": "dbsect_13"
+                        }
+                    },
+                    {
+                        "debateSection": {
+                            "containsDebate": true,
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 75,
+                                "speakerCount": 59
+                            },
+                            "showAs": "Water: Statements",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_14",
+                            "bill": null,
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "debateType": "statement",
+                            "parentDebateSection": null,
+                            "debateSectionId": "dbsect_14"
+                        }
+                    },
+                    {
+                        "debateSection": {
+                            "containsDebate": true,
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 33,
+                                "speakerCount": 4
+                            },
+                            "showAs": "Copyright and Related Rights (Amendment) Bill 2025: Report and Final Stages",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_15",
+                            "bill": {
+                                "uri": "https://data.oireachtas.ie/ie/oireachtas/bill/2025/33",
+                                "event": {
+                                    "stage": "4_sub",
+                                    "uri": "https://data.oireachtas.ie/ie/oireachtas/bill/2025/33/dail/4_sub",
+                                    "houseCode": "dail",
+                                    "isBillStage": false,
+                                    "showAs": "Copyright and Related Rights (Amendment) Bill 2025: Report and Final Stages (Dáil)"
+                                }
+                            },
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "debateType": "billReport",
+                            "parentDebateSection": null,
+                            "debateSectionId": "dbsect_15"
+                        }
+                    },
+                    {
+                        "debateSection": {
+                            "containsDebate": true,
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 1,
+                                "speakerCount": 1
+                            },
+                            "showAs": "Derelict Sites (Amendment) Bill 2022: Second Stage (Resumed) [Private Members]",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_16",
+                            "bill": {
+                                "uri": "https://data.oireachtas.ie/ie/oireachtas/bill/2022/94",
+                                "event": {
+                                    "stage": "2",
+                                    "uri": "https://data.oireachtas.ie/ie/oireachtas/bill/2022/94/dail/2",
+                                    "houseCode": "dail",
+                                    "isBillStage": true,
+                                    "showAs": "Derelict Sites (Amendment) Bill 2022: Second Stage (Resumed) [Private Members] (Dáil)"
+                                }
+                            },
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "debateType": "debate",
+                            "parentDebateSection": null,
+                            "debateSectionId": "dbsect_16"
+                        }
+                    },
+                    {
+                        "debateSection": {
+                            "containsDebate": true,
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 1,
+                                "speakerCount": 1
+                            },
+                            "showAs": "Sale of Nitrous Oxide and Related Products Bill 2025: Second Stage (Resumed) [Private Members]",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_21",
+                            "bill": {
+                                "uri": "https://data.oireachtas.ie/ie/oireachtas/bill/2025/18",
+                                "event": {
+                                    "stage": "2",
+                                    "uri": "https://data.oireachtas.ie/ie/oireachtas/bill/2025/18/dail/2",
+                                    "houseCode": "dail",
+                                    "isBillStage": true,
+                                    "showAs": "Sale of Nitrous Oxide and Related Products Bill 2025: Second Stage (Resumed) [Private Members] (Dáil)"
+                                }
+                            },
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "debateType": "debate",
+                            "parentDebateSection": null,
+                            "debateSectionId": "dbsect_21"
+                        }
+                    },
+                    {
+                        "debateSection": {
+                            "containsDebate": true,
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 1,
+                                "speakerCount": 1
+                            },
+                            "showAs": "Flexible Work and Commuter Delays: Motion (Resumed) [Private Members]",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/dbsect_26",
+                            "bill": null,
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "debateType": "motion",
+                            "parentDebateSection": null,
+                            "debateSectionId": "dbsect_26"
+                        }
+                    }
+                ],
+                "counts": {
+                    "divisionCount": 4,
+                    "billCount": 3,
+                    "debateSectionCount": 17,
+                    "questionCount": 0,
+                    "contributorCount": 169
+                },
+                "house": {
+                    "chamberType": "house",
+                    "showAs": "34th Dáil",
+                    "committeeCode": "",
+                    "houseCode": "dail",
+                    "uri": "https://data.oireachtas.ie/ie/oireachtas/house/dail/34",
+                    "houseNo": "34"
+                },
+                "date": "2026-01-21",
+                "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/main",
+                "debateType": "debate",
+                "formats": {
+                    "writtens_pdf": null,
+                    "xml": {
+                        "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/dail/2026-01-21/debate/mul@/main.xml"
+                    },
+                    "pdf": {
+                        "uri": "https://data.oireachtas.ie/ie/oireachtas/debateRecord/dail/2026-01-21/debate/mul@/main.pdf"
+                    }
+                }
+            }
+        },
+        {
+            "contextDate": "2026-01-21",
+            "debateRecord": {
+                "chamber": {
+                    "showAs": "Joint Committee on Arts, Media, Communications, Culture and Sport",
+                    "uri": "https://data.oireachtas.ie/ie/oireachtas/def/committee"
+                },
+                "house": {
+                    "showAs": "Joint Committee on Arts, Media, Communications, Culture and Sport",
+                    "houseNo": "34",
+                    "committeeCode": "joint_committee_on_arts_media_communications_culture_and_sport",
+                    "houseCode": "dail",
+                    "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/joint_committee_on_arts_media_communications_culture_and_sport",
+                    "chamberType": "committee"
+                },
+                "lastUpdated": "2026-01-27T03:13:05+00:00",
+                "debateType": "debate",
+                "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_arts_media_communications_culture_and_sport/2026-01-21/debate/main",
+                "counts": {
+                    "questionCount": 0,
+                    "debateSectionCount": 1,
+                    "contributorCount": 13,
+                    "billCount": 0,
+                    "divisionCount": 0
+                },
+                "formats": {
+                    "xml": {
+                        "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_arts_media_communications_culture_and_sport/2026-01-21/debate/mul@/main.xml"
+                    },
+                    "pdf": {
+                        "uri": "https://data.oireachtas.ie/ie/oireachtas/debateRecord/joint_committee_on_arts_media_communications_culture_and_sport/2026-01-21/debate/mul@/main.pdf"
+                    },
+                    "writtens_pdf": null
+                },
+                "debateSections": [
+                    {
+                        "debateSection": {
+                            "showAs": "Regulation of Online Platforms and Supports to Improve Online Safety and Participation: Discussion (Resumed)",
+                            "debateSectionId": "dbsect_2",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_arts_media_communications_culture_and_sport/2026-01-21/debate/dbsect_2",
+                            "parentDebateSection": null,
+                            "containsDebate": true,
+                            "debateType": "debate",
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 123,
+                                "speakerCount": 14
+                            },
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "bill": null
+                        }
+                    }
+                ],
+                "date": "2026-01-21"
+            }
+        },
+        {
+            "contextDate": "2026-01-21",
+            "debateRecord": {
+                "chamber": {
+                    "showAs": "Joint Committee on Climate, Environment and Energy",
+                    "uri": "https://data.oireachtas.ie/ie/oireachtas/def/committee"
+                },
+                "house": {
+                    "showAs": "Joint Committee on Climate, Environment and Energy",
+                    "houseNo": "34",
+                    "committeeCode": "joint_committee_on_climate_environment_and_energy",
+                    "houseCode": "dail",
+                    "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/joint_committee_on_climate_environment_and_energy",
+                    "chamberType": "committee"
+                },
+                "lastUpdated": "2026-01-27T03:13:05+00:00",
+                "debateType": "debate",
+                "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_climate_environment_and_energy/2026-01-21/debate/main",
+                "counts": {
+                    "questionCount": 0,
+                    "debateSectionCount": 1,
+                    "contributorCount": 10,
+                    "billCount": 0,
+                    "divisionCount": 0
+                },
+                "formats": {
+                    "xml": {
+                        "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_climate_environment_and_energy/2026-01-21/debate/mul@/main.xml"
+                    },
+                    "pdf": {
+                        "uri": "https://data.oireachtas.ie/ie/oireachtas/debateRecord/joint_committee_on_climate_environment_and_energy/2026-01-21/debate/mul@/main.pdf"
+                    },
+                    "writtens_pdf": null
+                },
+                "debateSections": [
+                    {
+                        "debateSection": {
+                            "showAs": "Funding for LIFE Programmes: Discussion",
+                            "debateSectionId": "dbsect_2",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_climate_environment_and_energy/2026-01-21/debate/dbsect_2",
+                            "parentDebateSection": null,
+                            "containsDebate": true,
+                            "debateType": "debate",
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 116,
+                                "speakerCount": 11
+                            },
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "bill": null
+                        }
+                    }
+                ],
+                "date": "2026-01-21"
+            }
+        },
+        {
+            "contextDate": "2026-01-21",
+            "debateRecord": {
+                "chamber": {
+                    "showAs": "Joint Committee on Health",
+                    "uri": "https://data.oireachtas.ie/ie/oireachtas/def/committee"
+                },
+                "house": {
+                    "showAs": "Joint Committee on Health",
+                    "houseNo": "34",
+                    "committeeCode": "joint_committee_on_health",
+                    "houseCode": "dail",
+                    "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/joint_committee_on_health",
+                    "chamberType": "committee"
+                },
+                "lastUpdated": "2026-01-27T03:13:04+00:00",
+                "debateType": "debate",
+                "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_health/2026-01-21/debate/main",
+                "counts": {
+                    "questionCount": 0,
+                    "debateSectionCount": 1,
+                    "contributorCount": 10,
+                    "billCount": 0,
+                    "divisionCount": 0
+                },
+                "formats": {
+                    "xml": {
+                        "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_health/2026-01-21/debate/mul@/main.xml"
+                    },
+                    "pdf": {
+                        "uri": "https://data.oireachtas.ie/ie/oireachtas/debateRecord/joint_committee_on_health/2026-01-21/debate/mul@/main.pdf"
+                    },
+                    "writtens_pdf": null
+                },
+                "debateSections": [
+                    {
+                        "debateSection": {
+                            "showAs": "Treatment of People with Eating Disorders: Discussion",
+                            "debateSectionId": "dbsect_2",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_health/2026-01-21/debate/dbsect_2",
+                            "parentDebateSection": null,
+                            "containsDebate": true,
+                            "debateType": "debate",
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 299,
+                                "speakerCount": 11
+                            },
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "bill": null
+                        }
+                    }
+                ],
+                "date": "2026-01-21"
+            }
+        },
+        {
+            "contextDate": "2026-01-21",
+            "debateRecord": {
+                "chamber": {
+                    "showAs": "Joint Committee on Transport",
+                    "uri": "https://data.oireachtas.ie/ie/oireachtas/def/committee"
+                },
+                "house": {
+                    "showAs": "Joint Committee on Transport",
+                    "houseNo": "34",
+                    "committeeCode": "joint_committee_on_transport",
+                    "houseCode": "dail",
+                    "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/joint_committee_on_transport",
+                    "chamberType": "committee"
+                },
+                "lastUpdated": "2026-01-27T03:13:04+00:00",
+                "debateType": "debate",
+                "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_transport/2026-01-21/debate/main",
+                "counts": {
+                    "questionCount": 0,
+                    "debateSectionCount": 2,
+                    "contributorCount": 10,
+                    "billCount": 0,
+                    "divisionCount": 0
+                },
+                "formats": {
+                    "xml": {
+                        "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_transport/2026-01-21/debate/mul@/main.xml"
+                    },
+                    "pdf": {
+                        "uri": "https://data.oireachtas.ie/ie/oireachtas/debateRecord/joint_committee_on_transport/2026-01-21/debate/mul@/main.pdf"
+                    },
+                    "writtens_pdf": null
+                },
+                "debateSections": [
+                    {
+                        "debateSection": {
+                            "showAs": "Business of Joint Committee",
+                            "debateSectionId": "dbsect_2",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_transport/2026-01-21/debate/dbsect_2",
+                            "parentDebateSection": null,
+                            "containsDebate": true,
+                            "debateType": "debate",
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 1,
+                                "speakerCount": 1
+                            },
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "bill": null
+                        }
+                    },
+                    {
+                        "debateSection": {
+                            "showAs": "Issues Facing the Taxi Industry: Discussion",
+                            "debateSectionId": "dbsect_3",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_transport/2026-01-21/debate/dbsect_3",
+                            "parentDebateSection": null,
+                            "containsDebate": true,
+                            "debateType": "debate",
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 181,
+                                "speakerCount": 11
+                            },
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "bill": null
+                        }
+                    }
+                ],
+                "date": "2026-01-21"
+            }
+        },
+        {
+            "contextDate": "2026-01-21",
+            "debateRecord": {
+                "chamber": {
+                    "showAs": "Joint Committee on Infrastructure and National Development Plan Delivery",
+                    "uri": "https://data.oireachtas.ie/ie/oireachtas/def/committee"
+                },
+                "house": {
+                    "showAs": "Joint Committee on Infrastructure and National Development Plan Delivery",
+                    "houseNo": "34",
+                    "committeeCode": "joint_committee_on_infrastructure_and_national_development_plan_delivery",
+                    "houseCode": "dail",
+                    "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/joint_committee_on_infrastructure_and_national_development_plan_delivery",
+                    "chamberType": "committee"
+                },
+                "lastUpdated": "2026-01-27T03:13:09+00:00",
+                "debateType": "debate",
+                "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_infrastructure_and_national_development_plan_delivery/2026-01-21/debate/main",
+                "counts": {
+                    "questionCount": 0,
+                    "debateSectionCount": 2,
+                    "contributorCount": 7,
+                    "billCount": 0,
+                    "divisionCount": 0
+                },
+                "formats": {
+                    "xml": {
+                        "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_infrastructure_and_national_development_plan_delivery/2026-01-21/debate/mul@/main.xml"
+                    },
+                    "pdf": {
+                        "uri": "https://data.oireachtas.ie/ie/oireachtas/debateRecord/joint_committee_on_infrastructure_and_national_development_plan_delivery/2026-01-21/debate/mul@/main.pdf"
+                    },
+                    "writtens_pdf": null
+                },
+                "debateSections": [
+                    {
+                        "debateSection": {
+                            "showAs": "Business of Joint Committee",
+                            "debateSectionId": "dbsect_2",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_infrastructure_and_national_development_plan_delivery/2026-01-21/debate/dbsect_2",
+                            "parentDebateSection": null,
+                            "containsDebate": true,
+                            "debateType": "debate",
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 1,
+                                "speakerCount": 1
+                            },
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "bill": null
+                        }
+                    },
+                    {
+                        "debateSection": {
+                            "showAs": "OPW NDP Sectoral Investment Plan 2026-2030: Discussion",
+                            "debateSectionId": "dbsect_3",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_infrastructure_and_national_development_plan_delivery/2026-01-21/debate/dbsect_3",
+                            "parentDebateSection": null,
+                            "containsDebate": true,
+                            "debateType": "debate",
+                            "speakers": [],
+                            "counts": {
+                                "speechCount": 211,
+                                "speakerCount": 8
+                            },
+                            "formats": {
+                                "xml": null,
+                                "pdf": null
+                            },
+                            "bill": null
+                        }
+                    }
+                ],
+                "date": "2026-01-21"
+            }
+        },
+        {
+            "contextDate": "2026-01-21",
+            "debateRecord": {
+                "lastUpdated": "2026-03-04T03:10:36+00:00",
+                "formats": {
+                    "writtens_pdf": null,
+                    "pdf": {
+                        "uri": "https://data.oireachtas.ie/ie/oireachtas/debateRecord/joint_committee_on_finance_public_expenditure_public_service_reform_and_digitalisation_and_taoiseach/2026-01-21/debate/mul@/main.pdf"
+                    },
+                    "xml": {
+                        "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_finance_public_expenditure_public_service_reform_and_digitalisation_and_taoiseach/2026-01-21/debate/mul@/main.xml"
+                    }
+                },
+                "date": "2026-01-21",
+                "chamber": {
+                    "showAs": "Joint Committee on Finance, Public Expenditure, Public Service Reform and Digitalisation, and Taoiseach",
+                    "uri": "https://data.oireachtas.ie/ie/oireachtas/def/committee"
+                },
+                "debateType": "debate",
+                "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_finance_public_expenditure_public_service_reform_and_digitalisation_and_taoiseach/2026-01-21/debate/main",
+                "house": {
+                    "houseNo": "34",
+                    "committeeCode": "joint_committee_on_finance_public_expenditure_public_service_reform_and_digitalisation_and_taoiseach",
+                    "showAs": "Joint Committee on Finance, Public Expenditure, Public Service Reform and Digitalisation, and Taoiseach",
+                    "chamberType": "committee",
+                    "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/joint_committee_on_finance_public_expenditure_public_service_reform_and_digitalisation_and_taoiseach",
+                    "houseCode": "dail"
+                },
+                "counts": {
+                    "debateSectionCount": 1,
+                    "contributorCount": 9,
+                    "billCount": 0,
+                    "divisionCount": 0,
+                    "questionCount": 0
+                },
+                "debateSections": [
+                    {
+                        "debateSection": {
+                            "parentDebateSection": null,
+                            "bill": null,
+                            "formats": {
+                                "pdf": null,
+                                "xml": null
+                            },
+                            "counts": {
+                                "speakerCount": 10,
+                                "speechCount": 259
+                            },
+                            "speakers": [],
+                            "showAs": "Regulatory Oversight of Neobanks: Discussion (Resumed)",
+                            "containsDebate": true,
+                            "debateType": "debate",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_finance_public_expenditure_public_service_reform_and_digitalisation_and_taoiseach/2026-01-21/debate/dbsect_2",
+                            "debateSectionId": "dbsect_2"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "contextDate": "2026-01-21",
+            "debateRecord": {
+                "lastUpdated": "2026-03-04T03:10:36+00:00",
+                "formats": {
+                    "writtens_pdf": null,
+                    "pdf": {
+                        "uri": "https://data.oireachtas.ie/ie/oireachtas/debateRecord/joint_committee_on_european_union_affairs/2026-01-21/debate/mul@/main.pdf"
+                    },
+                    "xml": {
+                        "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_european_union_affairs/2026-01-21/debate/mul@/main.xml"
+                    }
+                },
+                "date": "2026-01-21",
+                "chamber": {
+                    "showAs": "Joint Committee on European Union Affairs",
+                    "uri": "https://data.oireachtas.ie/ie/oireachtas/def/committee"
+                },
+                "debateType": "debate",
+                "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_european_union_affairs/2026-01-21/debate/main",
+                "house": {
+                    "houseNo": "34",
+                    "committeeCode": "joint_committee_on_european_union_affairs",
+                    "showAs": "Joint Committee on European Union Affairs",
+                    "chamberType": "committee",
+                    "uri": "https://data.oireachtas.ie/ie/oireachtas/committee/dail/34/joint_committee_on_european_union_affairs",
+                    "houseCode": "dail"
+                },
+                "counts": {
+                    "debateSectionCount": 1,
+                    "contributorCount": 10,
+                    "billCount": 0,
+                    "divisionCount": 0,
+                    "questionCount": 0
+                },
+                "debateSections": [
+                    {
+                        "debateSection": {
+                            "parentDebateSection": null,
+                            "bill": null,
+                            "formats": {
+                                "pdf": null,
+                                "xml": null
+                            },
+                            "counts": {
+                                "speakerCount": 11,
+                                "speechCount": 75
+                            },
+                            "speakers": [],
+                            "showAs": "Priorities of the Cyprus Presidency of the Council of the European Union: Ambassador of Cyprus",
+                            "containsDebate": true,
+                            "debateType": "debate",
+                            "uri": "https://data.oireachtas.ie/akn/ie/debateRecord/joint_committee_on_european_union_affairs/2026-01-21/debate/dbsect_2",
+                            "debateSectionId": "dbsect_2"
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}

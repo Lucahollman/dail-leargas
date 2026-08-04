@@ -17,7 +17,6 @@ nltk.download('averaged_perceptron_tagger_eng')
 nltk.download('maxent_ne_chunker_tab')
 nltk.download('words')
 nltk.download('vader_lexicon')
-subprocess.run([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
 
 script_dir = Path(__file__).parent
 scripts = [
