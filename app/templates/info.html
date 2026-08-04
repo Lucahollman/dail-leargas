@@ -24,18 +24,31 @@
 
         <div class="info-sections">
             <section class="info-card">
-                <h3 class="section-title">What is This Website?</h3>
-                <p>This website is a tool that allows users to view text and sentiment anaylsis data from Dáil Éireann. Currently, this website displays word frequency distribution tables, language share tables, sentiment scores for TD contributions, and various metadata statistics such as number of words spoken etc. Users can view statistics aggregated by debate, Teachta Dála, party, or word.</p>
+                <h3 class="section-title">What is this Website?</h3>
+                <p>This website is a analysis tool for examining the spoken record of Dáil Éireann. It offers word‑frequency tables, language‑use summaries, sentiment scores for TD contributions, and a range of metadata describing parliamentary activity. Statistics can be viewed by debate, Teachta Dála, party, or word. The aim of this website is to make the spoken record of Dáil Éireann easier to navigate, analyse, and interpret.</p>
             </section>
 
             <section class="info-card">
-                <h3 class="section-title">How Do We Calculate our Statistics?</h3>
-                <p></p>
+                <h3 class="section-title">Where the Data Comes From</h3>
+                <p>Raw text from parliamentary proceedings is obtained through the <a href="https://api.oireachtas.ie/">Oireachtas Open Data API</a>© Houses of the Oireachtas and reused under the <a href="https://www.oireachtas.ie/en/open-data/license/">Oireachtas (Open Data) PSI Licence</a>, which incorporates the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. All statistics generated on this website are independent estimates and do not represent official Oireachtas interpretations. Official records are available at <a href="https://www.oireachtas.ie/">oireachtas.ie</a></p>
             </section>
 
             <section class="info-card">
-                <h3 class="section-title">How Do We Calculate Our Sentiment Scores?</h3>
-                <p>VADER is defined as a rule-based method that calculates four sentiment scores: Negative (Neg), Neutral (Neu), Positive (Pos), and Compound. The Compound score is a weighted composite that ranges from −1 (most negative) to +1 (most positive). It is computed by summing the valence scores of each word in the lexicon, adjusting for heuristics, and normalizing the result. Sentiment classification is then determined by the Compound score: a score ≥ 0.05 is classified as positive, ≤ −0.05 as negative, and between −0.05 and 0.05 as neutral.</p>
+                <h3 class="section-title">How Language Share is Detected</h3>
+                <p>This website uses the <a href="https://pypi.org/project/lingua-language-detector/"> Lingua Language-Detector</a> library to estimate the proportion of Irish and English within parliamentary text. However this tool, alongside all other language detection tools, has limitations when working with mixed‑language inputs. Very short passages often produce inconsistent results as the model lacks sufficient context. Named entities, such as Irish surnames or placenames, can also mislead the detector, and common loanwords may cause misclassification. Please keep these limitations in mind before berating your local Teachta Dála for not speaking enough of their native tongue.</p>
+            </section>
+
+            <section class="info-card">
+                <h3 class="section-title">How Sentiment Scores are Calculated</h3>
+                <p> Sentiment scores on this website are generated using <a href="https://vadersentiment.readthedocs.io/en/latest/">VADER</a>(Valence Aware Dictionary and Sentiment Reasoner), a lexicon and rule‑based sentiment analysis tool. VADER calculates four sentiment scores: Negative (Neg), Neutral (Neu), Positive (Pos), and Compound. The Compound score is a weighted composite that ranges from −1 (most negative) to +1 (most positive). It is computed by summing the valence scores of each word in the lexicon, adjusting for heuristics, and normalizing the result. Sentiment classification is then determined by the Compound score: a score ≥ 0.05 is classified as positive, ≤ −0.05 as negative, and between −0.05 and 0.05 as neutral. VADER is not without it's limitations. It is tuned primarily for social‑media language, which means it can at times misinterpret sentiment in a parliamentary context. Future versions of this website will incorporate a sentiment‑analysis method better suited to the linguistic patterns of Dáil Éireann.</p>
+            </section>
+
+            <section class="info-card">
+                <h3 class="section-title">Contact Me</h3>
+                <ul class="contact-list">
+                    <li><a href="mailto:lucahollman@gmail.com">lucahollman@gmail.com</a></li>
+                    <li><a href="https://github.com/Lucahollman">GitHub</a></li>
+                </ul>
             </section>
         </div>
     </div>

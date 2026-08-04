@@ -50,6 +50,33 @@
     display: inline-block;
 }
 
+/* Link styling */
+.info-card a {
+    color: var(--green-deep);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.info-card a:hover {
+    text-decoration: underline;
+    color: var(--green-mid);
+}
+
+
+/* Contact list styling */
+.contact-list {
+    list-style-type: disc;
+    margin-left: 20px;
+    padding-left: 10px;
+}
+
+.contact-list li {
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: var(--text-dark);
+}
+
+
 /* Paragraphs */
 .info-card p {
     font-size: 16px;
