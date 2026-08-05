@@ -30,8 +30,8 @@ scripts = [
     "word-analysis.py"
 ]
 if os.path.exists("dail-debates.db"):
-    print("Delete Database before you run script !!")
-    1/0
+    print("Database exists -- Exiting script !!")
+    sys.exit(0)
 
 
 for script in tqdm(scripts, desc = "populating database"):
