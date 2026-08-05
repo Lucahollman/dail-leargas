@@ -9,7 +9,6 @@ from nltk.tokenize import word_tokenize
 from nltk.probability import FreqDist
 from nltk.probability import DictionaryProbDist
 import nltk
-import spacy
 from tqdm import tqdm  
 from lingua import Language, LanguageDetectorBuilder
 import re

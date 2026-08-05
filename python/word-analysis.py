@@ -6,7 +6,6 @@
 import sqlite3
 import pandas as pd
 import nltk
-import spacy
 from tqdm import tqdm   
 from nltk.tokenize import word_tokenize
 from nltk.probability import FreqDist
