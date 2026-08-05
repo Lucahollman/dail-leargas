@@ -52,30 +52,32 @@ body > * {
 .navbar {
     background: var(--green-mid);
     border-bottom: 4px solid var(--green-mid);
-    border-bottom-left-radius: 12px;   
+    border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
-    padding: 16px 40px;
-    display: flex;
-    align-items: center;
+
+    
+    padding: 15px 60px;
+
     position: sticky;
     top: 0;
     z-index: 1000;
 }
 
 .navbar ul {
-    list-style: none;
+    position: relative;
     display: flex;
-    justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    row-gap: 8px;
-    gap: 28px;
+    justify-content: center;
+
+    list-style: none;
     width: 100%;
+    gap: 28px;
 }
+
 
 .navbar ul li:first-child {
     position: absolute;
-    left: 40px;
+    left: -40px;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -85,11 +87,16 @@ body > * {
     font-size: 15px;
     font-weight: 500;
     text-decoration: none;
-    padding: 8px 6px;
+
+   
+    padding: 6px 6px;
+
     border-radius: 999px;
     white-space: nowrap;
-    flex-shrink: 0;
-    transition: color 0.15s ease, background 0.15s ease, padding 0.15s ease;
+    transition:
+        color 0.15s ease,
+        background 0.15s ease,
+        padding 0.15s ease;
 }
 
 .navbar a:hover {
@@ -107,15 +114,15 @@ body > * {
 }
 
 .navtitle:hover {
-    background: none !important;
     color: orange !important;
+    background: none !important;
 }
 
 .navbar a.active {
     background: var(--green-light);
     color: var(--green-deep);
     font-weight: 600;
-    padding: 8px 16px;
+    padding: 6px 14px;
 }
 
 /* Shared page wrapper */
@@ -152,4 +159,64 @@ footer a {
 
 footer a:hover {
     color: var(--green-deep);
+}
+
+
+/* Smaller desktop and tablet */
+@media (max-width: 1100px) {
+    .navbar {
+        padding: 10px 24px;
+    }
+
+    .navbar ul {
+        flex-wrap: wrap;
+        gap: 8px 20px;
+        padding-top: 36px;
+    }
+
+    /* Put title above the centred navigation links */
+    .navbar ul li:first-child {
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* Phone */
+@media (max-width: 650px) {
+    .navbar {
+        padding: 10px 16px;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: 4px;
+        padding-top: 34px;
+    }
+
+    .navbar ul li {
+        width: 100%;
+    }
+
+    .navbar ul li:first-child {
+        width: auto;
+    }
+
+    .navbar a {
+        display: block;
+        width: 100%;
+        padding: 6px 10px;
+        text-align: center;
+    }
+
+    .navtitle {
+        width: auto !important;
+        font-size: 24px !important;
+        padding: 0 !important;
+    }
+
+    .navbar a.active {
+        padding: 6px 14px;
+    }
 }
