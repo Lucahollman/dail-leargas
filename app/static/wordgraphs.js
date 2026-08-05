@@ -56,13 +56,24 @@ const { x, y } = aggregate(dates, counts, granularity);
 const hoverPrefix = { day: '', week: 'Week of ', month: 'Month of ' }[granularity];
 const hovertemplate = `${hoverPrefix}%{x}<br>%{y} mention%{y=1?"":"s"}<extra></extra>`;
 
-// Let people know when they're looking at aggregated data, since the
-// hero's "Total mentions" figure always covers the raw underlying total.
+// Let people know when they're looking at aggregated data (since the
+// hero's "Total mentions" figure always covers the raw underlying total),
+// and separately, whether there's a slider to zoom with. This lives right
+// under the chart, next to the slider itself, rather than as a subtitle
+// above the chart.
+// Range slider disabled for now — flip this back to `span > 90` to
+// re-enable zooming.
+const showsSlider = false;
 const noteEl = document.getElementById('word_chart_note');
 if (noteEl) {
-    noteEl.textContent = granularity === 'day'
-        ? ''
-        : `Showing ${granularity}ly totals — drag the slider below to zoom in.`;
+    const parts = [];
+    if (granularity !== 'day') {
+        parts.push(`Showing ${granularity}ly totals.`);
+    }
+    if (showsSlider) {
+        parts.push('Drag the handles above to zoom into a period.');
+    }
+    noteEl.textContent = parts.join(' ');
 }
 
 Plotly.newPlot('word_chart', [{
@@ -86,7 +97,13 @@ Plotly.newPlot('word_chart', [{
         showgrid: false,
         tickfont: { size: 11, color: '#5a6b60' },
         linecolor: '#cdd8cf',
-        rangeslider: { visible: span > 90, thickness: 0.08, bgcolor: '#e8ede9' }
+        rangeslider: {
+            visible: showsSlider,
+            thickness: 0.14,
+            bgcolor: '#e8ede9',
+            bordercolor: '#2e6b47',
+            borderwidth: 1
+        }
     },
     yaxis: {
         title: 'Mentions',

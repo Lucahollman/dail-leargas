@@ -37,9 +37,9 @@
 .hero-btn {
     display: inline-flex;
     align-items: center;
-    padding: 11px 22px;
-    border: 1px solid var(--ink);
-    border-radius: 2px;
+    padding: 11px 24px;
+    border: none;
+    border-radius: 8px;
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.04em;
@@ -47,7 +47,11 @@
     text-decoration: none;
     background: var(--green-mid);
     color: white;
-    transition: background 0.15s ease, color 0.15s ease;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.hero-btn:hover {
+    transform: translateY(-1px);
 }
 
 .hero-btn:hover {
@@ -89,9 +93,9 @@
 
 /* Recent Debates — register-style list, not cards */
 .register-list {
-    max-height: 360px;
+    max-height: 380px;
     overflow-y: auto;
-    border: 1px solid var(--rule-warm);
+    border-top: 1px solid var(--rule-warm);
     scrollbar-width: thin;
     scrollbar-color: var(--rule-warm) transparent;
 }
@@ -113,10 +117,11 @@
     display: flex;
     align-items: baseline;
     gap: 14px;
-    padding: 16px 18px;
-    border-bottom: 1px solid var(--rule-warm);
+    padding: 18px 6px;
+    border-bottom: 1px dotted var(--rule-warm);
     text-decoration: none;
     color: inherit;
+    transition: background 0.15s ease;
 }
 
 .register-row:last-child {
@@ -128,12 +133,20 @@
 }
 
 .register-tag {
-    flex: 0 0 150px;
-    font-size: 11px;
+    flex: 0 0 auto;
+    min-width: 110px;
+    text-align: center;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--ink-soft);
+    color: var(--green-deep, var(--ink-soft));
+}
+
+.register-row:hover .register-tag {
+    background: white;
 }
 
 .register-title {
@@ -163,16 +176,12 @@
 
 /* Lower two-column section */
 .lower-grid {
-    margin: 48px 0 0;
+    margin: 56px 0 0;
     padding: 0 clamp(24px, 4vw, 64px) 64px;
     border-top: 1px solid var(--rule-warm);
     display: grid;
-    grid-template-columns: 2fr 1px 1fr;
-    gap: 40px;
-}
-
-.lower-divider {
-    background: var(--rule-warm);
+    grid-template-columns: 2fr 1fr;
+    gap: 64px;
 }
 
 .leaderboard-section,
@@ -184,7 +193,7 @@
 .leaderboard-list {
     max-height: 320px;
     overflow-y: auto;
-    border: 1px solid var(--rule-warm);
+    border-top: 1px solid var(--rule-warm);
     scrollbar-width: thin;
     scrollbar-color: var(--rule-warm) transparent;
 }
@@ -206,15 +215,17 @@
     display: flex;
     align-items: baseline;
     gap: 16px;
-    padding: 13px 18px;
-    border-bottom: 1px solid var(--rule-warm);
+    padding: 14px 6px;
+    border-bottom: 1px dotted var(--rule-warm);
     text-decoration: none;
     color: inherit;
+    transition: background 0.15s ease;
 }
 
 .leaderboard-row:last-child {
     border-bottom: none;
 }
+
 
 .leaderboard-row:hover .leaderboard-name {
     color: orange;
@@ -263,9 +274,13 @@
     display: flex;
     align-items: baseline;
     gap: 4px;
-    padding: 13px 0;
-    border-bottom: 1px solid var(--rule-warm);
+    padding: 14px 6px;
+    margin: 0 -6px;
+    border-bottom: 1px dotted var(--rule-warm);
+    border-radius: 6px;
+    transition: background 0.15s ease;
 }
+
 
 .wordusage-word {
     font-family: 'Playfair Display', serif;
@@ -290,10 +305,6 @@
 @media (max-width: 900px) {
     .lower-grid {
         grid-template-columns: 1fr;
-    }
-
-    .lower-divider {
-        display: none;
     }
 
     .wordusage-section {
