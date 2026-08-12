@@ -19,15 +19,26 @@ def home():
            where irish_per is not null
            order by irish_per desc"""
     ).fetchall()
-    top_words = get_database().execute(
-        "select words, freq from full_text order by freq desc limit 10"
-    ).fetchall()
-    word_trends = [{"word": row["words"], "total": row["freq"]} for row in top_words]
+
+    stats = get_database().execute("select words, freq, prob from full_text").fetchall()
+    irish_per = get_database().execute("select irish_per from fulltext_irishper").fetchone()["irish_per"]
+    debates_num = get_database().execute("select count(id) from debates").fetchone()[0]
+    words_num = get_database().execute("select sum(wordsnum) from debates").fetchone()[0]
+    contributions_num = get_database().execute("select sum(contributionsnum) from debates").fetchone()[0]
+
+    words = [stat["words"] for stat in stats]
+    freq = [stat["freq"] for stat in stats]
+
     return render_template(
         "home.html",
         recent_debates=recent_debates,
         leaderboard=leaderboard,
-        word_trends=word_trends
+        irish_per=irish_per,
+        debates_num=debates_num,
+        words_num=words_num,
+        contributions_num=contributions_num,
+        words=words,
+        freq=freq
     )
 
 @app.route("/leaderboard")

@@ -1,24 +1,9 @@
-/* General CSS styling for reoccuring elements across pages */
+/* General CSS styling */
 
-/* Font Styling */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
-
-/* General-full-page-elements */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
 html {
     height: 100%;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-body > * {
-    min-width: 0;
 }
 
 * {
@@ -27,105 +12,118 @@ body > * {
     padding: 0;
 }
 
-/* colour-themes */
 :root {
-    --green-deep:   #1a3d2b;
+    --green-deep:   #173d2b;
     --green-mid:    #2e6b47;
-    --green-light:  #e8ede9;
+    --green-light:  #e7eee9;
     --gold:         #c9a84c;
     --gold-light:   #f0e4bc;
-    --off-white:    #f5f2eb;
+    --off-white:    #f6f3ec;
     --text-dark:    #1c1c1c;
-    --text-muted:   #5a6b60;
-    --border:       #cdd8cf;
+    --text-muted:   #667169;
+    --border:       #d6ddd7;
     --red:          #b23b3b;
     --red-light:    #f3dcdc;
-    --paper:        #f7f4ec;
+    --paper:        #f8f6f0;
     --paper-alt:    #efe9da;
-    --ink:          #201d16;
-    --ink-soft:     #6f6656;
-    --rule-warm:    #ddd5c1;
+    --ink:          #211f19;
+    --ink-soft:     #746d60;
+    --rule-warm:    #ded8ca;
     --seal:         #7c2d23;
 }
 
-/* Navbar */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    background: #faf9f6;
+}
+
+body > * {
+    min-width: 0;
+}
+
+/* ---------- Navbar ---------- */
 .navbar {
-    background: var(--green-mid);
-    border-bottom: 4px solid var(--green-mid);
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
-
-    
-    padding: 15px 60px;
-
     position: sticky;
     top: 0;
     z-index: 1000;
-}
 
+    width: 100%;
+    padding: 12px 34px;
+
+    background: rgba(255, 255, 255, 0.94);
+    border-bottom: 1px solid var(--rule-warm);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
 .navbar ul {
-    position: relative;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
 
+    position: relative;
     list-style: none;
-    width: 100%;
     gap: 28px;
 }
 
-
 .navbar ul li:first-child {
     position: absolute;
-    left: -40px;
+    left: 0;
     top: 50%;
     transform: translateY(-50%);
 }
 
 .navbar a {
-    color: white;
-    font-size: 15px;
-    font-weight: 500;
-    text-decoration: none;
-
-   
-    padding: 6px 6px;
-
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 0 10px;
     border-radius: 999px;
+    color: var(--ink-soft);
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
     white-space: nowrap;
-    transition:
-        color 0.15s ease,
-        background 0.15s ease,
-        padding 0.15s ease;
+    transition: color 0.15s ease, background 0.15s ease;
 }
 
 .navbar a:hover {
-    color: orange;
+    color: var(--green-deep);
+    background: var(--green-light);
 }
 
 .navtitle {
-    color: white !important;
-    font-size: 26px !important;
-    font-weight: 700 !important;
-    letter-spacing: -0.3px;
     padding: 0 !important;
     border-radius: 0 !important;
-    background: none !important;
+    background: transparent !important;
+    color: var(--green-deep) !important;
+    font-family: 'Playfair Display', serif;
+    font-size: 25px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.035em;
 }
 
 .navtitle:hover {
-    color: orange !important;
-    background: none !important;
+    color: var(--green-mid) !important;
+    background: transparent !important;
 }
 
 .navbar a.active {
+    padding: 0 12px;
     background: var(--green-light);
     color: var(--green-deep);
-    font-weight: 600;
-    padding: 6px 14px;
 }
 
-/* Shared page wrapper */
+/* fallback for non-home pages */
 .contentwrapper {
     width: 100%;
     max-width: 1800px;
@@ -133,23 +131,23 @@ body > * {
     padding: 10px 18px;
 }
 
-/* Footer */
+/* ---------- Footer ---------- */
 footer {
-    background: var(--off-white);
-    border-top: 1px solid var(--border);
-    text-align: center;
-    padding: 24px 48px;
     margin-top: auto;
+    padding: 34px 24px 38px;
+    border-top: 1px solid var(--rule-warm);
+    background: var(--paper);
+    text-align: center;
 }
 
 .footer_break {
-    margin-top: 18px;
+    margin-top: 16px;
 }
 
 footer p {
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1.6;
+    font-size: 11px;
+    line-height: 1.7;
+    color: var(--ink-soft);
 }
 
 footer a {
@@ -161,62 +159,48 @@ footer a:hover {
     color: var(--green-deep);
 }
 
-
-/* Smaller desktop and tablet */
 @media (max-width: 1100px) {
     .navbar {
-        padding: 10px 24px;
+        padding: 0 18px;
     }
 
     .navbar ul {
-        flex-wrap: wrap;
-        gap: 8px 20px;
-        padding-top: 36px;
-    }
-
-    /* Put title above the centred navigation links */
-    .navbar ul li:first-child {
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-}
-
-/* Phone */
-@media (max-width: 650px) {
-    .navbar {
-        padding: 10px 16px;
-    }
-
-    .navbar ul {
-        flex-direction: column;
-        flex-wrap: nowrap;
+        min-height: 60px;
         gap: 4px;
-        padding-top: 34px;
-    }
-
-    .navbar ul li {
-        width: 100%;
-    }
-
-    .navbar ul li:first-child {
-        width: auto;
     }
 
     .navbar a {
-        display: block;
-        width: 100%;
-        padding: 6px 10px;
+        padding: 0 8px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 760px) {
+    .navbar {
+        position: relative;
+        padding: 12px 16px 10px;
+    }
+
+    .navbar ul {
+        min-height: 0;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 4px 2px;
+    }
+
+    .navbar ul li:first-child {
+        flex-basis: 100%;
+        margin: 0 0 5px;
         text-align: center;
     }
 
-    .navtitle {
-        width: auto !important;
-        font-size: 24px !important;
-        padding: 0 !important;
+    .navbar a {
+        min-height: 30px;
+        padding: 0 8px;
+        font-size: 10px;
     }
 
-    .navbar a.active {
-        padding: 6px 14px;
+    .navtitle {
+        font-size: 24px !important;
     }
 }

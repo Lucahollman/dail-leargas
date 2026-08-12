@@ -2,27 +2,24 @@
 
 /* Page Title */
 
-.title {
-    text-align: center;
-    margin-top: 6px;
-    margin-bottom: 6px;
+
+.page-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 5px 0 20px;
 }
 
-.title h2 {
+.page-heading h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 32px;         
+    font-size: 42px;
     font-weight: 600;
-    letter-spacing: -0.01em;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
     color: var(--ink);
-    margin-bottom: 8px;       
 }
 
-.title-line {
-    width: 100px;
-    height: 2px;
-    background: var(--green-mid);
-    margin: 0 auto;           
-}
 
 /* Search Engine */ 
 

@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dáil Léargas</title>
-     <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
-     <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
 </head>
 <body>
-    
+
     <nav class="navbar">
         <ul>
             <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
-            <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
             <li><a href="{{ url_for('debates') }}">Debates</a></li>
             <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
             <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
@@ -20,73 +19,89 @@
             <li><a href="{{ url_for('info') }}">Website Info</a></li>
         </ul>
     </nav>
-    
 
-    <div class="hero">
-            <h1>Welcome to<br>Dáil Léargas</h1>
-            <p>The home of Irish parliamentary text and sentiment analysis</p>
-            <div class="hero-actions">
-                <a class="hero-btn" href="{{ url_for('debates') }}">Browse Debates</a>
-                <a class="hero-btn" href="{{ url_for('tds') }}">View TD Statistics</a>
-            </div>
-    </div>
-
-    <div class="contentwrapper">
-        <div class="section">
-            <div class="section-header-row">
-                <h2>Recent Debates</h2>
-                <a href="{{ url_for('debates') }}" class="section-link">See all &rarr;</a>
-            </div>
-            <div class="register-list">
-                {% for debate in recent_debates %}
-                <a class="register-row" href="{{ url_for('debatespecific', debate_id=debate.id) }}">
-                    <span class="register-tag">{{ debate.category if debate.category else "Dáil debate" }}</span>
-                    <span class="register-title">{{ debate.title }}</span>
-                    <span class="register-leader"></span>
-                    <span class="register-date">{{ debate.date | card_date }}</span>
-                    <span class="register-arrow">&rarr;</span>
-                </a>
-                {% endfor %}
-            </div>
-        </div>
-
-        <div class="lower-grid">
-            <div class="leaderboard-section">
-                <div class="section-header-row">
-                    <h2>Gaeilge Leaderboard</h2>
-                    <a href="{{ url_for('leaderboard') }}" class="section-link">See all &rarr;</a>
+    <main>
+        <section class="hero">
+            <div class="hero-copy">
+                <h1>Dáil Léargas</h1>
+                <p>The home of Irish parliamentary text and sentiment analysis</p>
+                <div class="hero-actions">
+                    <a class="hero-btn" href="{{ url_for('debates') }}">Browse debates</a>
+                    <a class="hero-btn hero-btn-secondary" href="{{ url_for('tds') }}">Explore TDs</a>
                 </div>
-                <div class="leaderboard-list">
-                    {% for td in leaderboard %}
-                    <a class="leaderboard-row" href="{{ url_for('tdspecific', id=td.id) }}">
-                        <span class="leaderboard-rank">{{ loop.index }}</span>
-                        <span class="leaderboard-info">
-                            <span class="leaderboard-name">{{ td.name }}</span>
-                            <span class="leaderboard-sub">{{ td.party if td.party else "—" }} · {{ td.constituency if td.constituency else "—" }}</span>
-                        </span>
-                        <span class="leaderboard-percent">{{ "%.1f"|format(td.irish_per) }}%</span>
+            </div>
+        </section>
+
+        <div class="contentwrapper">
+            <section class="snapshot-section" aria-labelledby="snapshot-title">
+                <div class="section-header-row snapshot-heading">
+                    <h2 id="snapshot-title">34th Dáil at a glance</h2>
+                </div>
+
+                <div class="stats-strip">
+                    <div class="stat-item">
+                        <span class="stat-value">{{ "{:,.0f}".format(debates_num) }}</span>
+                        <span class="stat-label">Debates recorded</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">{{ "{:,.0f}".format(words_num) }}</span>
+                        <span class="stat-label">Words spoken</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">{{ "{:,.0f}".format(contributions_num) }}</span>
+                        <span class="stat-label">TD contributions</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section debates-section" aria-labelledby="recent-title">
+                <div class="section-header-row">
+                    <h2 id="recent-title">Recent debates</h2>
+                    <a href="{{ url_for('debates') }}" class="section-link">See all &rarr;</a>
+                </div>
+
+                <div class="register-list">
+                    {% for debate in recent_debates[:5] %}
+                    <a class="register-row" href="{{ url_for('debatespecific', debate_id=debate.id) }}">
+                        <span class="register-tag">{{ debate.category if debate.category else "Dáil debate" }}</span>
+                        <span class="register-title">{{ debate.title }}</span>
+                        <span class="register-date">{{ debate.date | card_date }}</span>
+                        <span class="register-arrow">&rarr;</span>
                     </a>
                     {% endfor %}
                 </div>
-            </div>
+            </section>
 
-            <div class="wordusage-section">
-                <div class="section-header-row">
-                    <h2>Word Usage</h2>
-                    <a href="{{ url_for('words') }}" class="section-link">See all &rarr;</a>
+            {% if leaderboard %}
+            <section class="gaeilge-feature" aria-labelledby="gaeilge-title">
+                <div class="gaeilge-copy">
+                    <span class="eyebrow">Irish Use</span>
+                    <h2 id="gaeilge-title">Leading Irish language contributor</h2>
+                    <p></p>
+                    <a href="{{ url_for('leaderboard') }}" class="text-link">View Gaeilge leaderboard &rarr;</a>
                 </div>
-                <div class="wordusage-list">
-                    {% for trend in word_trends %}
-                    <div class="wordusage-row">
-                        <span class="wordusage-word">{{ trend.word }}</span>
-                        <span class="wordusage-leader"></span>
-                        <span class="wordusage-count">{{ trend.total }} mentions</span>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
+
+                <a class="gaeilge-person" href="{{ url_for('tdspecific', id=leaderboard[0].id) }}">
+                    <span class="gaeilge-percent">{{ "%.1f"|format(leaderboard[0].irish_per) }}%</span>
+                    <span class="gaeilge-name">{{ leaderboard[0].name }}</span>
+                    <span class="gaeilge-meta">{{ leaderboard[0].party if leaderboard[0].party else "—" }} · {{ leaderboard[0].constituency if leaderboard[0].constituency else "—" }}</span>
+                    <span class="gaeilge-arrow">&rarr;</span>
+                </a>
+            </section>
+            {% endif %}
         </div>
-    </div>
+    </main>
+
+    <script>
+        const words = {{ words | tojson }};
+        const freq = {{ freq | tojson }};
+        const irish = {{ irish_per | tojson }};
+        const english = 100 - irish;
+        const labels = ["Irish %", "English %"];
+        const values = [irish, english];
+    </script>
+    <script src="https://cdn.plot.ly/plotly-3.6.0.min.js" charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='graphs.js') }}"></script>
 
     <footer>
         <p>This project uses data provided by the Houses of the Oireachtas under the Oireachtas (Public Sector Information – Open Data) Licence.</p>
@@ -94,7 +109,7 @@
         <p>Official records are available at <a href="https://www.oireachtas.ie/">oireachtas.ie</a></p>
         <div class="footer_break"></div>
         <p>This project was created by Luca Hollman</p>
-        <p>Contact:<a href="mailto:lucahollman@gmail.com">lucahollman@gmail.com</a></p>
+        <p>Contact: <a href="mailto:lucahollman@gmail.com">lucahollman@gmail.com</a></p>
     </footer>
 </body>
 </html>
