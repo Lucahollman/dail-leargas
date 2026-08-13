@@ -8,108 +8,86 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
 </head>
 <body>
-
     <nav class="navbar">
         <ul>
-            <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
+            <li><a href="{{ url_for('home') }}" class="nav-title">Dáil Léargas</a></li>
+            <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
             <li><a href="{{ url_for('debates') }}">Debates</a></li>
             <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
             <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
             <li><a href="{{ url_for('words') }}">Words</a></li>
-            <li><a href="{{ url_for('info') }}">Website Info</a></li>
+            <li><a href="{{ url_for('info') }}">About</a></li>
         </ul>
     </nav>
 
-    <main>
+    <main class="contentwrapper home">
         <section class="hero">
-            <div class="hero-copy">
-                <h1>Dáil Léargas</h1>
-                <p>The home of Irish parliamentary text and sentiment analysis</p>
-                <div class="hero-actions">
-                    <a class="hero-btn" href="{{ url_for('debates') }}">Browse debates</a>
-                    <a class="hero-btn hero-btn-secondary" href="{{ url_for('tds') }}">Explore TDs</a>
+            <h2>Dáil Léargas</h2>
+            <p>The Dáil Léargas project is a website that allows users to explore the spoken record of Dáil Éireann. The site includes various debate-level, TD-level, party-level, and word-level statistics, including word frequencies, language-use estimates, sentiment scores, and other descriptive measures. The project aims to make parliamentary proceedings more accessible to people who may not have the time or inclination to read through tedious Dáil transcripts and allow users to get a better sense of what is being discussed within Dáil Éireann. Created by <a href="https://lucahollman.github.io/index.html">Luca Hollman.</a></p>
+            <p></p>
+            <div class="actions">
+                <p>Data aggregated by<a href="{{ url_for('debates') }}"><span class="arrow">→</span>Debate</a></p>
+                <p>Data aggregated by<a href="{{ url_for('tds') }}"><span class="arrow">→</span>Teachta Dála</a></p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>34th Dáil at a glance</h2>
+
+            <div class="stats">
+                <div class="stat">
+                    <span class="number">{{ "{:,.0f}".format(debates_num) }}</span>
+                    <span class="label">Debates recorded</span>
+                </div>
+                <div class="stat">
+                    <span class="number">{{ "{:,.0f}".format(words_num) }}</span>
+                    <span class="label">Words spoken</span>
+                </div>
+                <div class="stat">
+                    <span class="number">{{ "{:,.0f}".format(contributions_num) }}</span>
+                    <span class="label">TD contributions</span>
+                </div>
+            </div>
+
+            <div class="irish">
+                <div class="irish-lead">
+                    <span class="number">{{ "%.1f"|format(irish_per) }}%</span>
+                    <span class="label">Overall Irish-language use</span>
+                </div>
+
+                <div class="irish-copy">
+                    <p class="small">Leading Irish-language contributor</p>
+                    <h3>{{ leaderboard[0].name }}</h3>
+                    <p>{{ leaderboard[0].party if leaderboard[0].party else "—" }} &middot; {{ leaderboard[0].constituency if leaderboard[0].constituency else "—" }}</p>
+                </div>
+            </div>
+
+            <div class="section-links">
+                <a href="{{ url_for('overallstats') }}">View overall statistics &rarr;</a>
+                <div class="section-links-sub">
+                    <a href="{{ url_for('tdspecific', id=leaderboard[0].id) }}">View TD profile &rarr;</a>
+                    <a href="{{ url_for('leaderboard') }}">View Gaeilge leaderboard &rarr;</a>
                 </div>
             </div>
         </section>
 
-        <div class="contentwrapper">
-            <section class="snapshot-section" aria-labelledby="snapshot-title">
-                <div class="section-header-row snapshot-heading">
-                    <h2 id="snapshot-title">34th Dáil at a glance</h2>
-                </div>
-
-                <div class="stats-strip">
-                    <div class="stat-item">
-                        <span class="stat-value">{{ "{:,.0f}".format(debates_num) }}</span>
-                        <span class="stat-label">Debates recorded</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value">{{ "{:,.0f}".format(words_num) }}</span>
-                        <span class="stat-label">Words spoken</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value">{{ "{:,.0f}".format(contributions_num) }}</span>
-                        <span class="stat-label">TD contributions</span>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section debates-section" aria-labelledby="recent-title">
-                <div class="section-header-row">
-                    <h2 id="recent-title">Recent debates</h2>
-                    <a href="{{ url_for('debates') }}" class="section-link">See all &rarr;</a>
-                </div>
-
-                <div class="register-list">
-                    {% for debate in recent_debates[:5] %}
-                    <a class="register-row" href="{{ url_for('debatespecific', debate_id=debate.id) }}">
-                        <span class="register-tag">{{ debate.category if debate.category else "Dáil debate" }}</span>
-                        <span class="register-title">{{ debate.title }}</span>
-                        <span class="register-date">{{ debate.date | card_date }}</span>
-                        <span class="register-arrow">&rarr;</span>
-                    </a>
-                    {% endfor %}
-                </div>
-            </section>
-
-            {% if leaderboard %}
-            <section class="gaeilge-feature" aria-labelledby="gaeilge-title">
-                <div class="gaeilge-copy">
-                    <span class="eyebrow">Irish Use</span>
-                    <h2 id="gaeilge-title">Leading Irish language contributor</h2>
-                    <p></p>
-                    <a href="{{ url_for('leaderboard') }}" class="text-link">View Gaeilge leaderboard &rarr;</a>
-                </div>
-
-                <a class="gaeilge-person" href="{{ url_for('tdspecific', id=leaderboard[0].id) }}">
-                    <span class="gaeilge-percent">{{ "%.1f"|format(leaderboard[0].irish_per) }}%</span>
-                    <span class="gaeilge-name">{{ leaderboard[0].name }}</span>
-                    <span class="gaeilge-meta">{{ leaderboard[0].party if leaderboard[0].party else "—" }} · {{ leaderboard[0].constituency if leaderboard[0].constituency else "—" }}</span>
-                    <span class="gaeilge-arrow">&rarr;</span>
-                </a>
-            </section>
-            {% endif %}
-        </div>
+        <section class="about">
+            <h2>About the website</h2>
+            <p>You can read more about how we generate our statistics <a href="{{ url_for('info') }}">here.</a></p>
+            
+        </section>
+        
     </main>
 
-    <script>
-        const words = {{ words | tojson }};
-        const freq = {{ freq | tojson }};
-        const irish = {{ irish_per | tojson }};
-        const english = 100 - irish;
-        const labels = ["Irish %", "English %"];
-        const values = [irish, english];
-    </script>
-    <script src="https://cdn.plot.ly/plotly-3.6.0.min.js" charset="utf-8"></script>
-    <script src="{{ url_for('static', filename='graphs.js') }}"></script>
-
     <footer>
-        <p>This project uses data provided by the Houses of the Oireachtas under the Oireachtas (Public Sector Information – Open Data) Licence.</p>
-        <p>All statistics displayed are estimates generated from Oireachtas data and do not represent official Oireachtas interpretations.</p>
-        <p>Official records are available at <a href="https://www.oireachtas.ie/">oireachtas.ie</a></p>
-        <div class="footer_break"></div>
-        <p>This project was created by Luca Hollman</p>
-        <p>Contact: <a href="mailto:lucahollman@gmail.com">lucahollman@gmail.com</a></p>
+        <div class="contentwrapper">
+            <p>This project uses data provided by the Houses of the Oireachtas under the Oireachtas (Public Sector Information – Open Data) Licence.</p>
+            <p>All statistics displayed are estimates generated from Oireachtas data and do not represent official Oireachtas interpretations.</p>
+            <p>Official records are available at <a href="https://www.oireachtas.ie/">oireachtas.ie</a>.</p>
+            <div class="footer_break"></div>
+            <p>This project was created by Luca Hollman.</p>
+            <p>Contact: <a href="mailto:lucahollman@gmail.com">lucahollman@gmail.com</a></p>
+        </div>
     </footer>
 </body>
 </html>

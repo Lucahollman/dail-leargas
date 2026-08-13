@@ -1,6 +1,7 @@
 /* General CSS styling */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
 
 html {
     height: 100%;
@@ -39,91 +40,56 @@ body {
     overflow-x: hidden;
     font-family: 'Inter', sans-serif;
     color: var(--ink);
-    background: #faf9f6;
+    background: white;
 }
 
 body > * {
     min-width: 0;
 }
 
-/* ---------- Navbar ---------- */
+/* Navbar */
 .navbar {
     position: sticky;
     top: 0;
     z-index: 1000;
-
     width: 100%;
-    padding: 12px 34px;
-
-    background: rgba(255, 255, 255, 0.94);
-    border-bottom: 1px solid var(--rule-warm);
-
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    padding: 0 30px;
+    background: var(--green-mid);
 }
+
 .navbar ul {
     width: 100%;
     max-width: none;
     margin: 0;
-
     display: flex;
     align-items: center;
-    justify-content: center;
-
-    position: relative;
+    justify-content: flex-start;
     list-style: none;
     gap: 28px;
 }
 
-.navbar ul li:first-child {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
+.navbar li {
+    flex: 0 0 auto;
 }
 
 .navbar a {
     display: inline-flex;
     align-items: center;
-    min-height: 34px;
-    padding: 0 10px;
-    border-radius: 999px;
-    color: var(--ink-soft);
-    font-size: 12px;
-    font-weight: 600;
+    min-height: 56px;
+    padding: 0;
+    color: var(--green-light);
+    font-size: 19px;
+    font-weight: bold;
     text-decoration: none;
     white-space: nowrap;
-    transition: color 0.15s ease, background 0.15s ease;
+    transition: color 0.15s ease;
 }
 
 .navbar a:hover {
-    color: var(--green-deep);
-    background: var(--green-light);
+    color: orange;
 }
 
-.navtitle {
-    padding: 0 !important;
-    border-radius: 0 !important;
-    background: transparent !important;
-    color: var(--green-deep) !important;
-    font-family: 'Playfair Display', serif;
-    font-size: 25px !important;
-    font-weight: 700 !important;
-    letter-spacing: -0.035em;
-}
-
-.navtitle:hover {
-    color: var(--green-mid) !important;
-    background: transparent !important;
-}
-
-.navbar a.active {
-    padding: 0 12px;
-    background: var(--green-light);
-    color: var(--green-deep);
-}
-
-/* fallback for non-home pages */
+/* Non-home page content wrap */
 .contentwrapper {
     width: 100%;
     max-width: 1800px;
@@ -131,7 +97,7 @@ body > * {
     padding: 10px 18px;
 }
 
-/* ---------- Footer ---------- */
+/* Footer */
 footer {
     margin-top: auto;
     padding: 34px 24px 38px;
@@ -145,7 +111,7 @@ footer {
 }
 
 footer p {
-    font-size: 11px;
+    font-size: 13px;
     line-height: 1.7;
     color: var(--ink-soft);
 }
@@ -162,45 +128,33 @@ footer a:hover {
 @media (max-width: 1100px) {
     .navbar {
         padding: 0 18px;
+        overflow-x: auto;
     }
 
     .navbar ul {
-        min-height: 60px;
-        gap: 4px;
+        width: max-content;
+        min-width: 100%;
+        gap: 20px;
     }
 
     .navbar a {
-        padding: 0 8px;
-        font-size: 11px;
+        font-size: 14px;
     }
 }
 
 @media (max-width: 760px) {
     .navbar {
-        position: relative;
-        padding: 12px 16px 10px;
+        padding: 0 16px;
     }
 
     .navbar ul {
-        min-height: 0;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 4px 2px;
-    }
-
-    .navbar ul li:first-child {
-        flex-basis: 100%;
-        margin: 0 0 5px;
-        text-align: center;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        gap: 18px;
     }
 
     .navbar a {
-        min-height: 30px;
-        padding: 0 8px;
-        font-size: 10px;
-    }
-
-    .navtitle {
-        font-size: 24px !important;
+        min-height: 50px;
+        font-size: 13px;
     }
 }
