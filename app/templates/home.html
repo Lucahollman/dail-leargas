@@ -23,11 +23,15 @@
     <main class="contentwrapper home">
         <section class="hero">
             <h2>Dáil Léargas</h2>
-            <p>The Dáil Léargas project is a website that allows users to explore the spoken record of Dáil Éireann. The site includes various debate-level, TD-level, party-level, and word-level statistics, including word frequencies, language-use estimates, sentiment scores, and other descriptive measures. The project aims to make parliamentary proceedings more accessible to people who may not have the time or inclination to read through tedious Dáil transcripts and allow users to get a better sense of what is being discussed within Dáil Éireann. Created by <a href="https://lucahollman.github.io/index.html">Luca Hollman.</a></p>
+            <p>The Dáil Léargas project is a website that allows users to explore the spoken record of Dáil Éireann. The project aims to make parliamentary proceedings more accessible to people who may not have the time or inclination to read through tedious Dáil transcripts and allow users to get a better sense of what is being discussed within Dáil Éireann. 
             <p></p>
             <div class="actions">
-                <p>Data aggregated by<a href="{{ url_for('debates') }}"><span class="arrow">→</span>Debate</a></p>
-                <p>Data aggregated by<a href="{{ url_for('tds') }}"><span class="arrow">→</span>Teachta Dála</a></p>
+                <a href="{{ url_for('debates') }}" class="action-btn">
+                    Browse Debates 
+                </a>
+                <a href="{{ url_for('tds') }}" class="action-btn">
+                    Explore Teachta Dála Data
+                </a>
             </div>
         </section>
 
@@ -63,10 +67,10 @@
             </div>
 
             <div class="section-links">
-                <a href="{{ url_for('overallstats') }}">View overall statistics &rarr;</a>
+                <a href="{{ url_for('overallstats') }}" class="mini-btn">View overall statistics</a>
                 <div class="section-links-sub">
-                    <a href="{{ url_for('tdspecific', id=leaderboard[0].id) }}">View TD profile &rarr;</a>
-                    <a href="{{ url_for('leaderboard') }}">View Gaeilge leaderboard &rarr;</a>
+                    <a href="{{ url_for('tdspecific', id=leaderboard[0].id) }}" class="mini-btn">View TD profile</a>
+                    <a href="{{ url_for('leaderboard') }}" class="mini-btn">View Gaeilge leaderboard</a>
                 </div>
             </div>
         </section>
@@ -74,6 +78,8 @@
         <section class="about">
             <h2>About the website</h2>
             <p>You can read more about how we generate our statistics <a href="{{ url_for('info') }}">here.</a></p>
+            <div class="block"></div>
+            <p>This site was created by <a href="https://lucahollman.github.io/index.html">Luca Hollman.</a></p>
             
         </section>
         

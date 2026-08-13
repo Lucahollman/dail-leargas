@@ -36,15 +36,57 @@
 }
 
 .actions {
-    display: grid;
-    gap: 5px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 20px;
 }
 
-.actions p {
-    margin-top: -5px;
-    color: var(--ink);
-    font-size: 16px;
-    line-height: 1.7;
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 22px;
+    background: var(--green-mid);
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(23, 107, 77, 0.12);
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+a.action-btn {
+    color: white;
+}
+
+a.action-btn:hover {
+    color: white;
+}
+
+.action-btn:hover {
+    background: orange;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(23, 107, 77, 0.25);
+}
+
+.action-btn .arrow {
+    font-size: 1em;
+    font-weight: 400;
+}
+
+@media (max-width: 600px) {
+    .actions {
+        flex-direction: column;
+    }
+
+    .action-btn {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 .arrow {
@@ -70,21 +112,13 @@
     line-height: 1.3;
 }
 
-.section a {
-    color: var(--green-mid);
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.section a:hover {
-    color: orange;
-}
-
 .stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 28px;
-    margin: 28px 0 22px;
+    margin: 28px 0 26px;
+    padding-bottom: 26px;
+    border-bottom: 1px solid #e8e5de;
 }
 
 .stat,
@@ -115,7 +149,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 28px;
-    margin-top: 32px;
+    margin-top: 4px;
 }
 
 .irish-copy {
@@ -144,14 +178,36 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 28px;
     align-items: center;
-    margin-top: 16px;
+    margin-top: 26px;
 }
 
 .section-links-sub {
     grid-column: 2 / 4;
     display: flex;
     flex-wrap: wrap;
-    gap: 8px 22px;
+    gap: 10px;
+}
+
+.mini-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 14px;
+    color: var(--green-mid);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.mini-btn:hover {
+    color: orange;
+    transform: translateY(-1px);
+}
+
+.about {
+     border-top: 3px solid lightgrey;
+     padding: 38px 0 48px;
 }
 
 .about h2 {
@@ -164,6 +220,11 @@
     font-weight: bold;
 }
 
+.block {
+    margin-top: 9px;
+}
+
 .about a:hover{
     color: orange;
 }
+

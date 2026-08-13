@@ -2,7 +2,7 @@
 const chartFont = {
     family: 'Inter, sans-serif',
     size: 13,
-    color: '#201d16'
+    color: '#1c1c1c'
 };
 
 const chartConfig = {
@@ -10,18 +10,17 @@ const chartConfig = {
     responsive: true
 };
 
-// Site colours
-const DARK_GREEN = '#1a3d2b';
-const MID_GREEN = '#2e6b47';
-const LIGHT_GREEN = '#7fae91';
+// Site colours (matches general.css variables)
+const DARK_GREEN = '#173d2b';   // --green-deep
+const MID_GREEN = '#0B6E4F';    // --green-mid
+const LIGHT_GREEN = '#8fbfa4';
 
-const GOLD = '#c9a84c';
+const GOLD = '#c9a84c';         // --gold
 
-const PAPER = '#faf9f6';
-const PAPER_ALT = '#efe9da';
-const RULE = '#ddd5c1';
-const INK = '#201d16';
-const INK_SOFT = '#6f6656';
+const PAPER = '#ffffff';
+const RULE = '#e8e5de';
+const INK = '#1c1c1c';          // --text-dark
+const INK_SOFT = '#667169';     // --text-muted
 
 
 // --------------------------------------------------
@@ -134,7 +133,7 @@ if (
         margin: {
             l: 0,
             r: 0,
-            t: 54,
+            t: 44,
             b: 0
         },
 
@@ -166,7 +165,7 @@ if (
             x: 1,
             xanchor: 'right',
 
-            y: 1.08,
+            y: 1.1,
             yanchor: 'bottom',
 
             pad: {
@@ -181,7 +180,7 @@ if (
             font: {
                 family: 'Inter, sans-serif',
                 size: 11,
-                color: DARK_GREEN
+                color: MID_GREEN
             },
 
             active: 0,
@@ -241,7 +240,7 @@ if (
                             margin: {
                                 l: 0,
                                 r: 0,
-                                t: 54,
+                                t: 44,
                                 b: 0
                             }
                         }
@@ -322,7 +321,7 @@ if (
                             margin: {
                                 l: 48,
                                 r: 10,
-                                t: 54,
+                                t: 44,
                                 b: 85
                             }
                         }
@@ -402,7 +401,7 @@ if (
         margin: {
             l: 8,
             r: 8,
-            t: 28,
+            t: 20,
             b: 58
         },
 
@@ -433,7 +432,7 @@ if (
 
         annotations: [{
             text:
-                '<span style="font-size:26px">' +
+                '<span style="font-size:26px; font-weight:600">' +
                 irish.toFixed(1) +
                 '%</span>' +
                 '<br>' +
@@ -446,8 +445,8 @@ if (
             align: 'center',
 
             font: {
-                family: 'Playfair Display, serif',
-                color: DARK_GREEN
+                family: 'Poppins, Inter, sans-serif',
+                color: INK
             },
 
             x: 0.5,

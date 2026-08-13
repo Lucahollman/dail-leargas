@@ -7,13 +7,13 @@
 <body>
     <nav class="navbar">
         <ul>
-            <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
+            <li><a href="{{ url_for('home') }}" class="nav-title">Dáil Léargas</a></li>
             <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
             <li><a href="{{ url_for('debates') }}">Debates</a></li>
             <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
             <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
             <li><a href="{{ url_for('words') }}">Words</a></li>
-            <li><a href="{{ url_for('info') }}">Website Info</a></li>
+            <li><a href="{{ url_for('info') }}">About</a></li>
         </ul>
     </nav>
 
@@ -52,25 +52,21 @@
 
             <!-- Left: insights -->
             <div class="insights-wrapper">
-                <div class="insights-card">
-                    <div class="insights-label">Word Frequency &amp; Language Share</div>
-                    <div class="insights-body">
-                        <div class="insights-panel insights-panel-main">
-                            <div id="overallprobdist"></div>
-                        </div>
-                        <div class="insights-divider"></div>
-                        <div class="insights-panel insights-panel-side">
-                            <div id="overallirishper"></div>
-                        </div>
+                <div class="insights-label">Word Frequency &amp; Language Share</div>
+                <div class="insights-body">
+                    <div class="insights-panel insights-panel-main">
+                        <div id="overallprobdist"></div>
+                    </div>
+                    <div class="insights-divider"></div>
+                    <div class="insights-panel insights-panel-side">
+                        <div id="overallirishper"></div>
                     </div>
                 </div>
             </div>
 
             <!-- Right: participants register -->
             <aside class="participants-section">
-                <div class="insights-label">
-                    <p> Key Participants &amp; Sentiment Scores</p>
-                </div>
+                <div class="insights-label">Key Participants &amp; Sentiment Scores</div>
                 <div class="participants-list">
                     {% for name in speaker_list %}
                         {% set stance = name.average_sentiment | sentiment_stance %}
