@@ -1,26 +1,19 @@
 /* Styling for Debates index page */
 
-/* Page Title */
-
-
-.page-heading {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 24px;
-    padding: 5px 0 20px;
-}
-
-.page-heading h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 42px;
-    font-weight: 600;
-    line-height: 1.05;
-    letter-spacing: -0.025em;
-    color: #2d3748;
+.hero {
+    background: var(--off-white);
     border-bottom: 3px solid lightgrey;
+    padding: 18px 56px 10px;
+    text-align: center;
 }
 
+.hero h2 {
+    font-size: 32px;         
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--heading);
+    margin-bottom: 8px;  
+}
 
 /* Search Engine */ 
 
@@ -34,6 +27,7 @@
     gap: 8px;
     border-bottom: 1px solid var(--green-deep);
     padding-bottom: 8px;
+    padding-top: 15px;
 }
 
 .debate-search svg {
