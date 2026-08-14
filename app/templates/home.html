@@ -23,14 +23,20 @@
     <main class="contentwrapper home">
         <section class="hero">
             <h2>Dáil Léargas</h2>
-            <p>The Dáil Léargas project is a website that allows users to explore the spoken record of Dáil Éireann. The project aims to make parliamentary proceedings more accessible to people who may not have the time or inclination to read through tedious Dáil transcripts and allow users to get a better sense of what is being discussed within Dáil Éireann. 
+            <p>Dáil Léargas is a website that allows users to explore the spoken record of Dáil Éireann. The project aims to make parliamentary proceedings more accessible to people who may not have the time or inclination to read through tedious Dáil transcripts and allow users to get a better sense of what is being discussed within Dáil Éireann. 
             <p></p>
             <div class="actions">
                 <a href="{{ url_for('debates') }}" class="action-btn">
                     Browse Debates 
+                    <svg width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                 </a>
                 <a href="{{ url_for('tds') }}" class="action-btn">
                     Explore Teachta Dála Data
+                    <svg width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                 </a>
             </div>
         </section>
@@ -67,10 +73,22 @@
             </div>
 
             <div class="section-links">
-                <a href="{{ url_for('overallstats') }}" class="mini-btn">View overall statistics</a>
+                <a href="{{ url_for('overallstats') }}" class="mini-btn">View overall statistics
+                    <svg width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
                 <div class="section-links-sub">
-                    <a href="{{ url_for('tdspecific', id=leaderboard[0].id) }}" class="mini-btn">View TD profile</a>
-                    <a href="{{ url_for('leaderboard') }}" class="mini-btn">View Gaeilge leaderboard</a>
+                    <a href="{{ url_for('tdspecific', id=leaderboard[0].id) }}" class="mini-btn">View TD profile
+                        <svg width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <a href="{{ url_for('leaderboard') }}" class="mini-btn">View Gaeilge leaderboard
+                        <svg width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
         </section>

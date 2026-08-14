@@ -1,42 +1,37 @@
 /* Styling for debate text page */
 
-/* Page Title */
-
-.title {
+.hero {
+    background: var(--off-white);
+    border-bottom: 3px solid lightgrey;
+    padding: 32px 56px 30px;
     text-align: center;
-    margin-top: 6px;
-    margin-bottom: 6px;
 }
 
-.title h2 {
-    font-family: 'Playfair Display', serif;
+.hero h2 {
     font-size: 32px;         
     font-weight: 600;
     letter-spacing: -0.01em;
-    color: var(--ink);
-    margin-bottom: 8px;       
-}
-
-.title-line {
-    width: 100px;
-    height: 2px;
-    background: var(--green-mid);
-    margin: 0 auto;           
+    color: var(--heading);
+    margin-bottom: 8px;  
 }
 
 .back_button {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    color: var(--green-mid);
+    gap: 8px;
+    background: var(--green-mid);
+    color: #ffffff;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 700;
     text-decoration: none;
-    margin-bottom: 10px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: background 0.15s ease, transform 0.15s ease;
 }
 
 .back_button:hover {
-    color: orange;
+    background: orange;
+    transform: translateY(-2px);
 }
 
 .back_button svg {
@@ -44,7 +39,7 @@
 }
 
 .back_button:hover svg {
-    transform: translateX(-3px);
+    transform: translateX(3px);
 }
 
 .debateheader_date {
@@ -62,15 +57,14 @@
     gap: 32px;
 }
 
-/* Section headers within the full-text contribution list */
+/* Section headers */
 .section_header {
-    font-family: 'Playfair Display', serif;
     font-size: 22px;
     font-weight: 600;
     letter-spacing: -0.01em;
-    color: var(--green-deep);
+    color: var(--heading);
     padding: 4px 0 14px;
-    border-bottom: 2px solid var(--green-mid);
+    border-bottom: 3px solid lightgray;
 }
 
 /* Table */

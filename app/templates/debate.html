@@ -21,7 +21,14 @@
         <span class="debate-eyebrow">{{ debate.category if debate.category else "Dáil debate" }}</span>
         <h1>{{ debate.title }}</h1>
         <div class="debate-hero-row">
-            <span class="debate-date">{{ debate.date | weekday_date }}</span>
+            <span class="debate-date">
+                <svg width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1.5" y="2.5" width="11" height="10" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+                    <path d="M1.5 5.5H12.5" stroke="currentColor" stroke-width="1.2"/>
+                    <path d="M4 1.5V3.5M10 1.5V3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                </svg>
+                {{ debate.date | weekday_date }}
+            </span>
             <a class="fulltext_button" href="{{ url_for('debatetext', debate_id=debate.id) }}">
                 See Full Text
                 <svg width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -50,7 +57,7 @@
     <div class="contentwrapper">
         <div class="debate-spread">
 
-            <!-- Left: insights -->
+        
             <div class="insights-wrapper">
                 <div class="insights-label">Word Frequency &amp; Language Share</div>
                 <div class="insights-body">
@@ -64,13 +71,21 @@
                 </div>
             </div>
 
-            <!-- Right: participants register -->
+            
             <aside class="participants-section">
-                <div class="insights-label">Key Participants &amp; Sentiment Scores</div>
+                <div class="insights-label">Participants &amp; Sentiment Scores</div>
+
+                <div class="sentiment-filter">
+                    <button type="button" class="filter-btn active" data-filter="all">All</button>
+                    <button type="button" class="filter-btn" data-filter="positive">Positive</button>
+                    <button type="button" class="filter-btn" data-filter="neutral">Neutral</button>
+                    <button type="button" class="filter-btn" data-filter="negative">Negative</button>
+                </div>
+
                 <div class="participants-list">
                     {% for name in speaker_list %}
                         {% set stance = name.average_sentiment | sentiment_stance %}
-                    <div class="participant-row">
+                    <div class="participant-row" data-stance="{{ stance.css_class | replace('stance-', '') }}">
                         {% if name.photo %}
                         <img class="participant-avatar" src="{{ name.photo }}" alt="{{ name.td }}">
                         {% else %}
@@ -105,6 +120,24 @@
     </script>
     <script src="https://cdn.plot.ly/plotly-3.6.0.min.js" charset="utf-8"></script>
     <script src="{{ url_for('static', filename='graphs.js') }}"></script>
+
+    <script>
+        document.querySelectorAll('.filter-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.filter-btn').forEach(function (b) {
+                    b.classList.remove('active');
+                });
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+
+                document.querySelectorAll('.participant-row').forEach(function (row) {
+                    const matches = filter === 'all' || row.dataset.stance === filter;
+                    row.classList.toggle('is-hidden', !matches);
+                });
+            });
+        });
+    </script>
 
     <footer>
         <p>This project uses data provided by the Houses of the Oireachtas under the Oireachtas (Public Sector Information – Open Data) Licence.</p>

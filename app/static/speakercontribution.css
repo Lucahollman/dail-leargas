@@ -2,59 +2,67 @@
 
 /* Page Title */
 
-.title {
+.hero {
+    background: var(--off-white);
+    border-bottom: 3px solid lightgrey;
+    padding: 32px 56px 30px;
     text-align: center;
-    margin-top: 6px;
-    margin-bottom: 6px;
 }
 
-.title h2 {
-    font-family: 'Playfair Display', serif;
+.hero h2 {
     font-size: 32px;         
     font-weight: 600;
     letter-spacing: -0.01em;
-    color: var(--ink);
-    margin-bottom: 8px;       
+    color: var(--heading);
+    margin-bottom: 8px;
+    text-decoration: none;  
 }
 
-.title h2 a {
-    color: var(--green-deep);
+.hero h2 a {
+    color: var(--heading);
     text-decoration: none;
 }
 
-.title-line {
-    margin-bottom: 10px;
-    width: 100px;
-    height: 2px;
-    background: var(--green-mid);
-    margin: 0 auto;           
-}
 
 .back_button {
-    display: block;
+    display: inline-flex;
     align-items: center;
-    gap: 6px;
-    color: var(--green-mid);
+    gap: 8px;
+    background: var(--green-mid);
+    color: #ffffff;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 700;
     text-decoration: none;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: background 0.15s ease, transform 0.15s ease;
 }
 
 .back_button:hover {
-    color: orange;
+    background: orange;
+    transform: translateY(-2px);
+}
+
+.back_button svg {
+    transition: transform 0.15s ease;
+}
+
+.back_button:hover svg {
+    transform: translateX(3px);
 }
 
 
 .overall_sentiment_badge {
-    display: inline-block;
+    display: inline-flex;
     padding: 6px 16px;
-    background: var(--green-light);
-    color: var(--green-deep);
+    color: var(--heading);
     border-radius: 999px;
     font-size: 13px;
     font-weight: 600;
+}
+
+.break {
+    margin-top: 5px;
 }
 
 /* Contribution cards */

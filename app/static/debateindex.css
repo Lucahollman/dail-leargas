@@ -17,7 +17,8 @@
     font-weight: 600;
     line-height: 1.05;
     letter-spacing: -0.025em;
-    color: var(--ink);
+    color: #2d3748;
+    border-bottom: 3px solid lightgrey;
 }
 
 

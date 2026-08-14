@@ -14,6 +14,8 @@ html {
 }
 
 :root {
+    --background-white: #F8F8F8;
+    --heading: #2d3748;
     --green-deep:   #173d2b;
     --green-mid:    #0B6E4F;
     --green-light:  #e7eee9;
@@ -40,7 +42,7 @@ body {
     overflow-x: hidden;
     font-family: 'Inter', sans-serif;
     color: var(--ink);
-    background: white;
+    background: var(--background-white);
 }
 
 body > * {

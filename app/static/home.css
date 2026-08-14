@@ -10,7 +10,7 @@
 }
 
 .hero h2 {
-    color: #2d3748;
+    color: var(--heading);
     font-size: 40px;
     font-weight: 700;
     line-height: 1.15;

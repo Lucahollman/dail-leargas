@@ -16,10 +16,13 @@
             <li><a href="{{ url_for('info') }}">Website Info</a></li>
         </ul>
     </nav>
-    <div class="title">
+    <div class="hero">
         <h2>{{ debate.title }}</h2>
-        <a class="back_button" href="{{ url_for('debatespecific', debate_id=debate.id) }}"> Back to Debate</a>
-        <div class="title-line"></div>
+        <a class="back_button" href="{{ url_for('debatespecific', debate_id=debate.id) }}"> Back to Debate
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
     </div>
      <div class="contentwrapper">
         <div class="contributions_list">

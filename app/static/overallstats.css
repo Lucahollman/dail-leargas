@@ -1,4 +1,4 @@
-/* Styling for Overall Statistics page — matches home page vibe */
+/* Styling for Overall Statistics page  */
 
 .overallstats {
     max-width: 1000px;
@@ -6,7 +6,8 @@
     padding: 114px 0 92px;
 }
 
-/* Page intro, styled like the home page hero */
+
+/* Page  */
 .stats-hero {
     padding: 38px 0 48px;
     border-top: 3px solid lightgrey;

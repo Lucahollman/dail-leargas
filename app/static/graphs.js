@@ -10,14 +10,14 @@ const chartConfig = {
     responsive: true
 };
 
-// Site colours (matches general.css variables)
+// Colours 
 const DARK_GREEN = '#173d2b';   // --green-deep
 const MID_GREEN = '#0B6E4F';    // --green-mid
 const LIGHT_GREEN = '#8fbfa4';
 
 const GOLD = '#c9a84c';         // --gold
 
-const PAPER = '#ffffff';
+const PAPER = '#F8F8F8';
 const RULE = '#e8e5de';
 const INK = '#1c1c1c';          // --text-dark
 const INK_SOFT = '#667169';     // --text-muted

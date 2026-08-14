@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Oireachtas Revealed</title>
+    <title>Dáil Léargas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='speakercontribution.css') }}">
 </head>
@@ -16,13 +16,17 @@
             <li><a href="{{ url_for('info') }}">Website Info</a></li>
         </ul>
     </nav>
-        <div class="title">
+        <div class="hero">
             <h2><a href="{{ url_for('tdspecific', id=contributions[0].id) }}">{{ contributions[0].td }}</a></h2>
             {% if average_sentiment is not none %}
             <span class="overall_sentiment_badge">Overall sentiment: {{ "%.2f"|format(average_sentiment) }}</span>
             {% endif %}
-            <a class="back_button" href="{{ url_for('debatespecific', debate_id=debate.id) }}">Back to Debate</a>
-            <div class = "title-line"></div>
+            <div class="break"></div>
+            <a class="back_button" href="{{ url_for('debatespecific', debate_id=debate.id) }}">Back to Debate
+                <svg width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
         </div>
  
         <div class=contentwrapper>
