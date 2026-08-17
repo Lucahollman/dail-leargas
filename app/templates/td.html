@@ -3,20 +3,22 @@
     <title>Dáil Léargas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='tdprofile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='wordindex.css') }}">
 </head>
 <body>
     <nav class="navbar">
         <ul>
-            <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
+            <li><a href="{{ url_for('home') }}" class="nav-title">Dáil Léargas</a></li>
             <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
             <li><a href="{{ url_for('debates') }}">Debates</a></li>
             <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
             <li><a href="{{ url_for('partyindex') }}">Parties</a></li>
             <li><a href="{{ url_for('words') }}">Words</a></li>
-            <li><a href="{{ url_for('info') }}">Website Info</a></li>
+            <li><a href="{{ url_for('info') }}">About</a></li>
         </ul>
     </nav>
 
+    {% set stance = td.sentiment | sentiment_stance %}
     <div class="td-hero">
         <span class="td-eyebrow">Teachta Dála</span>
         <div class="td-hero-row">
@@ -28,9 +30,10 @@
             </div>
         </div>
         <div class="td-hero-stats">
-            <div class="hero-stat">
+            <div class="hero-stat hero-stat-tooltip">
                 <span class="hero-stat-value">{{ "%.2f"|format(td.sentiment) }}</span>
                 <span class="hero-stat-label">Average sentiment</span>
+                <span class="sentiment-popup {{ stance.css_class }}">{{ stance.label }}</span>
             </div>
             <div class="hero-stat-divider"></div>
             <div class="hero-stat">
@@ -79,24 +82,34 @@
 
             </div>
 
-            <h2 class="section-title">Word Probability Distribution</h2>
-            <table class="prob-table">
-                <tr>
-                    <th>Word</th>
-                    <th>Frequency</th>
-                    <th>Probability</th>
-                </tr>
-                {% for row in prob_dist %}
-                <tr>
-                    <td>{{ row.words }}</td>
-                    <td>{{ row.freq }}</td>
-                    <td>{{ "%.2f"|format(row.prob * 100) }}%</td>
-                </tr>
-                {% endfor %}
-            </table>
-
         </div>
     </div>
+
+    </div>
+
+          
+            <div class="word-search-wrapper">
+                        <form id="td_word_form">
+                            <svg class="word-search-icon" width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.6"/>
+                                <path d="M14.3 14.3L18 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                            </svg>
+                            <input type="text" id="td_word_search" placeholder="Search a word {{ td.name }} has said...">
+                        </form>
+                    </div>
+
+                    <ul id="td_search_results" class="word-results-list"></ul>
+
+                    <div class="insights-wrapper" id="td_word_chart_wrapper" style="display: none; margin-top: 20px;">
+                        <div class="insights-card">
+                            <div class="insights-label">Word Usage Over Time</div>
+                            <p id="td_word_chart_note" class="chart-note"></p>
+                            <div id="td_word_chart" style="width: 100%; height: 420px;"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
 
     <script>
         const words = {{ words | tojson }};
@@ -105,9 +118,12 @@
         const english = 100 - irish;
         const labels = ["Irish %", "English %"];
         const values = [irish, english];
+        const tdName = {{ td.name | tojson }};
     </script>
     <script src="https://cdn.plot.ly/plotly-3.6.0.min.js" charset="utf-8"></script>
     <script src="{{ url_for('static', filename='graphs.js') }}"></script>
+    <script src="{{ url_for('static', filename='wordgraphs.js') }}"></script>
+    <script src="{{ url_for('static', filename='tdwordsearch.js') }}"></script>
 
     <footer>
         <p>This project uses data provided by the Houses of the Oireachtas under the Oireachtas (Public Sector Information – Open Data) Licence.</p>

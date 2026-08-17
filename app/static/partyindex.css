@@ -1,28 +1,5 @@
 /* CSS page for the partyindex page */
 
-/* Page Title */
-
-.title {
-    text-align: center;
-    margin-top: 6px;
-    margin-bottom: 6px;
-}
-
-.title h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 32px;         
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    color: var(--ink);
-    margin-bottom: 8px;       
-}
-
-.title-line {
-    width: 100px;
-    height: 2px;
-    background: var(--green-mid);
-    margin: 0 auto;           
-}
 
 /* Result count, right-aligned above the list */
 .party-index-meta {
@@ -59,9 +36,6 @@
     border-bottom: none;
 }
 
-.party-row:hover {
-    background: var(--green-light);
-}
 
 .party-name {
     font-size: 16px;

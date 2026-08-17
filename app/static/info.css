@@ -2,8 +2,10 @@
 
 /* Page Title */
 .title {
-    text-align: center;
+    text-align: left;
     margin: 24px 0 12px;
+    max-width: 900px;
+    margin: 48px auto 64px;
 }
 
 .title h2 {
@@ -11,15 +13,9 @@
     font-size: 34px;
     font-weight: 600;
     letter-spacing: -0.01em;
-    color: var(--ink);
+    color: var(--heading);
     margin-bottom: 10px;
-}
-
-.title-line {
-    width: 100px;
-    height: 2px;
-    background: var(--green-mid);
-    margin: 0 auto;
+    border-bottom: 3px solid lightgrey;
 }
 
 /* Main Info Layout */
@@ -43,10 +39,9 @@
     font-family: 'Playfair Display', serif;
     font-size: 22px;
     font-weight: 600;
-    color: var(--green-deep);
+    color: var(--heading);
     margin-bottom: 12px;
     padding-bottom: 6px;
-    border-bottom: 2px solid var(--green-mid);
     display: inline-block;
 }
 

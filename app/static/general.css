@@ -63,6 +63,7 @@ body > * {
     width: 100%;
     max-width: none;
     margin: 0;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -79,15 +80,27 @@ body > * {
     align-items: center;
     min-height: 56px;
     padding: 0;
-    color: var(--green-light);
-    font-size: 19px;
-    font-weight: bold;
+    color: var(--green-light, #d7f0e2);
+    font-size: 17px;
+    font-weight: 600;
     text-decoration: none;
     white-space: nowrap;
     transition: color 0.15s ease;
 }
 
 .navbar a:hover {
+    color: orange;
+}
+
+.navbar li:first-child a {
+    font-size: 22px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-right: 12px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar li:first-child a:hover {
     color: orange;
 }
 

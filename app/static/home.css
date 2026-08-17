@@ -1,7 +1,7 @@
 .home {
     max-width: 820px;
     margin: 0 auto;
-    padding: 114px 0 92px;
+    padding: 70px 0 92px;
 }
 
 .hero {
@@ -176,7 +176,6 @@ a.action-btn:hover {
 .section-links {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
     align-items: center;
     margin-top: 26px;
 }
@@ -191,7 +190,6 @@ a.action-btn:hover {
 .mini-btn {
     display: inline-flex;
     align-items: center;
-    padding: 8px 14px;
     color: var(--green-mid);
     font-size: 13px;
     font-weight: 700;
@@ -205,8 +203,11 @@ a.action-btn:hover {
     transform: translateY(-1px);
 }
 
+.mini-btn svg {
+    margin-left: 4px; 
+}
+
 .about {
-     border-top: 3px solid lightgrey;
      padding: 38px 0 48px;
 }
 

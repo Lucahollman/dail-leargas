@@ -18,7 +18,6 @@
     margin-bottom: 8px;
 }
 
-/* Independents aren't a party — give the page a visually distinct eyebrow */
 .party-eyebrow-independent {
     color: var(--gold);
 }

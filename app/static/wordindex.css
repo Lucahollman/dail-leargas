@@ -95,7 +95,6 @@
 }
 
 .word-results-list a:hover {
-    background: var(--green-light);
     color: orange;
     padding-left: 12px;
 }
