@@ -1,33 +1,9 @@
-/* Styling for Overall Statistics page  */
+/* Styling for Overall Statistics page */
 
 .overallstats {
     max-width: 1000px;
     margin: 0 auto;
     padding: 114px 0 92px;
-}
-
-
-/* Page  */
-.stats-hero {
-    padding: 38px 0 48px;
-    border-top: 3px solid lightgrey;
-    text-align: center;
-}
-
-.stats-hero h2 {
-    color: #2d3748;
-    font-size: 40px;
-    font-weight: 700;
-    line-height: 1.15;
-    font-family: "Poppins", "Inter", Arial, sans-serif;
-}
-
-.stats-hero p {
-    margin: 14px auto 0;
-    max-width: 620px;
-    color: var(--ink-soft);
-    font-size: 16px;
-    line-height: 1.7;
 }
 
 /* Shared section pattern (divider + heading), matching home.css */
@@ -94,7 +70,6 @@
     color: var(--ink-soft);
     padding-bottom: 14px;
     margin-bottom: 14px;
-    border-bottom: 1px solid #e8e5de;
 }
 
 @media (max-width: 800px) {

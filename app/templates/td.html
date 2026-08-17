@@ -3,7 +3,6 @@
     <title>Dáil Léargas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='tdprofile.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='wordindex.css') }}">
 </head>
 <body>
     <nav class="navbar">
@@ -82,34 +81,34 @@
 
             </div>
 
-        </div>
-    </div>
+            <div class="td-word-search">
+                <h2 class="td-word-search-title">Search Words Used by {{ td.name }}</h2>
+                <div class="word-search-wrapper">
+                    <form id="td_word_search_form">
+                        <svg class="word-search-icon" width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.6"/>
+                            <path d="M14.3 14.3L18 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                        </svg>
+                        <input type="text" id="td_word_search" placeholder="Search words {{ td.name }} has used...">
+                    </form>
+                </div>
+                <ul id="td_word_search_results" class="word-results-list"></ul>
 
-    </div>
-
-          
-            <div class="word-search-wrapper">
-                        <form id="td_word_form">
-                            <svg class="word-search-icon" width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.6"/>
-                                <path d="M14.3 14.3L18 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                            </svg>
-                            <input type="text" id="td_word_search" placeholder="Search a word {{ td.name }} has said...">
-                        </form>
+                <div class="td-word-chart-wrapper" id="td_word_chart_wrapper" hidden>
+                    <div class="td-word-chart-heading">
+                        <span id="td_word_chart_title"></span>
                     </div>
-
-                    <ul id="td_search_results" class="word-results-list"></ul>
-
-                    <div class="insights-wrapper" id="td_word_chart_wrapper" style="display: none; margin-top: 20px;">
-                        <div class="insights-card">
-                            <div class="insights-label">Word Usage Over Time</div>
-                            <p id="td_word_chart_note" class="chart-note"></p>
-                            <div id="td_word_chart" style="width: 100%; height: 420px;"></div>
-                        </div>
+                    <div class="td-word-chart-total">
+                        <span id="td_word_chart_total_value" class="td-word-chart-total-value"></span>
+                        <span class="td-word-chart-total-label">Total mentions</span>
                     </div>
-
+                    <p id="td_word_chart_note" class="chart-note"></p>
+                    <div id="td_word_chart"></div>
                 </div>
             </div>
+
+        </div>
+    </div>
 
     <script>
         const words = {{ words | tojson }};
@@ -122,7 +121,6 @@
     </script>
     <script src="https://cdn.plot.ly/plotly-3.6.0.min.js" charset="utf-8"></script>
     <script src="{{ url_for('static', filename='graphs.js') }}"></script>
-    <script src="{{ url_for('static', filename='wordgraphs.js') }}"></script>
     <script src="{{ url_for('static', filename='tdwordsearch.js') }}"></script>
 
     <footer>

@@ -7,7 +7,7 @@
 <body>
     <nav class="navbar">
         <ul>
-            <li><a href="{{ url_for('home') }}" class="navtitle">Dáil Léargas</a></li>
+            <li><a href="{{ url_for('home') }}" class="nav-title">Dáil Léargas</a></li>
             <li><a href="{{ url_for('overallstats') }}">Overall Statistics</a></li>
             <li><a href="{{ url_for('debates') }}">Debates</a></li>
             <li><a href="{{ url_for('tds') }}">Teachta Dála</a></li>
@@ -18,15 +18,17 @@
     </nav>
 
     {% set is_independent = party.party_name|lower == "independent" %}
+    {% set stance = party.party_sentiment | sentiment_stance %}
     <div class="party-hero">
         <span class="party-eyebrow{{ ' party-eyebrow-independent' if is_independent else '' }}">
             {{ "Independent TDs" if is_independent else "Political Party" }}
         </span>
         <h1>{{ party.party_name }}</h1>
         <div class="party-hero-stats">
-            <div class="hero-stat">
+            <div class="hero-stat hero-stat-tooltip">
                 <span class="hero-stat-value">{{ "%.2f"|format(party.party_sentiment) }}</span>
                 <span class="hero-stat-label">Average sentiment</span>
+                <span class="sentiment-popup {{ stance.css_class }}">{{ stance.label }}</span>
             </div>
             <div class="hero-stat-divider"></div>
             <div class="hero-stat">
@@ -58,22 +60,6 @@
                     </div>
                 </div>
             </div>
-
-            <h2 class="section-title">Word Probability Distribution</h2>
-            <table class="prob-table">
-                <tr>
-                    <th>Word</th>
-                    <th>Frequency</th>
-                    <th>Probability</th>
-                </tr>
-                {% for row in prob_dist %}
-                <tr>
-                    <td>{{ row.words }}</td>
-                    <td>{{ row.freq }}</td>
-                    <td>{{ "%.2f"|format(row.prob * 100) }}%</td>
-                </tr>
-                {% endfor %}
-            </table>
 
         </div>
     </div>

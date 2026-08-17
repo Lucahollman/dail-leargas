@@ -82,31 +82,6 @@ def tdspecific(id):
     freq = [d["freq"] for d in prob_dist]
     return render_template("td.html", td = td, prob_dist = prob_dist, contributions = contributions, words = words, freq = freq)
 
-@app.route("/tds/<td_name>/words/search")
-def td_search_words(td_name):
-    userquery = request.args.get('q', '')
-    pattern = userquery + '%'
-    search_result = get_database().execute(
-        "select distinct word from word_freq where word like ? and speaker = ? limit 20",
-        (pattern, td_name)
-    ).fetchall()
-    words = [row[0] for row in search_result]
-    return jsonify(words)
-
-@app.route("/tds/<td_name>/words/<word>")
-def td_word(td_name, word):
-    word_data = get_database().execute(
-        "select date, sum(frequency) as frequency from word_freq where word = ? and speaker = ? group by date order by date",
-        (word, td_name)
-    ).fetchall()
-    word_counts = {d["date"]: d["frequency"] for d in word_data}
-    all_dates = get_database().execute(
-        "select distinct date from contributions where date between ? and ? order by date",
-        (min(word_counts.keys()), max(word_counts.keys()))
-    ).fetchall()
-    dates = [d["date"] for d in all_dates]
-    counts = [word_counts.get(date, 0) for date in dates]
-    return jsonify(dates=dates, counts=counts)
 
 @app.route("/parties")
 def partyindex():
@@ -144,6 +119,29 @@ def word(word):
     dates = [d["date"] for d in all_dates]
     counts = [word_counts.get(date, 0) for date in dates]
     return render_template("word.html", word=word, dates=dates, counts=counts)
+
+@app.route("/tds/words/search")
+def searchtdwords():
+    td_name = request.args.get('td', '')
+    userquery = request.args.get('q', '')
+    pattern = userquery + '%'
+    search_result = get_database().execute(
+        "select distinct word from word_freq where speaker = ? and word like ? order by word limit 20",
+        (td_name, pattern)
+    ).fetchall()
+    words = [row[0] for row in search_result]
+    return jsonify(words)
+
+@app.route("/tds/words/<word>")
+def tdwordusage(word):
+    td_name = request.args.get('td', '')
+    rows = get_database().execute(
+        "select date, sum(frequency) as frequency from word_freq where word = ? and speaker = ? group by date order by date",
+        (word, td_name)
+    ).fetchall()
+    dates = [r["date"] for r in rows]
+    counts = [r["frequency"] for r in rows]
+    return jsonify({"dates": dates, "counts": counts})
 
 @app.route("/words/search")
 def searchwords():

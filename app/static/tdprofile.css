@@ -44,7 +44,7 @@
     font-size: 30px;
     font-weight: 700;
     letter-spacing: -0.01em;
-    color: var(--heading);
+    color: var(--text-dark);
     line-height: 1.3;
     margin: 0;
 }
@@ -83,7 +83,7 @@
     font-family: "Inter", sans-serif;
     font-size: 34px;
     font-weight: 700;
-    color: var(--heading);
+    color: var(--green-deep);
     line-height: 1;
 }
 
@@ -311,6 +311,130 @@
 
 .contribution-date {
     color: var(--text-muted);
+}
+
+/* === Word search (scoped to this TD) === */
+.td-word-search {
+    padding: 42px 0 46px;
+    border-top: 3px solid lightgrey;
+}
+
+.td-word-search-title {
+    font-family: "Poppins", "Inter", Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--heading);
+    margin-bottom: 20px;
+}
+
+.word-search-wrapper {
+    position: relative;
+    max-width: 420px;
+}
+
+.word-search-wrapper input {
+    width: 100%;
+    padding: 10px 14px 10px 40px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--text-dark);
+    background: transparent;
+}
+
+.word-search-wrapper input:focus {
+    outline: none;
+    border-color: var(--green-mid);
+}
+
+.word-search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+.word-results-list {
+    list-style: none;
+    max-width: 420px;
+    margin-top: 14px;
+}
+
+.word-results-list li {
+    border-bottom: 1px solid var(--green-light);
+}
+
+.word-results-list li:last-child {
+    border-bottom: none;
+}
+
+.word-results-list a {
+    display: block;
+    padding: 10px 4px;
+    text-decoration: none;
+    color: var(--text-dark);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: capitalize;
+    transition: color 0.15s ease, padding-left 0.15s ease;
+}
+
+.word-results-list a:hover {
+    color: orange;
+    padding-left: 8px;
+}
+
+.td-word-chart-wrapper {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--green-light);
+}
+
+.td-word-chart-heading {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: capitalize;
+    color: var(--heading);
+    margin-bottom: 4px;
+}
+
+.td-word-chart-total {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin: 4px 0 14px;
+}
+
+.td-word-chart-total-value {
+    font-family: "Inter", sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--heading);
+    line-height: 1;
+}
+
+.td-word-chart-total-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.chart-note {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin: 0 0 12px;
+}
+
+#td_word_chart {
+    width: 100%;
+    height: 320px;
 }
 
 /* === Responsive === */
