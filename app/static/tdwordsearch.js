@@ -36,6 +36,7 @@ if (tdWordSearchInput && tdWordResultsList) {
 
                         link.addEventListener('click', function (event) {
                             event.preventDefault();
+                            tdWordResultsList.innerHTML = '';
                             loadTdWordChart(word);
                         });
 
@@ -102,7 +103,8 @@ function loadTdWordChart(word) {
         .then(response => response.json())
         .then(data => {
             tdWordChartWrapper.hidden = false;
-            tdWordChartTitle.textContent = word;
+            tdWordChartTitle.textContent = `${tdName}'s usage of "${word}"`;
+            tdWordChartWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
             const total = data.counts.reduce((sum, n) => sum + n, 0);
             tdWordChartTotalValue.textContent = total.toLocaleString();

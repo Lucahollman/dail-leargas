@@ -179,7 +179,7 @@
     border-radius: 14px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     padding: 22px 28px 28px;
-    height: 460px;
+    min-height: 460px;
     box-sizing: border-box;
 }
 
@@ -201,11 +201,15 @@
     align-items: stretch;
 }
 
+.insights-panel {
+    min-width: 0;
+}
+
 .insights-divider {
     background: var(--green-light);
 }
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
     .insights-body {
         grid-template-columns: 1fr;
     }
@@ -378,7 +382,6 @@
     color: var(--text-dark);
     font-size: 14px;
     font-weight: 600;
-    text-transform: capitalize;
     transition: color 0.15s ease, padding-left 0.15s ease;
 }
 
@@ -394,10 +397,9 @@
 }
 
 .td-word-chart-heading {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
-    letter-spacing: 0.03em;
-    text-transform: capitalize;
+    letter-spacing: 0.01em;
     color: var(--heading);
     margin-bottom: 4px;
 }

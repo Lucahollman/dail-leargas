@@ -20,40 +20,45 @@
         </ul>
     </nav>
 
-    <main class="contentwrapper overallstats">
-        <section class="section">
+    <div class="overallstats-hero">
+        <span class="overallstats-eyebrow">34th Dáil</span>
+        <h1>Overall Statistics</h1>
+        <div class="overallstats-hero-stats">
+            <div class="hero-stat">
+                <span class="hero-stat-value">{{ "{:,.0f}".format(debates_num) }}</span>
+                <span class="hero-stat-label">Debates recorded</span>
+            </div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat">
+                <span class="hero-stat-value">{{ "{:,.0f}".format(words_num) }}</span>
+                <span class="hero-stat-label">Words spoken</span>
+            </div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat">
+                <span class="hero-stat-value">{{ "{:,.0f}".format(contributions_num) }}</span>
+                <span class="hero-stat-label">TD contributions</span>
+            </div>
+        </div>
+    </div>
 
-
-            <div class="stats">
-                <div class="stat">
-                    <span class="number">{{ "{:,.0f}".format(debates_num) }}</span>
-                    <span class="label">Debates recorded</span>
-                </div>
-                <div class="stat">
-                    <span class="number">{{ "{:,.0f}".format(words_num) }}</span>
-                    <span class="label">Words spoken</span>
-                </div>
-                <div class="stat">
-                    <span class="number">{{ "{:,.0f}".format(contributions_num) }}</span>
-                    <span class="label">TD contributions</span>
+    <div class="contentwrapper">
+        <div class="overallstats-container">
+            <div class="insights-wrapper">
+                <div class="insights-card">
+                    <div class="insights-label">Word Frequency &amp; Language Share</div>
+                    <div class="insights-body">
+                        <div class="insights-panel insights-panel-main">
+                            <div id="overallprobdist"></div>
+                        </div>
+                        <div class="insights-divider"></div>
+                        <div class="insights-panel insights-panel-side">
+                            <div id="overallirishper"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
-
-        <section class="section">
-
-            <div class="stats-chart-container">
-                <div class="stats-chart-box">
-                    <h3>Word Frequency Distribution</h3>
-                    <div id="overallprobdist"></div>
-                </div>
-                <div class="stats-chart-box">
-                    <h3>Language Share</h3>
-                    <div id="overallirishper"></div>
-                </div>
-            </div>
-        </section>
-    </main>
+        </div>
+    </div>
 
     <script>
         const words = {{ words | tojson }};
