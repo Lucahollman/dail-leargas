@@ -12,6 +12,9 @@ from nltk.probability import FreqDist
 from nltk.probability import DictionaryProbDist
 from collections import Counter
 
+#Function to strip stray punctuation from tokens
+def clean_token(token):
+    return token.strip("'’‘\"`.,;:!?()[]{}%#&-—")
 
 #Defining stop words
 with open('stop-words.txt', 'r', encoding='utf-8') as f:
@@ -39,7 +42,8 @@ for contribution in tqdm(contributions, desc= "uploading to database"):
     td = contribution[4]
     date = contribution[1]
     tokenised_text = word_tokenize(text.lower())
-    tokenised_text_without_stop = [w for w in tokenised_text if w not in stop_words]
+    cleaned_text = (clean_token(w) for w in tokenised_text)
+    tokenised_text_without_stop = [w for w in cleaned_text if w and w not in stop_words]
     word_counts = Counter(tokenised_text_without_stop).items()
     for word, count in word_counts:
         cursor.execute("insert into word_freq(word, date, speaker, frequency)" 

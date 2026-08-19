@@ -79,7 +79,7 @@ def _walk_section(section_el, inherited_title, contributions_list, person_map):
                     "section_title": section_title,
                 })
 
-        elif tag in ("question", "answer"):
+        elif tag == "answer":
             text = _text(child)
             if text:
                 speaker = _resolve_speaker(child.get("by"), person_map)

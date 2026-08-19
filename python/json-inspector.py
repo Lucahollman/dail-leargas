@@ -2,7 +2,7 @@ import requests
 import json
 
 # Date you want to fetch
-date = "2026-01-21" 
+date = "2026-07-16" 
 
 # API request
 response = requests.get(
