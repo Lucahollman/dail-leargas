@@ -8,11 +8,9 @@ Dáil Léargas is web application I created to make the spoken record of Dáil �
 
 ## Setup
 
-## Installation
-
 To run the website locally:
 
-1. Clone the repository and enter the project directory:
+1. Clone the repository and enter the directory
 
 ```bash
 git clone https://github.com/Lucahollman/dail-leargas
