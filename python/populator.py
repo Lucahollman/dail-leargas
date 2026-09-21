@@ -5,7 +5,6 @@ Script that populates sql database - WARNING: delete database + debates.csv befo
 #Packages
 import sys 
 import subprocess
-import os
 from tqdm import tqdm  
 from pathlib import Path
 import nltk 
@@ -29,10 +28,6 @@ scripts = [
     "party-data.py",
     "word-analysis.py"
 ]
-if os.path.exists("dail-debates.db"):
-    print("Database exists -- Exiting script !!")
-    sys.exit(0)
-
 
 for script in tqdm(scripts, desc = "populating database"):
     result = subprocess.run(
