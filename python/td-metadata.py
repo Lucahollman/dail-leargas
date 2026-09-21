@@ -10,15 +10,13 @@ import sqlite3
 connection = sqlite3.connect(r"dail-debates.db")
 cursor = connection.cursor()
 td_meta_table = '''create table if not exists td_metadata(
-            id integer primary key autoincrement,
-            name text,
-            party text,
-            constituency text,
-            photo text,
-            sentiment real,
-            irish_per integer,
-            unique(id, name) 
-            )'''
+                    id integer primary key autoincrement,
+                    name text unique,
+                    party text,
+                    constituency text,
+                    photo text,
+                    sentiment real,
+                    irish_per integer)'''
 cursor.execute(td_meta_table)
 
 #Accessing API
@@ -45,10 +43,11 @@ td_metadata = pd.DataFrame(tds)
 
 #Inserting into Database
 for i, row in td_metadata.iterrows():
-        cursor.execute(f'''
-        insert or ignore into td_metadata (name, photo, party, constituency)
-        values("{row["name"]}", "{row["photo"]}", "{row["party"]}", "{row["constituency"]}")              
-        ''')
+    cursor.execute(
+        '''insert or ignore into td_metadata (name, photo, party, constituency)
+           values(?, ?, ?, ?)''',
+        (row["name"], row["photo"], row["party"], row["constituency"])
+    )
 
 connection.commit()
 connection.close()

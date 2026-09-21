@@ -68,21 +68,22 @@ def main():
     )
 
     #Creating SQL Table
-    cursor.execute('''create table if not exists parties(
-                   id integer primary key autoincrement,
-                   party_name text,
-                   party_sentiment integer,
-                   party_irish_per integer,
-                   photo text,
-                   link text)
-                   ''')
+    cursor.execute("drop table if exists parties")
+    cursor.execute('''create table parties(
+                id integer primary key autoincrement,
+                party_name text,
+                party_sentiment integer,
+                party_irish_per integer,
+                photo text,
+                link text)
+                ''')
 
     #Appending info to database
     for i, row in party_df.iterrows():
-        sentiment = (row["sentiment"])
-        name = (row["party"])
-        cursor.execute('''insert or ignore into parties(party_sentiment, party_name)
-                    values(?, ?)''', (sentiment, name))
+        cursor.execute(
+            '''insert into parties(party_sentiment, party_name) values(?, ?)''',
+            (row["sentiment"], row["party"])
+        )
 
     #Langauge Anaylsis
     for i, row in party_df.iterrows():
@@ -98,13 +99,14 @@ def main():
                    where party_name = ?''', (irish_per, row["party"]))
         
     #Creating Probability Distribution Tables
-    cursor.execute("""create table if not exists party_freq_tables(
-                    name text,
-                    words text,
-                    freq integer,
-                    prob real
-                    )""")
-    
+    cursor.execute("drop table if exists party_freq_tables")
+    cursor.execute('''create table party_freq_tables(
+                name text,
+                words text,
+                freq integer,
+                prob real
+                )''')
+
     for i, row in tqdm(party_df.iterrows(), desc ="Creating tables"):
         text = (row["contribution"]) 
         name = (row["party"])
@@ -127,10 +129,11 @@ def main():
         })
 
         for j, jrow in party_dataframe.iterrows():
-            cursor.execute(f'''
-            insert or ignore into party_freq_tables (name, words, freq, prob)
-            values("{jrow["name"]}", "{jrow["words"]}", "{jrow["freq"]}", "{jrow["probability"]}")              
-            ''')
+            cursor.execute(
+                '''insert into party_freq_tables (name, words, freq, prob)
+                values(?, ?, ?, ?)''',
+                (jrow["name"], jrow["words"], jrow["freq"], jrow["probability"])
+            )
 
 
     connection.commit()

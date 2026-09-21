@@ -75,11 +75,12 @@ def main():
             where name = ?
         ''', (row["sentiment"], row["name"]))
     #Creating Probability Distribution Tables
-    cursor.execute('''create table if not exists td_frequency_tables(
-                   name integer,
-                   words text,
-                   freq integer,
-                   prob real)''')
+    cursor.execute("drop table if exists td_frequency_tables")
+    cursor.execute('''create table td_frequency_tables(
+                name text,
+                words text,
+                freq integer,
+                prob real)''')
     
     for i, row in tqdm(combined_contribution.iterrows(), desc ="Creating tables"):
         text = (row["contribution"]) 
@@ -105,10 +106,11 @@ def main():
         })
 
         for j, jrow in td_dataframe.iterrows():
-            cursor.execute(f'''
-            insert or ignore into td_frequency_tables (name, words, freq, prob)
-            values("{jrow["name"]}", "{jrow["words"]}", "{jrow["freq"]}", "{jrow["probability"]}")              
-            ''')
+            cursor.execute(
+                '''insert into td_frequency_tables (name, words, freq, prob)
+                values(?, ?, ?, ?)''',
+                (jrow["name"], jrow["words"], jrow["freq"], jrow["probability"])
+            )
 
     connection.commit()
     connection.close()
