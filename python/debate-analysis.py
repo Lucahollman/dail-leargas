@@ -16,11 +16,16 @@ from collections import Counter
 connection = sqlite3.connect(r"dail-debates.db")
 cursor = connection.cursor()
 
-cursor.execute("select * from debates")
-debates = cursor.fetchall()
+cursor.execute('''create table if not exists debate_frequency_tables(
+               id integer,
+               words text,
+               freq integer,
+               prob real,
+               unique(id, words)
+               )''')
 
-cursor.execute("select * from contributions")
-contributions = cursor.fetchall()
+cursor.execute("select * from debates where id not in (select distinct id from debate_frequency_tables)")
+debates = cursor.fetchall()
 
 #Calcuating and uploading meta debate data to database
 for debate in debates:
@@ -35,11 +40,7 @@ with open('stop-words.txt', 'r', encoding='utf-8') as f:
     stop_words = set(line.strip() for line in f)
 
 #Tokenising and cleaning text data, building dataframes, and uploading to database
-cursor.execute('''create table if not exists debate_frequency_tables(
-               id integer,
-               words text,
-               freq integer,
-               prob real)''')
+
 
 for debate in tqdm(debates, desc="Uploading to database"):
     id = debate[0]
@@ -62,14 +63,17 @@ for debate in tqdm(debates, desc="Uploading to database"):
     })
 
     for i, row in debate_dataframe.iterrows():
-        cursor.execute(f'''
-        insert or ignore into debate_frequency_tables (id, words, freq, prob)
-        values("{row["id"]}", "{row["words"]}", "{row["freq"]}", "{row["probability"]}")              
-        ''')
+        cursor.execute(
+            '''insert or ignore into debate_frequency_tables (id, words, freq, prob)
+            values(?, ?, ?, ?)''',
+            (row["id"], row["words"], row["freq"], row["probability"])
+        )
 
 #Same for full text
 fdist = nltk.FreqDist()
-full_text = " ".join([debate[3] for debate in debates])
+cursor.execute("select * from debates")
+all_debates = cursor.fetchall()
+full_text = " ".join([debate[3] for debate in all_debates])
 tokenised_text = word_tokenize(full_text.lower())
 tokenised_text_without_stop = [w for w in tokenised_text if w not in stop_words]    
 for word in tokenised_text_without_stop:
@@ -99,10 +103,11 @@ debate_dataframe = pd.DataFrame({
 
 
 for i, row in debate_dataframe.iterrows():
-        cursor.execute(f'''
-        insert or ignore into full_text (words, freq, prob)
-        values("{row["words"]}", "{row["freq"]}", "{row["probability"]}")              
-        ''')
+        cursor.execute(
+            '''insert or ignore into full_text (words, freq, prob)
+            values(?, ?, ?)''',
+            (row["words"], row["freq"], row["probability"])
+        )
 
 
 connection.commit() 

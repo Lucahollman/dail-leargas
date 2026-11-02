@@ -10,6 +10,7 @@ import json
 from tqdm import tqdm
 from itertools import groupby
 from xml_parser import parse_debate_xml
+import datetime
 
 
 # Connecting to Database
@@ -25,7 +26,8 @@ cursor.execute('''create table if not exists debates(
                category text,
                irish_per integer,
                wordsnum,
-               contributionsnum
+               contributionsnum,
+               unique(title, date)
                )''')
 
 cursor.execute('''create table if not exists contributions(
@@ -35,7 +37,9 @@ cursor.execute('''create table if not exists contributions(
                text_type text,
                td text,
                contribution text,
-               sentiment real
+               sentiment real,
+               contribution_order integer,
+               unique(debate_id, contribution_order)
                )''')
 
 
@@ -44,13 +48,18 @@ all_debates = []
 skip = 0
 limit = 50
 
+cursor.execute("select max(date) from debates")
+row = cursor.fetchone()
+date_start = row[0] if row[0] else "2024-12-18" #Start of 34th Dáil
+date_end = datetime.date.today().isoformat()
+
 while True:
     response = requests.get(
         "https://api.oireachtas.ie/v1/debates",
         params={
             "chamber": "dail",
-            "date_start": "2024-12-18",
-            "date_end": "2026-08-03",
+            "date_start": date_start,
+            "date_end": date_end,
             "limit": limit,
             "skip": skip,
         }
@@ -100,8 +109,8 @@ for day in tqdm(all_debates, desc="uploading to database"):
         ).fetchone()[0]
  
  
-        for contribution in contribution_list:
- 
+        for i, contribution in enumerate(contribution_list):
+
             cursor.execute(
                 '''insert or ignore into contributions(
                     debate_id,
@@ -109,16 +118,18 @@ for day in tqdm(all_debates, desc="uploading to database"):
                     section_title,
                     text_type,
                     td,
-                    contribution
+                    contribution,
+                    contribution_order
                 )
-                values(?, ?, ?, ?, ?, ?)''',
+                values(?, ?, ?, ?, ?, ?, ?)''',
                 (
                     debate_id,
                     date,
                     contribution["section_title"],
                     contribution["text_type"],
                     contribution["speaker"],
-                    contribution["text"]
+                    contribution["text"],
+                    i
                 )
             )
  
