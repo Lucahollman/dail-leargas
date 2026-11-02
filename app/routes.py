@@ -85,8 +85,19 @@ def tdspecific(id):
 
 @app.route("/parties")
 def partyindex():
-    parties = get_database().execute("select * from parties").fetchall()
-    return render_template("partyindex.html", parties = parties)
+    parties = get_database().execute("""
+        SELECT * FROM parties
+        ORDER BY CASE party_name
+            WHEN 'Fianna Fáil' THEN 1
+            WHEN 'Fine Gael' THEN 3
+            WHEN 'Sinn Féin' THEN 2
+            WHEN 'Labour' THEN 5
+            WHEN 'Social Democrats' THEN 4
+            WHEN 'Green Party' THEN 6
+            ELSE 7
+        END
+    """).fetchall()
+    return render_template("partyindex.html", parties=parties)
 
 @app.route("/parties/party/<party_name>")
 def party(party_name):
@@ -101,6 +112,7 @@ def party(party_name):
            where td_metadata.party = ?""",
         (party_name,)
     ).fetchone()["count"]
+
     #Labels for js chart
     words = [d["words"] for d in prob_dist]
     freq = [d["freq"] for d in prob_dist]
