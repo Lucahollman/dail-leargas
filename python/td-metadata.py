@@ -5,6 +5,7 @@ Script that gets metadata for all tds in dail34 and uploads to sql
 import requests
 import pandas as pd 
 import sqlite3
+import sys
 
 #Creating database
 connection = sqlite3.connect(r"dail-debates.db")
@@ -18,6 +19,14 @@ td_meta_table = '''create table if not exists td_metadata(
                     sentiment real,
                     irish_per integer)'''
 cursor.execute(td_meta_table)
+
+cursor.execute("select count(*) from td_metadata")
+existing_count = cursor.fetchone()[0]
+
+if existing_count > 0:
+    print("TD metadata already populated — skipping.")
+    connection.close()
+    sys.exit(0)
 
 #Accessing API
 response = requests.get("https://api.oireachtas.ie/v1/members", params={
